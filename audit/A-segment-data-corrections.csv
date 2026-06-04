@@ -1,0 +1,20 @@
+error_id,severity,assertion,field,period,workpaper_value,correct_value,source_section,action
+A-001,material,completeness,Space segment revenue,FY2024,not disclosed,3796,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-001,material,completeness,Space segment revenue,FY2023,not disclosed,3557,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-001,material,completeness,Connectivity segment revenue,FY2024,not disclosed,7599,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-001,material,completeness,Connectivity segment revenue,FY2023,not disclosed,3869,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-001,material,completeness,AI segment revenue,FY2024,not disclosed,2620,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-001,material,completeness,AI segment revenue,FY2023,not disclosed,2961,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-23),Replace not disclosed with Note 3 value
+A-002,immaterial,completeness,Space segment revenue,Q1 2025,not in KPI table,865,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-72 interim),Add value; clarify KPI table vs Note gap
+A-002,immaterial,completeness,Connectivity segment revenue,Q1 2025,not in KPI table,2475,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-72 interim),Add value; clarify KPI table vs Note gap
+A-002,immaterial,completeness,AI segment revenue,Q1 2025,not in KPI table,727,Notes to Consolidated Financial Statements — Revenue disaggregated by type and segment (F-72 interim),Add value; clarify KPI table vs Note gap
+A-003,immaterial,completeness,Consolidated revenue,Q1 2025,absent from table,4067,Consolidated Statements of Operations (F-64),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated loss from operations,Q1 2025,absent from table,27,Consolidated Statements of Operations (F-64),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated Adjusted EBITDA,Q1 2025,absent from table,1730,MD&A — Non-GAAP Financial Measures (p. 119),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated revenue,FY2024,absent from table,14015,Consolidated Statements of Operations (F-5),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated income from operations,FY2024,absent from table,466,Consolidated Statements of Operations (F-5),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated Adjusted EBITDA,FY2024,absent from table,5350,MD&A — Non-GAAP Financial Measures (p. 119),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated revenue,FY2023,absent from table,10387,Consolidated Statements of Operations (F-5),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated loss from operations,FY2023,absent from table,-3505,Consolidated Statements of Operations (F-5),Add to consolidated reference table
+A-003,immaterial,completeness,Consolidated Adjusted EBITDA,FY2023,absent from table,3821,MD&A — Non-GAAP Financial Measures (p. 119),Add to consolidated reference table
+A-004,immaterial,presentation,AI nameplate compute draw (GW),Q1 2026,1.0,1,Segment Operating and Financial Data (unaudited),Use filing integer; note rounding

@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets and local env
+.env
+.env.*
+*.pem
+*credentials*
+*secret*
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python / Node caches (if tools added later)
+__pycache__/
+*.pyc
+node_modules/
+.venv/
+
+# Do NOT ignore SEC primary source HTML (s1*.htm) — kept for reproducibility
