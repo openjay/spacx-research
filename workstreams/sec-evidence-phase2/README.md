@@ -47,4 +47,4 @@ python plugin/metrics/threshold_engine.py
 
 ---
 
-*Asset: **SPCX** (Space Exploration Technologies Corp.). SEC CIK 0001181412.*
+*Proposed / expected listing symbol: **SPCX** (Space Exploration Technologies Corp.; pending Form 424B4 and first trading confirmation). SEC CIK 0001181412.*

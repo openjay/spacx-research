@@ -6,7 +6,7 @@
 
 | Field | Value (S-1/A #2) | SEC citation |
 |-------|------------------|--------------|
-| **Ticker** | **SPCX** | Prospectus Summary — *Listing and trading symbol* |
+| **Ticker (proposed)** | **SPCX** — not yet listed; pending 424B4 and first trade | Prospectus Summary — *Listing and trading symbol* |
 | **Exchange** | **Nasdaq** (The Nasdaq Stock Market LLC) and **Nasdaq Texas** (Nasdaq Texas, LLC) | Cover page; *The Offering* |
 | **Share class offered** | **Class A** common stock, par value $0.001 | Cover; *The Offering* |
 | **Shares offered (primary)** | **555,555,555** Class A shares | Cover; *The Offering — Class A common stock offered by us* |

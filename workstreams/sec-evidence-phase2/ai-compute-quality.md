@@ -1,6 +1,6 @@
 # AI Compute Quality Table (AI flywheel)
 
-**Asset:** SPCX  
+**Proposed symbol:** SPCX (pending 424B4 and first trade)  
 **SEC source:** Form S-1/A #2 (2026-06-03) — Segment Operating Data, Prospectus Summary (Anthropic), MD&A  
 **Registry:** `plugin/metrics/registry.yaml` → `flywheels.ai`  
 **Baselines:** `plugin/metrics/baselines.json` → `flywheel_ai`

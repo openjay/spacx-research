@@ -1,6 +1,6 @@
 # Starship Milestones Table (Space flywheel)
 
-**Asset:** SPCX  
+**Proposed symbol:** SPCX (pending 424B4 and first trade)  
 **SEC source:** Form S-1/A #2 (2026-06-03) — Segment Operating Data, Business, Prospectus Summary  
 **Registry:** `plugin/metrics/registry.yaml` → `flywheels.starship`  
 **Baselines:** `plugin/metrics/baselines.json` → `flywheel_starship`

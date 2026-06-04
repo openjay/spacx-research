@@ -2,7 +2,7 @@
 
 **Plugin id:** `spacx-intelligence` · **Version:** 0.1.0 · **Compliance:** Level 2 (proposals only, no execution)
 
-24/7 autonomous market intelligence for **SPCX**. Agents call structured APIs instead of parsing `workstreams/` by hand.
+24/7 autonomous market intelligence for **proposed / expected listing symbol SPCX** (pending Form 424B4 and first trading confirmation). Agents call structured APIs instead of parsing `workstreams/` by hand.
 
 ## Quick start (agents)
 
@@ -81,4 +81,4 @@ Phase 1 SEC tables: `workstreams/sec-evidence-phase1/`. Metric registry: `plugin
 
 ## 中文（代理调用）
 
-代理应通过 **工具/API** 读写结构化对象，而不是直接改 Markdown 底稿。核心流程：采集源 → 提取事件 → 更新指标 → 贝叶斯更新 thesis → 风控评估 → 生成建议 → 封存证据哈希。V0 禁止自动下单；424B4、上市日、首份财报未齐前默认 `OBSERVE_ONLY`。
+代理应通过 **工具/API** 读写结构化对象，而不是直接改 Markdown 底稿。核心流程：采集源 → 提取事件 → 更新指标 → 贝叶斯更新 thesis → 风控评估 → 生成建议 → 封存证据哈希。V0 禁止自动下单；424B4、预期上市日、首笔交易与首份财报未确认前默认 `OBSERVE_ONLY`。

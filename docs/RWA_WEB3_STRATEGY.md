@@ -1,6 +1,6 @@
 # Web3 / RWA strategy — SPACX pre-layer (预埋)
 
-**Platform:** SPACX · **Asset context:** SPCX (Space Exploration Technologies Corp.)  
+**Platform:** SPACX · **Asset context:** proposed / expected listing symbol SPCX (Space Exploration Technologies Corp.; pending 424B4 and first trade)  
 **Status:** Planned / pre-layer — not production trading, not auto on-chain execution  
 **Audience:** Engineering, agent operators, compliance reviewers (EN + 中文)
 

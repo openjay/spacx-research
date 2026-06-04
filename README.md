@@ -1,6 +1,6 @@
 # SPACX
 
-**SPACX** is a research and execution platform for public equity tied to the Musk / SpaceX ecosystem — listed ticker **SPCX** (Space Exploration Technologies Corp.). This repository is the project home for structured evidence, audits, and planned AI-native workflows. It is **not** an IPO research repo by identity: SEC filing work is **Workstream 1** only.
+**SPACX** is a research and execution platform for equity tied to the Musk / SpaceX ecosystem — **proposed / expected listing symbol SPCX** (Space Exploration Technologies Corp.; pending Form 424B4 and first trading confirmation). This repository is the project home for structured evidence, audits, and planned AI-native workflows. It is **not** an IPO research repo by identity: SEC filing work is **Workstream 1** only.
 
 ## Disclaimer
 
@@ -35,6 +35,10 @@ Private repo — access via the `openjay` GitHub account. Remote notes: [GITHUB.
 | Path | Contents |
 |------|----------|
 | `docs/ROADMAP.md` | Workstream roadmap |
+| `docs/COMPLIANCE.md` | Compliance levels 0–6, agent boundaries |
+| `docs/CFA_RESEARCH_POLICY.md` | CFA-aligned research policy |
+| `docs/LISTING_STATUS.md` | SPCX proposed symbol / pre-listing status |
+| `docs/DATA_PROVENANCE.md` | SEC cache provenance and SHA-256 verification |
 | `docs/RWA_WEB3_STRATEGY.md` | Web3/RWA pre-layer strategy (预埋, EN + 中文) |
 | `docs/ARCHITECTURE.md` | Plugin layers, `rwa/` data lane, compliance 0–6 (EN + 中文) |
 | `plugin/` | Intelligence plugin manifest, schemas, `api/` stubs |
@@ -50,4 +54,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## 中文简介
 
-**SPACX** 是围绕马斯克 / SpaceX 生态上市股权（股票代码 **SPCX**）的研究与执行平台仓库，而非以「IPO 研究」命名的项目。当前已完成 **工作流 1**：仅基于 SEC 申报文件的 Phase 1 证据表与 A–D 轨审计；**工作流 2** 正在建设 [`plugin/`](plugin/) 下的 AI 原生情报插件（7×24 研究、告警、行动建议，V0 不自动交易）。内容仅供研究学习，**不构成投资建议**。综合审计结论见 [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)。
+**SPACX** 是围绕马斯克 / SpaceX 生态**拟上市/预期上市**证券（**预期上市代码 SPCX**；待 Form 424B4 与首笔交易确认）的研究与执行平台仓库，而非以「IPO 研究」命名的项目。当前已完成 **工作流 1**：仅基于 SEC 申报文件的 Phase 1 证据表与 A–D 轨审计；**工作流 2** 正在建设 [`plugin/`](plugin/) 下的 AI 原生情报插件（7×24 研究、告警、行动建议，V0 不自动交易）。内容仅供研究学习，**不构成投资建议**。综合审计结论见 [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)。上市状态见 [docs/LISTING_STATUS.md](docs/LISTING_STATUS.md)。

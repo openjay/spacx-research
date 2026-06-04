@@ -1,6 +1,6 @@
 # SPACX models — integration architecture
 
-**Platform:** SPACX · **Equity:** SPCX · **Package:** `plugin/models/`
+**Platform:** SPACX · **Proposed / expected listing symbol:** SPCX · **Package:** `plugin/models/`
 
 This document describes how the V0 statistical engine connects to the planned **metrics registry** and **thesis engine**, and what data arrives in **Phase 3** (post-listing market + SEC feeds).
 

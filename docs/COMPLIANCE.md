@@ -4,6 +4,8 @@
 
 **Phase 1 evidence anchor:** [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](../workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)
 
+**Related policies:** [CFA_RESEARCH_POLICY.md](./CFA_RESEARCH_POLICY.md) · [LISTING_STATUS.md](./LISTING_STATUS.md) · [DATA_PROVENANCE.md](./DATA_PROVENANCE.md)
+
 ---
 
 ## Research-only disclaimer
@@ -16,6 +18,8 @@ SPACX artifacts (agents, scheduler, reports) are produced for **internal researc
 - Affiliation with SpaceX, xAI, the SEC, FINRA, or any broker-dealer
 
 Users must verify all figures against current SEC filings and perform independent diligence.
+
+**Listing status:** SPCX is the **proposed / expected listing symbol** (not a confirmed listed ticker) until Form 424B4 and first trading confirmation. See [LISTING_STATUS.md](./LISTING_STATUS.md).
 
 ---
 
@@ -67,7 +71,7 @@ If SPACX outputs were ever offered to paying subscribers as systematic recommend
 
 - **OnchainRWAAgent** publishes SHA-256 manifests; mismatches trigger `hash_mismatch_investigation` human gate.
 - **EvidenceAuditorAgent** is authoritative for A/B/C/D grades.
-- Conflicts defer to SEC primary documents per Phase 1 source hierarchy (see [ROADMAP.md](ROADMAP.md)).
+- Conflicts defer to SEC primary documents per Phase 1 source hierarchy (see [CFA_RESEARCH_POLICY.md](./CFA_RESEARCH_POLICY.md) and [ROADMAP.md](ROADMAP.md)).
 
 ---
 

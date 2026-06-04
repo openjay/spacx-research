@@ -5,9 +5,11 @@ id: spacx-intelligence
 name: SPACX Autonomous Market Intelligence
 version: 0.1.0
 description: >
-  24/7 autonomous research plugin for SPCX (Space Exploration Technologies Corp.).
-  Ingests SEC and market events, grades evidence A–D, updates metrics and thesis
-  probabilities, evaluates risk, and proposes actions — without order execution.
+  24/7 autonomous research plugin for proposed / expected listing symbol SPCX
+  (Space Exploration Technologies Corp.; pending Form 424B4 and first trading
+  confirmation). Ingests SEC and market events, grades evidence A–D, updates
+  metrics and thesis probabilities, evaluates risk, and proposes actions —
+  without order execution.
 
 platform: spacx
 asset_primary: SPCX

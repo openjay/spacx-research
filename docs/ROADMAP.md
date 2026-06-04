@@ -1,6 +1,6 @@
 # SPACX roadmap
 
-Platform code: **SPACX** · Listed equity: **SPCX** (Space Exploration Technologies Corp.)
+Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space Exploration Technologies Corp.; pending Form 424B4 and first trading confirmation — see [LISTING_STATUS.md](./LISTING_STATUS.md))
 
 ## Workstreams
 

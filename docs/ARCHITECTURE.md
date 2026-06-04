@@ -1,6 +1,6 @@
 # SPACX Intelligence — Architecture
 
-**Product:** SPACX autonomous market intelligence plugin · **Asset:** SPCX · **V0:** research + alerts + proposals (compliance level 2)
+**Product:** SPACX autonomous market intelligence plugin · **Asset (proposed symbol):** SPCX · **V0:** research + alerts + proposals (compliance level 2)
 
 ---
 
@@ -57,7 +57,7 @@ flowchart TB
 | Lane | Path (logical) | Owner agent | Pre-layer scope |
 |------|----------------|-------------|-----------------|
 | **sec/** | Form S-1/A, 10-K/Q, 424B4 | SECFilingAgent, EvidenceAuditorAgent | Grade A/B primary |
-| **market/** | Listed + peer prices, vol | *(metrics ingest)* | Post-listing surfaces |
+| **market/** | Post-listing + peer prices, vol (pre-listing: stub only) | *(metrics ingest)* | Surfaces after first trade confirmation |
 | **rwa/** | Stablecoin peg, tokenized treasury attestations, collateral metadata | **OnchainRWAAgent** | W1 monitor + hash only |
 | **macro/** | Rates, liquidity, funding | MacroLiquidityAgent | Thesis context |
 

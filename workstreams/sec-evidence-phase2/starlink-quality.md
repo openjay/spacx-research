@@ -1,6 +1,6 @@
 # Starlink Quality Table (Connectivity flywheel)
 
-**Asset:** SPCX  
+**Proposed symbol:** SPCX (pending 424B4 and first trade)  
 **SEC source:** Form S-1/A #2 (2026-06-03) — Segment Operating Data, Note 3 revenue, Prospectus Summary  
 **Registry:** `plugin/metrics/registry.yaml` → `flywheels.starlink`  
 **Baselines:** `plugin/metrics/baselines.json` → `flywheel_starlink`

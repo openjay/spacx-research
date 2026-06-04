@@ -1,6 +1,6 @@
 # SPACX statistical models (V0)
 
-Research-grade, **auditable** Python modules for **SPCX** monitoring. V0 ships interfaces, stub estimators, and explicit **Phase 3 data contracts** — no live market feed required.
+Research-grade, **auditable** Python modules for **proposed / expected listing symbol SPCX** monitoring. V0 ships interfaces, stub estimators, and explicit **Phase 3 data contracts** — no live market feed required.
 
 **Disclaimer:** Research tooling only; not investment advice.
 

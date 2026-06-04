@@ -17,7 +17,7 @@ tiers:
       - OnchainRWAAgent
 
   market_15m:
-    description: Listed-equity context, segment KPIs, macro liquidity
+    description: Pre-listing SPCX context (proposed symbol), segment KPIs, macro liquidity
     interval_minutes: 15
     cron: "*/15 * * * *"
     agents:

@@ -11,7 +11,7 @@
 
 | Field | Value (S-1/A #2) | Corrected notes | SEC citation |
 |-------|------------------|-----------------|--------------|
-| **Ticker** | **SPCX** | ✓ | Cover; *The Offering* |
+| **Ticker (proposed)** | **SPCX** — not listed until 424B4 + first trade | ✓ | Cover; *The Offering* |
 | **Exchange** | Nasdaq + Nasdaq Texas (LLC) | ✓ | Cover |
 | **Share class offered** | Class A, par $0.001 | ✓ | Cover |
 | **Primary shares** | **555,555,555** | ✓ | Cover; *The Offering* |
