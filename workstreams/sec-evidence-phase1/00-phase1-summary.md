@@ -1,8 +1,9 @@
-# Phase 1 — SEC Evidence Audit Summary
+# Workstream 1 — SEC Evidence (Phase 1 summary)
 
+**Platform:** SPACX · **Workstream:** `sec-evidence-phase1` (not the repo name)  
 **研究范围：** 仅 SEC 申报文件（Form S-1 / S-1/A），不含视频、社交媒体或新闻报价作为数字来源。  
 **主文件：** S-1/A Amendment No. 2（2026-06-03）  
-**工作目录：** `/Users/jay/code/spacex-ipo-research/`  
+**路径：** `workstreams/sec-evidence-phase1/`  
 **Double-check（Tracks A–D）：** `audit/00-integrated-audit-opinion.md` · 主表 `audit/05-master-evidence-tables.md`
 
 ---

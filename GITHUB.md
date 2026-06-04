@@ -2,16 +2,18 @@
 
 | Field | Value |
 |-------|-------|
-| **URL** | https://github.com/openjay/spacex-ipo-research |
+| **URL** | https://github.com/openjay/spacx |
 | **Visibility** | Private |
 | **Account** | openjay (personal) |
 | **Branch** | main |
-| **Research bundle commit** | `e1e4a6e` (`e1e4a6e8d8d03fa78c800d5fc1c20cade4831f3f`) |
+| **Description** | SPACX (SPCX) research platform — SEC evidence, AI-native analysis, trading workflows |
 
 Current `HEAD`: run `git rev-parse HEAD` after clone.
 
 ```bash
-git clone git@github.com:openjay/spacex-ipo-research.git
+git clone git@github.com:openjay/spacx.git
 # or
-git clone https://github.com/openjay/spacex-ipo-research.git
+git clone https://github.com/openjay/spacx.git
 ```
+
+**Rename history:** repository formerly `spacex-ipo-research` → `spacx` (2026-06-04).
