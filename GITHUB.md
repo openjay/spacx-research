@@ -6,7 +6,7 @@
 | **Visibility** | Private |
 | **Account** | openjay (personal) |
 | **Branch** | main |
-| **Initial commit** | e1e4a6e8d8d03fa78c800d5fc1c20cade4831f3f |
+| **Last commit** | `b7cce14` (`b7cce14f51bbcf3a839176759e3ed1bbbfea58f3`) |
 
 ```bash
 git clone git@github.com:openjay/spacex-ipo-research.git
