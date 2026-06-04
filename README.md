@@ -15,6 +15,7 @@ This repository is for **research and education**. It is **not investment advice
 | **SEC evidence (Phase 1)** | [`workstreams/sec-evidence-phase1/`](workstreams/sec-evidence-phase1/) | **Done** | S-1 / S-1/A tables, Tracks A–D audit, cached filing HTML |
 | **SEC watchlist (Phase 2)** | [`workstreams/sec-evidence-phase2/`](workstreams/sec-evidence-phase2/) | **Done** | Starlink / AI / Starship quality tables → [`plugin/metrics/registry.yaml`](plugin/metrics/registry.yaml) |
 | **AI-native intelligence plugin** | [`plugin/`](plugin/) | **V0 scaffold** | `spacx-intelligence` — [AGENTS](docs/AGENTS.md), [MODELS](docs/MODELS.md), [manifest](plugin/manifest.yaml); compliance level 2 |
+| **Web3 / RWA pre-layer** | [docs/RWA_WEB3_STRATEGY.md](docs/RWA_WEB3_STRATEGY.md) · [`plugin/agents/OnchainRWAAgent/`](plugin/agents/OnchainRWAAgent/) | **Planned / pre-layer** | Evidence hash + chain monitor (W1); no auto on-chain trading |
 | **Trading workflows** | *(planned)* | Planned | Signal → execution research (non-production) |
 
 Roadmap detail: [docs/ROADMAP.md](docs/ROADMAP.md)
@@ -34,7 +35,8 @@ Private repo — access via the `openjay` GitHub account. Remote notes: [GITHUB.
 | Path | Contents |
 |------|----------|
 | `docs/ROADMAP.md` | Workstream roadmap |
-| `docs/ARCHITECTURE.md` | Plugin layers, scheduler, compliance 0–6 (EN + 中文) |
+| `docs/RWA_WEB3_STRATEGY.md` | Web3/RWA pre-layer strategy (预埋, EN + 中文) |
+| `docs/ARCHITECTURE.md` | Plugin layers, `rwa/` data lane, compliance 0–6 (EN + 中文) |
 | `plugin/` | Intelligence plugin manifest, schemas, `api/` stubs |
 | `workstreams/sec-evidence-phase1/` | Phase 1 SEC tables (`00`–`04`), `audit/`, `s1*.htm` |
 | `LICENSE` | MIT |

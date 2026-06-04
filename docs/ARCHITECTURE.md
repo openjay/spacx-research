@@ -29,6 +29,40 @@ Data → Evidence → Metrics → Statistical → LLM → Risk → Action → Au
 | **Action** | `ActionProposal` (observe, paper, size) | Propose | Auto-execute at level ≤2 |
 | **Audit** | Receipts, evidence seals, optional on-chain hash | Log every state change | Mutate thesis without sealed evidence |
 
+### Market Intelligence Core (data lanes)
+
+The **Market Intelligence Core** ingests parallel **data lanes** into one evidence pipeline. SEC remains authoritative for SPCX financial claims; the **`rwa/`** lane is supplementary and pre-layer only.
+
+```mermaid
+flowchart TB
+  subgraph mic [Market Intelligence Core]
+    direction TB
+    SEC_LANE[sec/ — EDGAR filings]
+    MKT_LANE[market/ — quotes vol peers]
+    RWA_LANE[rwa/ — chain attestations monitors]
+    MACRO_LANE[macro/ — liquidity rates]
+  end
+  subgraph agents [Domain agents]
+    SECF[SECFilingAgent]
+    ONC[OnchainRWAAgent<br/>monitor + hash · NO TRADE]
+    MAC[MacroLiquidityAgent]
+  end
+  EV[Evidence A-D]
+  SEC_LANE --> SECF --> EV
+  MKT_LANE --> EV
+  RWA_LANE --> ONC --> EV
+  MACRO_LANE --> MAC --> EV
+```
+
+| Lane | Path (logical) | Owner agent | Pre-layer scope |
+|------|----------------|-------------|-----------------|
+| **sec/** | Form S-1/A, 10-K/Q, 424B4 | SECFilingAgent, EvidenceAuditorAgent | Grade A/B primary |
+| **market/** | Listed + peer prices, vol | *(metrics ingest)* | Post-listing surfaces |
+| **rwa/** | Stablecoin peg, tokenized treasury attestations, collateral metadata | **OnchainRWAAgent** | W1 monitor + hash only |
+| **macro/** | Rates, liquidity, funding | MacroLiquidityAgent | Thesis context |
+
+**OnchainRWAAgent scope (预埋):** ingest indexed RWA/chain events, publish `evidence.content_hash_manifest`, emit `onchain.rwa_anomaly` — **forbidden:** wallet connect, sign, swaps, bridges, custody, staking, or any order routing. See [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md).
+
 ### Data flow
 
 ```mermaid
@@ -36,7 +70,7 @@ flowchart LR
   subgraph ingest [Data]
     SEC[SEC EDGAR]
     MKT[Market data]
-    CHAIN[On-chain / RWA]
+    CHAIN[rwa/ on-chain monitor]
   end
   subgraph core [Core pipeline]
     EV[Evidence A-D]
@@ -94,13 +128,18 @@ Market close ≠ system idle: filings, macro, and chain state still update the w
 
 Robo-adviser and algorithmic trading supervision apply if level ≥4–6; this repo stays at **0–2** until explicitly gated.
 
-### Web3 / RWA (roadmap)
+### Web3 / RWA pre-layer (预埋)
 
-- **Phase 1 (now):** Evidence hash only — seal `EvidencePacket` / `AuditReceipt` digests; no trading on-chain.
-- **Phase 2:** RWA monitor (redemption, custody, oracle).
-- **Phase 3:** Policy-bound execution with jurisdiction and custody guards.
+Aligned with [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md) and Workstream 3 in [ROADMAP.md](./ROADMAP.md):
 
-Details: [ROADMAP.md](./ROADMAP.md).
+| Phase | Capability |
+|-------|------------|
+| **W1 (now)** | `rwa/` data lane + evidence hash + chain state monitor (stablecoin, tokenized treasury) |
+| **W2** | RWA risk scoring (beyond TVL) |
+| **W3** | Settlement abstraction (observe rails; no execution) |
+| **W4** | Policy-bound wallet — gated, manual approval only |
+
+**Not now:** main trading layer, auto on-chain execution. Tokenized ownership ≠ tradable liquid market (agent constitutional rule).
 
 ### Repository map
 
@@ -156,14 +195,17 @@ AI 时代投资研究的对象是**连续事件流**，而不是「等财报 →
 
 当前仓库 **V0 = Level 2**：可生成交易**候选**，不可自动下单。对外资管或全自动执行需 Level 6 法律结构，不在本阶段范围。
 
-### Web3
+### Web3 / RWA 预埋
 
-第一阶段仅**证据哈希上链**（可验证研究状态时间点），不将 RWA token 默认为无监管资产。详见路线图 Web3 小节。
+**市场情报核心**分数据通道：`sec/`（申报优先）、`market/`、`rwa/`（链上监控+哈希，非交易）、`macro/`。`OnchainRWAAgent` 仅负责 W1 监控与证据封存，禁止钱包与下单。
+
+阶段 W1–W4 见 [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md) 与 [ROADMAP.md](./ROADMAP.md)。**代币化所有权 ≠ 流动性市场**（智能体宪法第一条）。
 
 ---
 
 ## Related docs
 
+- [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md)
 - [ROADMAP.md](./ROADMAP.md)
 - [plugin/README.md](../plugin/README.md)
 - Phase 1 synthesis: [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](../workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)

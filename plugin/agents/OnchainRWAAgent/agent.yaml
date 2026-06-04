@@ -1,44 +1,76 @@
-# OnchainRWAAgent — RWA monitor + evidence hash (NO TRADING)
+# OnchainRWAAgent — Web3/RWA pre-layer (预埋): monitor + evidence hash ONLY
+# Scope: Workstream 3 Phase W1 — NOT main trading layer, NOT auto on-chain execution.
+# Constitutional rule: tokenized ownership ≠ tradable liquid market.
 
 name: OnchainRWAAgent
-version: "1.0.0"
+version: "1.1.0"
+pre_layer: true
+workstream: "Web3/RWA pre-layer (W1)"
 role: |
-  Monitor on-chain RWA and tokenized exposure surfaces linked to space/tech themes.
-  Compute evidence hashes for artifact integrity; correlate with SEC evidence IDs.
-  Strict research-only: no wallet signing, no swaps, no order routing.
+  Operate the rwa/ data lane under the Market Intelligence Core.
+  Monitor on-chain stablecoin and tokenized-treasury surfaces; maintain SHA-256
+  evidence hashes for artifact integrity; correlate chain events with SEC evidence IDs.
+  Emit risk-relevant anomalies for human review — never infer liquidity or Grade A
+  from chain state alone.
+  Strict research-only: no wallet signing, no swaps, no order routing, no custody.
+
+constitutional_rules:
+  - tokenized_ownership_is_not_tradable_liquid_market
+  - rwa_value_is_programmable_rails_not_token_equals_liquidity
+  - no_promote_onchain_to_grade_A_without_sec_primary
 
 inputs:
   - source: chain.indexed_events
-    scope: [rwa_issuance, proof_of_reserve, token_metadata]
+    scope:
+      - stablecoin_peg_deviation
+      - tokenized_treasury_attestation
+      - rwa_issuance
+      - proof_of_reserve
+      - token_metadata
+    lane: rwa/
   - source: evidence_auditor.grade_register
   - source: internal.artifact_store
   - config:
       hash_algorithm: sha256
       anchor_to: evidence.grade_register
+      maturity_ladder_max: L1   # W1: stablecoin + tokenized treasury only
 
 outputs:
   - artifact: onchain.rwa_watchlist
   - artifact: evidence.content_hash_manifest
+  - artifact: rwa.chain_state_snapshot
   - event: onchain.rwa_anomaly
   - event: evidence.hash_mismatch
   - metric: onchain.rwa_count
+  - metric: rwa.attestation_staleness_hours
 
 forbidden_actions:
-  - ANY_TRADING  # hard boundary — no exceptions
+  - ANY_TRADING
+  - auto_on_chain_execution
   - wallet_connect_or_sign
   - private_key_handling
   - promote_onchain_claim_to_grade_A_without_sec
   - execute_swaps_bridges_or_cex_orders
   - custody_or_staking_actions
+  - infer_nav_tradability_from_chain_balance
+  - use_tvl_as_primary_risk_kpi
 
 schedule:
-  cron: "*/1 * * * *"   # 1m — crypto tier floor
-  cron_alt: "*/5 * * * *"  # 5m — default crypto tier per scheduler.yaml
+  cron: "*/1 * * * *"
+  cron_alt: "*/5 * * * *"
   timezone: UTC
-  hash_manifest_cron: "0 */1 * * *"  # hourly manifest rollup
+  hash_manifest_cron: "0 */1 * * *"
+  tier: T0
 
 human_gates:
   - gate: rwa_watchlist_inclusion
     required_before: daily_thesis_onchain_section
   - gate: hash_mismatch_investigation
     required_before: artifact_restore
+  - gate: rwa_anomaly_escalation
+    required_before: risk_state_onchain_blocker_clear
+
+future_phases:
+  W2: rwa_risk_scoring_engine   # beyond-TVL; feeds risk state — no execution
+  W3: settlement_abstraction   # observe only
+  W4: policy_bound_wallet       # manual approval; compliance level 4+
