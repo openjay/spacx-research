@@ -25,6 +25,7 @@ capabilities:
   - alert.dispatch
   - evidence.seal
   - report.generate
+  - rwa_prelayer_v0: monitor_only
 
 api:
   base_path: /api/v1/spacx

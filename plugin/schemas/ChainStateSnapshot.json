@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/ChainStateSnapshot.json",
+  "title": "ChainStateSnapshot",
+  "description": "Aggregate on-chain monitor readings (V0 stubs; no live RPC required).",
+  "type": "object",
+  "required": ["snapshot_id", "captured_at", "phase"],
+  "additionalProperties": false,
+  "properties": {
+    "snapshot_id": { "type": "string" },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "phase": { "type": "string" },
+    "data_gaps": { "type": "array", "items": { "type": "string" } },
+    "stablecoins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["asset_symbol", "chain_id", "as_of"],
+        "properties": {
+          "asset_symbol": { "type": "string" },
+          "chain_id": { "type": "string" },
+          "supply_usd": { "type": ["number", "null"] },
+          "as_of": { "type": "string", "format": "date-time" },
+          "source": { "type": "string" },
+          "deviation_pct": { "type": ["number", "null"] },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "treasury_aum": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["instrument_id", "as_of"],
+        "properties": {
+          "instrument_id": { "type": "string" },
+          "aum_usd": { "type": ["number", "null"] },
+          "holder_count": { "type": ["integer", "null"] },
+          "as_of": { "type": "string", "format": "date-time" },
+          "custodian": { "type": ["string", "null"] },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "rwa_transfers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tx_ref", "asset_id", "from_label", "to_label", "as_of"],
+        "properties": {
+          "tx_ref": { "type": "string" },
+          "asset_id": { "type": "string" },
+          "from_label": { "type": "string" },
+          "to_label": { "type": "string" },
+          "amount_usd": { "type": ["number", "null"] },
+          "as_of": { "type": "string", "format": "date-time" },
+          "flagged": { "type": "boolean" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "bridge_flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bridge_id", "chain_in", "chain_out", "as_of"],
+        "properties": {
+          "bridge_id": { "type": "string" },
+          "chain_in": { "type": "string" },
+          "chain_out": { "type": "string" },
+          "volume_24h_usd": { "type": ["number", "null"] },
+          "net_flow_24h_usd": { "type": ["number", "null"] },
+          "as_of": { "type": "string", "format": "date-time" },
+          "anomaly": { "type": "boolean" }
+        }
+      }
+    },
+    "oracle_deviations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["oracle_id", "feed_asset", "reference_source", "as_of"],
+        "properties": {
+          "oracle_id": { "type": "string" },
+          "feed_asset": { "type": "string" },
+          "deviation_bps": { "type": ["number", "null"] },
+          "reference_source": { "type": "string" },
+          "as_of": { "type": "string", "format": "date-time" },
+          "breach": { "type": "boolean" },
+          "threshold_bps": { "type": "number" }
+        }
+      }
+    }
+  }
+}

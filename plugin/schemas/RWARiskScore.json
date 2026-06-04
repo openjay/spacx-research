@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/RWARiskScore.json",
+  "title": "RWARiskScore",
+  "description": "Multi-dimensional RWA structural risk score (0–100); Beyond TVL — not TVL-only.",
+  "type": "object",
+  "required": ["asset_id", "composite_score", "dimensions", "scored_at", "phase"],
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": { "type": "string" },
+    "composite_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dimension", "score"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "liquidity",
+              "concentration",
+              "redemption",
+              "custody",
+              "legal_rights",
+              "oracle_risk",
+              "secondary_depth",
+              "transfer_restriction"
+            ]
+          },
+          "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "weight": { "type": "number", "minimum": 0 },
+          "flags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "explain_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "scored_at": { "type": "string", "format": "date-time" },
+    "phase": { "type": "string" },
+    "beyond_tvl_note": { "type": "string" }
+  }
+}

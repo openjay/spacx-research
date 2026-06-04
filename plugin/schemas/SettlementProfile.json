@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/SettlementProfile.json",
+  "title": "SettlementProfile",
+  "description": "RWA / tokenized instrument settlement and legal metadata (V0 research).",
+  "type": "object",
+  "required": [
+    "instrument_id",
+    "trading_hours",
+    "settlement",
+    "redemption_window",
+    "transfer_restriction",
+    "custodian",
+    "legal_claim"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "instrument_id": { "type": "string" },
+    "trading_hours": { "type": "string" },
+    "settlement": { "type": "string" },
+    "redemption_window": { "type": "string" },
+    "transfer_restriction": { "type": "string" },
+    "custodian": { "type": "string" },
+    "legal_claim": { "type": "string" },
+    "jurisdiction": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/ExecutionPolicy.json",
+  "title": "ExecutionPolicy",
+  "description": "Policy-bound execution whitelist and guards (V0: monitor_only; wallet Phase W4).",
+  "type": "object",
+  "required": ["policy_id", "compliance_level"],
+  "additionalProperties": false,
+  "properties": {
+    "policy_id": { "type": "string" },
+    "allowed_assets": { "type": "array", "items": { "type": "string" } },
+    "allowed_chains": { "type": "array", "items": { "type": "string" } },
+    "max_position_usd": { "type": ["number", "null"] },
+    "max_slippage_bps": { "type": "number", "minimum": 0 },
+    "max_daily_loss_usd": { "type": ["number", "null"] },
+    "oracle_guard_bps": { "type": "number", "minimum": 0 },
+    "kill_switch": { "type": "boolean" },
+    "compliance_level": { "type": "integer", "minimum": 0, "maximum": 6 },
+    "notes": { "type": "string" }
+  }
+}

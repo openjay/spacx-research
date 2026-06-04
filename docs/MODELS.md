@@ -112,6 +112,21 @@ Roadmap: [ROADMAP.md](./ROADMAP.md).
 
 ---
 
+## RWA pre-layer ↔ equity risk models
+
+The Web3/RWA **pre-layer** (`plugin/rwa/`) supplies structural scores that complement equity-side models — not a substitute for SEC-graded evidence.
+
+| Pre-layer output | Consumed by | Effect |
+|------------------|-------------|--------|
+| `RWARiskScore.composite_score` + `explain_flags` | `anomaly_detection` | Low scores or oracle/custody flags can elevate metric alerts to AMBER/RED when mapped to registry proxy metrics (e.g. macro liquidity, stablecoin stress). |
+| `RWARiskScore` dimension `redemption`, `transfer_restriction` | `portfolio_risk_budget` | Tighten thematic caps or block action proposals when structural RWA risk conflicts with observation sleeve limits. |
+| `ChainStateSnapshot` | OnchainRWAAgent → `rwa_risk_scoring` | Feeds dimension overrides in Phase W2+; V0 emits `data_gaps` only. |
+| `evidence_hash` seals | `EvidencePacket` / `AuditReceipt` | Same SHA-256 contract as `POST /evidence/seal`; no on-chain anchor until Phase W4. |
+
+**Beyond TVL:** `rwa_risk_scoring` documents that high TVL does not imply low structural risk; composite scores weight liquidity, custody, legal rights, and oracle integrity. See [`plugin/rwa/README.md`](../plugin/rwa/README.md).
+
+---
+
 ## Running models (V0)
 
 From repo root with `PYTHONPATH=.`:
@@ -129,5 +144,7 @@ Each module exposes `run_*()` convenience functions and a `*Model` class with `.
 | Path | Role |
 |------|------|
 | `plugin/models/*.py` | Seven model modules + `_types.py` |
+| `plugin/rwa/*.py` | Web3/RWA pre-layer stubs (V0) |
 | `plugin/models/README.md` | CFA methodology per model |
+| `plugin/rwa/README.md` | RWA module map |
 | `docs/MODELS.md` | This integration doc |
