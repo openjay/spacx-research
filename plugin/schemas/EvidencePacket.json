@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/EvidencePacket.json",
+  "title": "EvidencePacket",
+  "description": "Graded, hash-sealed bundle of claims extracted from one or more SourceRecords.",
+  "type": "object",
+  "required": ["packet_id", "source_id", "source_type", "confidence", "extracted_at", "claims"],
+  "additionalProperties": false,
+  "properties": {
+    "packet_id": { "type": "string" },
+    "source_id": { "type": "string" },
+    "source_type": { "type": "string" },
+    "confidence": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D"],
+      "description": "A=SEC/regulator/exchange; B=company IR; C=tier-1 news; D=social"
+    },
+    "extracted_at": { "type": "string", "format": "date-time" },
+    "hash": {
+      "type": "string",
+      "description": "SHA-256 of canonical JSON (pre-seal); set by evidence/seal"
+    },
+    "sealed_at": { "type": "string", "format": "date-time" },
+    "onchain_tx": {
+      "type": "string",
+      "description": "Optional Web3 evidence hash anchor (Phase 1: document only)"
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim", "metric_id", "value", "unit", "period"],
+        "additionalProperties": false,
+        "properties": {
+          "claim": { "type": "string" },
+          "metric_id": { "type": "string" },
+          "value": { "type": "number" },
+          "unit": { "type": "string" },
+          "period": { "type": "string", "description": "e.g. Q1_2026, FY2025" },
+          "citation": { "type": "string" },
+          "assertion": {
+            "type": "string",
+            "enum": ["occurrence", "accuracy", "completeness", "classification"]
+          }
+        }
+      }
+    },
+    "parent_packet_id": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } }
+  }
+}

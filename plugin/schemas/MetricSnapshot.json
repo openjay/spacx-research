@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/MetricSnapshot.json",
+  "title": "MetricSnapshot",
+  "description": "Point-in-time metric value with provenance and traffic-light status.",
+  "type": "object",
+  "required": [
+    "metric_id",
+    "asset",
+    "value",
+    "unit",
+    "as_of",
+    "status",
+    "evidence_refs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "metric_id": { "type": "string" },
+    "asset": { "type": "string", "const": "SPCX" },
+    "value": { "type": "number" },
+    "unit": { "type": "string" },
+    "period": { "type": "string" },
+    "as_of": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["GREEN", "AMBER", "RED", "UNKNOWN", "BLOCKED"]
+    },
+    "baseline_delta_pct": { "type": "number" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "packet_id or source_id references"
+    },
+    "computed_by": { "type": "string", "default": "metrics_engine_v0" }
+  }
+}

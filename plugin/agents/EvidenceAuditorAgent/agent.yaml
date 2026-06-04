@@ -1,0 +1,48 @@
+# EvidenceAuditorAgent — A/B/C/D grading (Phase 1 taxonomy)
+# Canonical register: audit/05-master-evidence-tables.md, C-gap-register.md
+
+name: EvidenceAuditorAgent
+version: "1.0.0"
+role: |
+  Apply Phase 1 evidence taxonomy: Corrected, Confirmed, Unverified, Material gap.
+  Grade claims A (primary SEC excerpt), B (derived table), C (inference), D (speculative).
+  Reconcile agent outputs against master evidence tables; open gap tickets.
+
+inputs:
+  - source: sec_filing_agent.events
+  - source: workstreams.sec_evidence_phase1.audit
+    paths:
+      - workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+      - workstreams/sec-evidence-phase1/audit/C-gap-register.md
+      - workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md
+  - source: all_agent.claims
+    filter: requires_grade
+
+outputs:
+  - artifact: evidence.grade_register
+  - event: evidence.grade_changed
+  - event: evidence.gap_opened
+  - metric: confirmed_count
+  - metric: unverified_count
+  - metric: material_gap_count
+
+forbidden_actions:
+  - downgrade_confirmed_without_new_filing
+  - assign_grade_A_to_non_sec_source
+  - auto_close_material_gaps_without_human
+  - trading_or_allocation_guidance
+  - merge_conflicting_numbers_without_citation
+
+schedule:
+  cron: "30 */6 * * *"  # every 6h at :30 — after SEC hourly ingest
+  timezone: America/New_York
+  on_trigger:
+    - filing.p0_424b4
+    - filing.detected
+  batch_regrade: true
+
+human_gates:
+  - gate: material_gap_resolution
+    required_before: thesis_bull_base_bear_publish
+  - gate: A_grade_promotion
+    required_before: external_distribution

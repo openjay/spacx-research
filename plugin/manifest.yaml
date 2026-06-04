@@ -1,0 +1,67 @@
+# SPACX Intelligence Plugin — manifest (V0 scaffold)
+# Agent-callable 24/7 market intelligence; no auto-execution at compliance_level 2.
+
+id: spacx-intelligence
+name: SPACX Autonomous Market Intelligence
+version: 0.1.0
+description: >
+  24/7 autonomous research plugin for SPCX (Space Exploration Technologies Corp.).
+  Ingests SEC and market events, grades evidence A–D, updates metrics and thesis
+  probabilities, evaluates risk, and proposes actions — without order execution.
+
+platform: spacx
+asset_primary: SPCX
+compliance_level: 2  # research + alerts + action proposals; no auto execution
+
+capabilities:
+  - ingest.source
+  - extract.events
+  - metrics.update
+  - metrics.read
+  - thesis.update
+  - thesis.read
+  - risk.evaluate
+  - action.propose
+  - alert.dispatch
+  - evidence.seal
+  - report.generate
+
+api:
+  base_path: /api/v1/spacx
+  routes:
+    - POST /ingest/source
+    - POST /extract/events
+    - POST /metrics/update
+    - GET  /metrics/{asset}/{metric_id}
+    - POST /thesis/update
+    - GET  /thesis/{asset}
+    - POST /risk/evaluate
+    - POST /action/propose
+    - POST /alert/dispatch
+    - POST /evidence/seal
+    - POST /report/generate
+
+dependencies:
+  python: ">=3.11"
+  optional:
+    - numpy  # statistical models (Phase 2+)
+    - pandas
+  workstreams:
+    - workstreams/sec-evidence-phase1
+  plugins: []
+
+evidence_policy:
+  grades: [A, B, C, D]
+  source_priority: [SEC, EXCHANGE, REGULATOR, COMPANY_IR, TIER1_NEWS, SOCIAL]
+  core_financials_min_grade: A
+
+scheduler_ref: plugin/scheduler.yaml
+schemas_dir: plugin/schemas/
+metrics_registry: plugin/metrics/registry.yaml
+
+owners:
+  - openjay/spacx
+
+disclaimer: >
+  Research and education only. Not investment advice. Not affiliated with SpaceX,
+  xAI, or the SEC. Verify all figures against current filings.

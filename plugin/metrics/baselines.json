@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "asset": "SPCX",
+    "source": "Form S-1/A Amendment No. 2 (2026-06-03)",
+    "baseline_period": "Q1_2026",
+    "extracted_from": [
+      "workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md",
+      "workstreams/sec-evidence-phase1/03-risk-metrics-map.md",
+      "workstreams/sec-evidence-phase1/audit/C-risk-disclosure-audit.md"
+    ],
+    "currency": "USD",
+    "amounts_millions_unless_noted": true
+  },
+  "blockers": {
+    "FINAL_PROSPECTUS_PENDING": true,
+    "LOCKUP_DAY0_UNKNOWN": true,
+    "FIRST_EARNINGS_PENDING": true
+  },
+  "watch": {
+    "W01_ipo_price_usd": 135.0,
+    "W02_first_day_pop_pct": null,
+    "W03_starlink_subscribers_m": 10.3,
+    "W04_starlink_arpu_usd_mo": 66,
+    "W05_connectivity_adj_ebitda_musd": 2087,
+    "W06_anthropic_revenue_vs_contract_pct": null,
+    "W07_ai_op_loss_to_revenue_ratio": 3.018,
+    "W08_ai_capex_to_revenue_ratio": 9.441,
+    "W09_starship_payload_orbit_achieved": false,
+    "W10_lockup_float_pct_at_next_gate": null,
+    "W11_net_leverage_ratio": null,
+    "W12_musk_voting_pct": 82.4
+  },
+  "governance": {
+    "G01_controlled_company": true,
+    "G02_class_b_vote_weight_pct": 88.5,
+    "G03_musk_voting_pct": 82.4,
+    "G04_musk_lockup_days": 366,
+    "G05_restricted_shares_gt_1yr_bn": 7.8,
+    "G06_restricted_shares_pct_post_ipo": 60.0,
+    "G07_directed_shares_no_lockup_m": 27.777778
+  },
+  "flywheel_starlink": {
+    "F_SL01_starlink_subscribers_m": 10.3,
+    "F_SL02_starlink_arpu_usd_mo": 66,
+    "F_SL03_connectivity_revenue_musd": 3257,
+    "F_SL04_connectivity_adj_ebitda_musd": 2087,
+    "F_SL05_connectivity_capex_musd": 1332,
+    "F_SL06_connectivity_adj_ebitda_margin_pct": 64.1,
+    "F_SL07_starlink_v3_deploy_target_h2_2026": true
+  },
+  "flywheel_ai": {
+    "F_AI01_ai_revenue_musd": 818,
+    "F_AI02_ai_op_loss_musd": 2469,
+    "F_AI03_ai_op_loss_to_revenue_ratio": 3.018,
+    "F_AI04_ai_capex_musd": 7723,
+    "F_AI05_ai_capex_to_revenue_ratio": 9.441,
+    "F_AI06_ai_nameplate_gw": 1.0,
+    "F_AI07_anthropic_contract_run_rate_musd_mo": 1250,
+    "F_AI08_ai_adj_ebitda_musd": -609
+  },
+  "flywheel_starship": {
+    "F_ST01_space_launches_q1": 40,
+    "F_ST02_space_mass_to_orbit_mt": 556,
+    "F_ST03_space_starship_rd_musd_q1": 930,
+    "F_ST04_starship_payload_orbit_target_h2_2026": true,
+    "F_ST05_space_revenue_musd": 619,
+    "F_ST06_space_launches_fy2025": 170
+  },
+  "debt_liquidity": {
+    "bridge_loan_musd": 20000,
+    "bridge_maturity": "2027-09-02",
+    "leverage_covenant_ratio": 3.75,
+    "cash_mar31_2026_musd": 15852,
+    "pro_forma_cash_post_ipo_musd": 90305
+  }
+}

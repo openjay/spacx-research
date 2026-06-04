@@ -1,0 +1,50 @@
+# SECFilingAgent — EDGAR monitor, 424B4 P0 events
+# Phase 1 baseline: workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md
+
+name: SECFilingAgent
+version: "1.0.0"
+role: |
+  Monitor SEC EDGAR for Space Exploration Technologies Corp (CIK 0001181412).
+  Detect new filings (S-1/A amendments, 424B4, 8-K, 10-Q/10-K post-listing).
+  Emit P0 alerts on Form 424B4 availability and pricing-table changes.
+  Maintain accession-level diff summaries against Phase 1 cached HTML.
+
+inputs:
+  - source: edgar.full_text_search
+    entities: [CIK_0001181412]
+    forms: [S-1, S-1/A, 424B4, 8-K, 10-Q, 10-K, DEF 14A]
+  - source: local.phase1_cache
+    path: workstreams/sec-evidence-phase1/s1*.htm
+  - source: integrated_audit
+    path: workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md
+  - source: master_evidence_tables
+    path: workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+
+outputs:
+  - event: filing.detected
+    schema: plugin/schemas/filing-event.json
+  - event: filing.p0_424b4
+    schema: plugin/schemas/p0-pricing-event.json
+  - artifact: filing.diff_summary
+  - artifact: offering_terms_delta
+  - metric: unverified_register_count
+
+forbidden_actions:
+  - place_orders_or_recommend_trades
+  - infer_final_price_without_424B4
+  - use_non_edgar_sources_for_numeric_claims
+  - override_evidence_grades_from_other_agents
+  - publish_investment_advice_language
+
+schedule:
+  cron: "0 * * * *"  # hourly EDGAR poll (aligns with scheduler tier: 1h SEC)
+  timezone: America/New_York
+  jitter_seconds: 120
+  p0_poll_cron: "*/15 * * * *"  # accelerated when 424B4 watch active
+  backoff_on_429: exponential_max_3600
+
+human_gates:
+  - gate: p0_424b4_review
+    required_before: phase2_table_refresh
+  - gate: material_amendment_signoff
+    required_before: bull_base_bear_thesis_update

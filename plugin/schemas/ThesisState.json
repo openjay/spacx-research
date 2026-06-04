@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/ThesisState.json",
+  "title": "ThesisState",
+  "description": "Bayesian-style thesis probability maintained by evidence updates (not LLM overrides).",
+  "type": "object",
+  "required": [
+    "asset",
+    "thesis_key",
+    "thesis",
+    "probability",
+    "status",
+    "last_updated_at",
+    "evidence_refs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "asset": { "type": "string", "const": "SPCX" },
+    "thesis_key": {
+      "type": "string",
+      "enum": [
+        "STARLINK_CASHFLOW_STRONG",
+        "AI_HIGH_QUALITY_REVENUE",
+        "STARSHIP_COST_CURVE",
+        "LOCKUP_OVERWHELMS_DEMAND",
+        "GOVERNANCE_DISCOUNT_EXPANDS",
+        "VALUATION_REASONABLE"
+      ]
+    },
+    "thesis": { "type": "string" },
+    "probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["BULL", "BASE", "BEAR", "WATCH", "INVALIDATED"]
+    },
+    "last_update_reason": { "type": "string" },
+    "last_updated_at": { "type": "string", "format": "date-time" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "model_version": { "type": "string", "default": "bayesian_thesis_v0" }
+  }
+}

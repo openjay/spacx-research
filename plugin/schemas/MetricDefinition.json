@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/MetricDefinition.json",
+  "title": "MetricDefinition",
+  "description": "Machine-readable watch metric with formula, baselines, and threshold policy.",
+  "type": "object",
+  "required": [
+    "metric_id",
+    "asset",
+    "formula",
+    "unit",
+    "source_priority",
+    "update_cadence"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "metric_id": { "type": "string" },
+    "asset": { "type": "string", "const": "SPCX" },
+    "flywheel": {
+      "type": "string",
+      "enum": ["STARLINK", "AI_COMPUTE", "STARSHIP", "GOVERNANCE", "OFFERING", "MACRO"]
+    },
+    "formula": { "type": "string" },
+    "unit": { "type": "string" },
+    "baseline": { "type": "number" },
+    "baseline_period": { "type": "string" },
+    "amber_threshold": {
+      "description": "Direction depends on metric; engine uses comparator from registry",
+      "type": "number"
+    },
+    "red_threshold": { "type": "number" },
+    "comparator": {
+      "type": "string",
+      "enum": ["gte", "lte", "gt", "lt", "eq", "between"],
+      "default": "gte"
+    },
+    "source_priority": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "update_cadence": {
+      "type": "string",
+      "description": "cron or human label, e.g. daily, on_10q, event"
+    },
+    "blocker_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "description": { "type": "string" }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/AuditReceipt.json",
+  "title": "AuditReceipt",
+  "description": "Immutable audit trail for ingest, thesis, risk, and action decisions.",
+  "type": "object",
+  "required": [
+    "receipt_id",
+    "operation",
+    "actor",
+    "input_hash",
+    "output_hash",
+    "recorded_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "receipt_id": { "type": "string" },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "INGEST_SOURCE",
+        "EXTRACT_EVENTS",
+        "METRICS_UPDATE",
+        "THESIS_UPDATE",
+        "RISK_EVALUATE",
+        "ACTION_PROPOSE",
+        "ALERT_DISPATCH",
+        "EVIDENCE_SEAL",
+        "REPORT_GENERATE"
+      ]
+    },
+    "actor": {
+      "type": "string",
+      "description": "agent id or human principal"
+    },
+    "input_hash": { "type": "string" },
+    "output_hash": { "type": "string" },
+    "evidence_packet_id": { "type": "string" },
+    "onchain_anchor": { "type": "string" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "summary": { "type": "string" },
+    "metadata": { "type": "object", "additionalProperties": true }
+  }
+}

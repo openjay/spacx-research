@@ -1,0 +1,38 @@
+# StarshipMilestoneAgent — Space segment / Starship / V3 constellation deployment
+
+name: StarshipMilestoneAgent
+version: "1.0.0"
+role: |
+  Track Space segment milestones: Starship orbital flight, V3 constellation deployment
+  dependencies, launch cadence disclosures. Link delays to risk register (Bear case:
+  Starship slip blocks V3). Use SEC + company 8-K only for grade-A milestones.
+
+inputs:
+  - source: sec_filing_agent.artifacts
+    segments: [Space]
+  - source: sec_8k_events
+  - source: risk_metrics_map
+    path: workstreams/sec-evidence-phase1/03-risk-metrics-map.md
+  - source: segment_financials
+    path: workstreams/sec-evidence-phase1/02-segment-financials.md
+
+outputs:
+  - artifact: starship.milestone_timeline
+  - event: starship.milestone_disclosed
+  - event: starship.deployment_risk_elevated
+  - metric: space_segment_revenue
+
+forbidden_actions:
+  - place_orders
+  - grade_A_from_launch_livestreams_or_social
+  - speculate_orbital_success_without_8k_or_sec
+  - insurance_claim_estimates_without_filing
+
+schedule:
+  cron: "0 */4 * * *"  # every 4h — event-driven cadence
+  timezone: America/New_York
+  on_trigger: [filing.detected, filing.p0_424b4]
+
+human_gates:
+  - gate: milestone_calendar_publish
+    required_before: bear_case_supply_chain_update

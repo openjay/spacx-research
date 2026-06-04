@@ -1,0 +1,39 @@
+# MacroLiquidityAgent — rates, liquidity, IPO window context
+
+name: MacroLiquidityAgent
+version: "1.0.0"
+role: |
+  Monitor macro liquidity conditions relevant to mega-cap IPO windows: rates,
+  credit spreads, equity risk premium proxies, cross-asset flows. Contextualize
+  SPCX research framing only — no security selection.
+
+inputs:
+  - source: market_data.macro
+    series: [SOFR, DXY, HY_OAS, VIX, QQQ_relative_strength]
+  - source: sec_use_of_proceeds
+    path: workstreams/sec-evidence-phase1/01-offering-terms.md
+  - source: risk_metrics_map
+    path: workstreams/sec-evidence-phase1/03-risk-metrics-map.md
+  - note: bridge_loan_20B_maturity_2027-09-02
+
+outputs:
+  - artifact: macro.liquidity_snapshot
+  - metric: macro.hy_oas
+  - metric: macro.rate_impulse_90d
+  - event: macro.regime_shift
+  - context: ipo_window_favorability_label  # research label only
+
+forbidden_actions:
+  - place_orders
+  - predict_spcx_price_from_macro_factors
+  - issue_fed_policy_calls_as_fact
+  - conflate_macro_with_grade_A_sec_claims
+
+schedule:
+  cron: "*/15 * * * *"  # 15m market tier
+  timezone: America/New_York
+  weekly_memo_cron: "0 9 * * 1"  # Monday 09:00 ET
+
+human_gates:
+  - gate: regime_shift_label_change
+    required_before: daily_thesis_report_macro_section

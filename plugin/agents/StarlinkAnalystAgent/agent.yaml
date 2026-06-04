@@ -1,0 +1,42 @@
+# StarlinkAnalystAgent — Connectivity segment KPIs
+
+name: StarlinkAnalystAgent
+version: "1.0.0"
+role: |
+  Track Connectivity (Starlink) segment KPIs from SEC disclosures and post-listing
+  supplements: subscribers, revenue growth, Adj. EBITDA margin, ARPU proxies.
+  Map KPI moves to evidence grades; flag Phase 2 monitor thresholds from Track C.
+
+inputs:
+  - source: sec_filing_agent.artifacts
+    segments: [Connectivity]
+  - source: master_evidence_tables
+    path: workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+  - source: phase1_segment_financials
+    path: workstreams/sec-evidence-phase1/02-segment-financials.md
+  - source: risk_metrics_map
+    path: workstreams/sec-evidence-phase1/03-risk-metrics-map.md
+  - source: market_data.post_listing
+    optional: true
+
+outputs:
+  - metric: starlink_subscribers
+  - metric: connectivity_revenue_yoy
+  - metric: connectivity_adj_ebitda_margin
+  - artifact: starlink.kpi_snapshot
+  - event: starlink.threshold_breach
+
+forbidden_actions:
+  - place_orders
+  - use_social_media_subscriber_counts_as_grade_A
+  - forecast_revenue_without_labeled_grade_C_or_D
+  - override_sec_segment_totals_with_third_party_estimates
+
+schedule:
+  cron: "*/15 * * * *"  # 15m market tier — KPI surface refresh
+  timezone: America/New_York
+  align_with: scheduler.tier.market_15m
+
+human_gates:
+  - gate: kpi_threshold_table_change
+    required_before: automated_alert_rule_deploy

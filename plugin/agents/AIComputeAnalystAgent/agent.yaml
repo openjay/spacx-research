@@ -1,0 +1,41 @@
+# AIComputeAnalystAgent — xAI / Colossus / Anthropic contract surface
+
+name: AIComputeAnalystAgent
+version: "1.0.0"
+role: |
+  Track AI segment: Capex/Revenue ratio, operating losses, nameplate GW, Anthropic
+  contract run-rate ($12.5B/yr if fully ramped), 90-day termination notice risk.
+  Monitor customer concentration (Customer A ~21–25% consolidated revenue).
+
+inputs:
+  - source: sec_filing_agent.artifacts
+    segments: [AI]
+  - source: master_evidence_tables
+    path: workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+  - source: offering_governance_audit
+    path: workstreams/sec-evidence-phase1/audit/B-offering-governance-audit.md
+  - source: risk_metrics_map
+    path: workstreams/sec-evidence-phase1/03-risk-metrics-map.md
+
+outputs:
+  - metric: ai_capex_to_revenue
+  - metric: ai_operating_loss
+  - metric: anthropic_contract_run_rate
+  - artifact: ai.segment_health_memo
+  - event: ai.customer_concentration_alert
+  - event: ai.anthropic_clause_trigger
+
+forbidden_actions:
+  - place_orders
+  - treat_anthropic_run_rate_as_confirmed_revenue_without_ramp_disclosure
+  - ignore_icfr_and_credit_risk_flags_from_sec
+  - price_target_or_buy_sell_language
+
+schedule:
+  cron: "*/15 * * * *"  # 15m market tier
+  timezone: America/New_York
+  deep_review_cron: "0 8 * * 1-5"  # weekday 08:00 ET memo
+
+human_gates:
+  - gate: anthropic_scenario_assumption_change
+    required_before: base_case_cashflow_model_update

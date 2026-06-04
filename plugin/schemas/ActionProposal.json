@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/ActionProposal.json",
+  "title": "ActionProposal",
+  "description": "Human-reviewable action candidate; compliance_level 2 never auto-executes.",
+  "type": "object",
+  "required": [
+    "proposal_id",
+    "asset",
+    "proposal_type",
+    "reason",
+    "risk_state",
+    "created_at",
+    "compliance_level"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "proposal_id": { "type": "string" },
+    "asset": { "type": "string", "const": "SPCX" },
+    "proposal_type": {
+      "type": "string",
+      "enum": [
+        "OBSERVE_ONLY",
+        "HOLD",
+        "WATCHLIST_ADD",
+        "WATCHLIST_REMOVE",
+        "SIZE_UP",
+        "SIZE_DOWN",
+        "PAPER_BUY",
+        "PAPER_SELL"
+      ]
+    },
+    "reason": { "type": "string" },
+    "max_position_pct": { "type": "number" },
+    "blocked_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risk_state": {
+      "type": "string",
+      "enum": ["GREEN", "AMBER", "RED"]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "portfolio_context_hash": { "type": "string" },
+    "requires_human_approval": { "type": "boolean", "default": true },
+    "compliance_level": { "type": "integer", "minimum": 0, "maximum": 6 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" }
+  }
+}

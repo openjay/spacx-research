@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/SourceRecord.json",
+  "title": "SourceRecord",
+  "description": "Raw or normalized data source ingested into the SPACX evidence pipeline.",
+  "type": "object",
+  "required": ["source_id", "source_type", "uri", "ingested_at"],
+  "additionalProperties": false,
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "description": "Stable identifier, e.g. sec_spcx_s1a2_20260603"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "SEC_FILING",
+        "EXCHANGE_NOTICE",
+        "REGULATOR",
+        "COMPANY_IR",
+        "TIER1_NEWS",
+        "MARKET_DATA",
+        "ONCHAIN",
+        "RWA_ATTESTATION",
+        "MACRO_SERIES",
+        "SOCIAL"
+      ]
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "title": { "type": "string" },
+    "issuer": { "type": "string", "default": "Space Exploration Technologies Corp." },
+    "asset": { "type": "string", "const": "SPCX" },
+    "form": {
+      "type": "string",
+      "description": "SEC form when source_type is SEC_FILING, e.g. S-1/A, 424B4, 10-Q"
+    },
+    "filed_at": { "type": "string", "format": "date-time" },
+    "ingested_at": { "type": "string", "format": "date-time" },
+    "content_hash": {
+      "type": "string",
+      "description": "SHA-256 of normalized payload bytes"
+    },
+    "metadata": { "type": "object", "additionalProperties": true }
+  }
+}

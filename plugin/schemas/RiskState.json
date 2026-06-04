@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/RiskState.json",
+  "title": "RiskState",
+  "description": "Portfolio and asset-level risk budget evaluation output.",
+  "type": "object",
+  "required": ["asset", "overall_status", "evaluated_at", "flags", "limits"],
+  "additionalProperties": false,
+  "properties": {
+    "asset": { "type": "string", "const": "SPCX" },
+    "overall_status": {
+      "type": "string",
+      "enum": ["GREEN", "AMBER", "RED"]
+    },
+    "evaluated_at": { "type": "string", "format": "date-time" },
+    "flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "e.g. FINAL_PROSPECTUS_PENDING, FIRST_EARNINGS_PENDING"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_position_pct": { "type": "number", "maximum": 100 },
+        "max_thematic_ai_infra_pct": { "type": "number" },
+        "observation_cap_pct": { "type": "number", "default": 1.0 }
+      }
+    },
+    "metric_alerts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "thesis_summary": { "type": "object", "additionalProperties": { "type": "number" } },
+    "blocked_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

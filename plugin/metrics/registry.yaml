@@ -1,0 +1,555 @@
+# SPACX machine-readable metric registry (SEC Phase 1 baselines → Phase 2 watchlist)
+version: "1.0"
+asset: SPCX
+primary_sec_source: "Form S-1/A Amendment No. 2 (2026-06-03, s1a2-main.htm)"
+phase1_evidence:
+  - workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+  - workstreams/sec-evidence-phase1/03-risk-metrics-map.md
+  - workstreams/sec-evidence-phase1/audit/C-risk-disclosure-audit.md
+
+blockers:
+  - flag_id: FINAL_PROSPECTUS_PENDING
+    description: "Form 424B4 final prospectus not filed; IPO price, spread, listing date TBD"
+    sec_citation: "05-master-evidence-tables.md Table 1; 424B4 status"
+    active: true
+  - flag_id: LOCKUP_DAY0_UNKNOWN
+    description: "Prospectus anchor date TBD until priced; lock-up day-0 calendar unknown"
+    sec_citation: "05-master-evidence-tables.md Table 5; B-lock-up-schedule.md"
+    active: true
+  - flag_id: FIRST_EARNINGS_PENDING
+    description: "First earnings release date unknown; 180-day lock-up pool releases tied to earnings"
+    sec_citation: "03-risk-metrics-map.md Lock-up schedule"
+    active: true
+
+watch_metrics:
+  - metric_id: W01_ipo_price_usd
+    name: IPO price vs benchmark
+    asset: SPCX
+    formula: "final_424b4_price_usd"
+    unit: USD
+    baseline: 135.0
+    baseline_period: Q1_2026
+    amber_threshold:
+      op: outside_pct_band
+      center: 135.0
+      pct: 5.0
+      note: "Final 424B4 price ±5% → rebase models"
+    red_threshold: null
+    source_priority: [424B4, S-1/A_2]
+    update_cadence: event_driven
+
+  - metric_id: W02_first_day_pop_pct
+    name: First-day pop (lock-up trigger)
+    asset: SPCX
+    formula: "(close - ipo_price) / ipo_price"
+    unit: ratio
+    baseline: null
+    baseline_period: post_listing
+    amber_threshold: null
+    red_threshold:
+      op: gte
+      value: 0.30
+      consecutive_days: 5
+      window_days: 10
+      unlock_shares_m: 455.8
+      note: "≥30% above IPO for 5 of 10 days unlocks +455.8M shares"
+    source_priority: [market_data, Shares_Eligible_for_Future_Sale]
+    update_cadence: daily_post_ipo
+
+  - metric_id: W03_starlink_subscribers_m
+    name: Starlink subscribers
+    asset: SPCX
+    formula: "connectivity_starlink_subscribers_m"
+    unit: millions
+    baseline: 10.3
+    baseline_period: Q1_2026
+    amber_threshold:
+      op: qoq_growth_lt
+      value: 0.03
+    red_threshold:
+      op: qoq_growth_lt
+      value: 0.0
+    source_priority: [10-Q, earnings, Segment_Operating_Data]
+    update_cadence: quarterly
+
+  - metric_id: W04_starlink_arpu_usd_mo
+    name: Starlink ARPU
+    asset: SPCX
+    formula: "connectivity_starlink_arpu_usd_per_month"
+    unit: USD_per_month
+    baseline: 66
+    baseline_period: Q1_2026
+    amber_threshold:
+      op: lt
+      value: 60
+      consecutive_quarters: 2
+    red_threshold: null
+    source_priority: [10-Q, earnings, glossary]
+    update_cadence: quarterly
+
+  - metric_id: W05_connectivity_adj_ebitda_musd
+    name: Connectivity Segment Adj. EBITDA
+    asset: SPCX
+    formula: "segment_connectivity_adjusted_ebitda_musd"
+    unit: USD_millions
+    baseline: 2087
+    baseline_period: Q1_2026
+    amber_threshold:
+      op: lt
+      value: 1500
+    red_threshold: null
+    source_priority: [10-Q, MD&A_Non_GAAP]
+    update_cadence: quarterly
+
+  - metric_id: W06_anthropic_revenue_vs_contract_pct
+    name: Anthropic recognized revenue vs contract run-rate
+    asset: SPCX
+    formula: "recognized_anthropic_revenue_musd / ramp_adjusted_contract_run_rate_musd"
+    unit: ratio
+    baseline: null
+    baseline_period: post_ipo
+    contract_run_rate_musd_mo: 1250
+    amber_threshold:
+      op: lt
+      value: 0.75
+      consecutive_quarters: 2
+      note: "C §4 also cites <80% in risk theme 14; watch metric uses 75%"
+    red_threshold:
+      op: event
+      event: contract_termination_8k
+    source_priority: [10-Q, 8-K, Prospectus_Summary]
+    update_cadence: quarterly
+
+  - metric_id: W07_ai_op_loss_to_revenue_ratio
+    name: AI operating loss to revenue
+    asset: SPCX
+    formula: "abs(ai_op_loss_musd) / ai_revenue_musd"
+    unit: ratio
+    baseline: 3.018
+    baseline_period: Q1_2026
+    baseline_components:
+      ai_op_loss_musd: 2469
+      ai_revenue_musd: 818
+    amber_threshold:
+      op: gt
+      value: 4.0
+      consecutive_quarters: 2
+    red_threshold: null
+    source_priority: [10-Q, Segment_Operating_Data]
+    update_cadence: quarterly
+
+  - metric_id: W08_ai_capex_to_revenue_ratio
+    name: AI capex to revenue
+    asset: SPCX
+    formula: "ai_capex_musd / ai_revenue_musd"
+    unit: ratio
+    baseline: 9.441
+    baseline_period: Q1_2026
+    baseline_components:
+      ai_capex_musd: 7723
+      ai_revenue_musd: 818
+    amber_threshold:
+      op: gt
+      value: 8.0
+      consecutive_quarters: 2
+      note: "Risk theme 17: >8x two quarters → amber"
+    red_threshold:
+      op: gt
+      value: 10.0
+      consecutive_quarters: 2
+    source_priority: [10-Q, cash_flow_statement]
+    update_cadence: quarterly
+
+  - metric_id: W09_starship_payload_orbit_milestone
+    name: Starship payload to orbit by YE 2026
+    asset: SPCX
+    formula: "starship_commercial_payload_orbit_achieved"
+    unit: boolean
+    baseline: false
+    baseline_period: Q1_2026
+    target_window: "2H_2026"
+    amber_threshold: null
+    red_threshold:
+      op: eq
+      value: false
+      as_of: "2026-12-31"
+      note: "No payload-to-orbit milestone by YE 2026 → red"
+    source_priority: [earnings, Business_disclosure, FAA]
+    update_cadence: quarterly
+
+  - metric_id: W10_lockup_float_pct_at_gate
+    name: Lock-up float % at next release gate
+    asset: SPCX
+    formula: "released_class_a_shares / post_ipo_class_a_outstanding"
+    unit: ratio
+    baseline: null
+    baseline_period: post_ipo
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [Shares_Eligible, Underwriting_Lock_up]
+    update_cadence: event_driven
+    notes: "Model float % at days 70/90/105/120/135, Q3 earnings, day 180; Musk no early release"
+
+  - metric_id: W11_net_leverage_ratio
+    name: Net leverage vs covenant
+    asset: SPCX
+    formula: "net_debt / adjusted_ebitda"
+    unit: ratio
+    baseline: null
+    baseline_period: Q1_2026
+    covenant_baseline: 3.75
+    bridge_maturity: "2027-09-02"
+    bridge_musd: 20000
+    amber_threshold:
+      op: gt
+      value: 3.5
+    red_threshold:
+      op: event
+      event: bridge_unresolved_within_6mo_of_maturity
+    source_priority: [10-Q, credit_agreement_exhibits]
+    update_cadence: quarterly
+
+  - metric_id: W12_musk_voting_pct
+    name: Musk voting power and RPT flow
+    asset: SPCX
+    formula: "elon_musk_total_voting_power_pct"
+    unit: percent
+    baseline: 82.4
+    baseline_period: post_ipo_offering
+    amber_threshold:
+      op: event
+      event: material_new_rpt_without_audit_committee
+    red_threshold:
+      op: gt
+      value: 85.0
+    source_priority: [proxy, 8-K, Related_Person_Transactions]
+    update_cadence: quarterly
+
+governance_metrics:
+  - metric_id: G01_controlled_company
+    name: Controlled company status
+    asset: SPCX
+    formula: "is_controlled_company"
+    unit: boolean
+    baseline: true
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [The_Offering, proxy]
+    update_cadence: annual
+
+  - metric_id: G02_class_b_vote_weight_pct
+    name: Class B aggregate vote weight
+    asset: SPCX
+    formula: "class_b_votes / total_votes"
+    unit: percent
+    baseline: 88.5
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [The_Offering]
+    update_cadence: event_driven
+
+  - metric_id: G03_musk_voting_pct
+    name: Musk total voting power
+    asset: SPCX
+    formula: "musk_voting_power_pct"
+    unit: percent
+    baseline: 82.4
+    amber_threshold:
+      op: delta_gt
+      value: 2.0
+      period: quarter_over_quarter
+    red_threshold:
+      op: gt
+      value: 85.0
+    source_priority: [The_Offering, cover]
+    update_cadence: quarterly
+
+  - metric_id: G04_musk_lockup_days
+    name: Musk lock-up minimum days
+    asset: SPCX
+    formula: "musk_earliest_sale_day"
+    unit: days
+    baseline: 366
+    amber_threshold: null
+    red_threshold:
+      op: lt
+      value: 366
+      note: "Any early Musk release vs stated no early release"
+    source_priority: [Underwriting, Shares_Eligible]
+    update_cadence: event_driven
+
+  - metric_id: G05_restricted_shares_gt_1yr_bn
+    name: Shares restricted >1 year (billions)
+    asset: SPCX
+    formula: "restricted_gt_1yr_shares_bn"
+    unit: billions
+    baseline: 7.8
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [Shares_Eligible]
+    update_cadence: event_driven
+
+  - metric_id: G06_restricted_shares_pct_post_ipo
+    name: Restricted >1yr as % post-IPO outstanding
+    asset: SPCX
+    formula: "restricted_gt_1yr / post_ipo_total_outstanding"
+    unit: percent
+    baseline: 60.0
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [Shares_Eligible]
+    update_cadence: event_driven
+
+  - metric_id: G07_directed_shares_no_lockup_m
+    name: Directed share program (no lock-up) max shares
+    asset: SPCX
+    formula: "directed_shares_max_m"
+    unit: millions
+    baseline: 27.777778
+    amber_threshold: null
+    red_threshold: null
+    source_priority: [The_Offering, Underwriting]
+    update_cadence: event_driven
+
+flywheels:
+  starlink:
+    segment: Connectivity
+    metrics:
+      - metric_id: F_SL01_starlink_subscribers_m
+        name: Starlink subscribers
+        asset: SPCX
+        formula: "connectivity_starlink_subscribers_m"
+        unit: millions
+        baseline: 10.3
+        amber_threshold: { op: qoq_growth_lt, value: 0.03 }
+        red_threshold: { op: qoq_growth_lt, value: 0.0 }
+        source_priority: [Segment_Operating_Data, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_SL02_starlink_arpu_usd_mo
+        name: Starlink ARPU
+        asset: SPCX
+        formula: "connectivity_starlink_arpu_usd_per_month"
+        unit: USD_per_month
+        baseline: 66
+        amber_threshold: { op: lt, value: 60, consecutive_quarters: 2 }
+        red_threshold: null
+        source_priority: [Segment_Operating_Data, glossary]
+        update_cadence: quarterly
+
+      - metric_id: F_SL03_connectivity_revenue_musd
+        name: Connectivity revenue
+        asset: SPCX
+        formula: "segment_connectivity_revenue_musd"
+        unit: USD_millions
+        baseline: 3257
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Note_3_revenue, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_SL04_connectivity_adj_ebitda_musd
+        name: Connectivity Adj. EBITDA
+        asset: SPCX
+        formula: "segment_connectivity_adjusted_ebitda_musd"
+        unit: USD_millions
+        baseline: 2087
+        amber_threshold: { op: lt, value: 1500 }
+        red_threshold: null
+        source_priority: [MD&A_Non_GAAP, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_SL05_connectivity_capex_musd
+        name: Connectivity capex
+        asset: SPCX
+        formula: "segment_connectivity_capex_musd"
+        unit: USD_millions
+        baseline: 1332
+        amber_threshold: { op: gt, value: 5000, note: "FY run-rate stress if quarterly >5B" }
+        red_threshold: null
+        source_priority: [cash_flow, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_SL06_connectivity_adj_ebitda_margin_pct
+        name: Connectivity Adj. EBITDA margin
+        asset: SPCX
+        formula: "connectivity_adj_ebitda_musd / connectivity_revenue_musd * 100"
+        unit: percent
+        baseline: 64.1
+        amber_threshold: { op: lt, value: 50.0 }
+        red_threshold: null
+        source_priority: [auditor_calculated, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_SL07_starlink_v3_deploy_target
+        name: Starlink V3 via Starship deployment target
+        asset: SPCX
+        formula: "v3_satellites_deployed_via_starship"
+        unit: boolean
+        baseline: false
+        target_window: "2H_2026"
+        amber_threshold: null
+        red_threshold: { op: eq, value: false, as_of: "2026-12-31" }
+        source_priority: [Business, earnings]
+        update_cadence: quarterly
+
+  ai:
+    segment: AI
+    metrics:
+      - metric_id: F_AI01_ai_revenue_musd
+        name: AI segment revenue
+        asset: SPCX
+        formula: "segment_ai_revenue_musd"
+        unit: USD_millions
+        baseline: 818
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Note_3_revenue, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_AI02_ai_op_loss_musd
+        name: AI operating loss
+        asset: SPCX
+        formula: "abs(segment_ai_op_loss_musd)"
+        unit: USD_millions
+        baseline: 2469
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_AI03_ai_op_loss_to_revenue_ratio
+        name: AI op loss / revenue
+        asset: SPCX
+        formula: "abs(ai_op_loss_musd) / ai_revenue_musd"
+        unit: ratio
+        baseline: 3.018
+        amber_threshold: { op: gt, value: 4.0, consecutive_quarters: 2 }
+        red_threshold: null
+        source_priority: [10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_AI04_ai_capex_musd
+        name: AI capex
+        asset: SPCX
+        formula: "segment_ai_capex_musd"
+        unit: USD_millions
+        baseline: 7723
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [cash_flow, 10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_AI05_ai_capex_to_revenue_ratio
+        name: AI capex / revenue
+        asset: SPCX
+        formula: "ai_capex_musd / ai_revenue_musd"
+        unit: ratio
+        baseline: 9.441
+        amber_threshold: { op: gt, value: 8.0, consecutive_quarters: 2 }
+        red_threshold: { op: gt, value: 10.0, consecutive_quarters: 2 }
+        source_priority: [10-Q]
+        update_cadence: quarterly
+
+      - metric_id: F_AI06_ai_nameplate_gw
+        name: AI nameplate compute draw
+        asset: SPCX
+        formula: "ai_nameplate_compute_gw"
+        unit: gigawatts
+        baseline: 1.0
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Segment_Operating_Data]
+        update_cadence: quarterly
+
+      - metric_id: F_AI07_anthropic_contract_run_rate_musd_mo
+        name: Anthropic contractual monthly fee
+        asset: SPCX
+        formula: "anthropic_contract_usd_per_month"
+        unit: USD_millions_per_month
+        baseline: 1250
+        amber_threshold: null
+        red_threshold: { op: event, event: contract_termination_8k }
+        source_priority: [Prospectus_Summary, 8-K]
+        update_cadence: monthly
+
+      - metric_id: F_AI08_ai_adj_ebitda_musd
+        name: AI Segment Adj. EBITDA
+        asset: SPCX
+        formula: "segment_ai_adjusted_ebitda_musd"
+        unit: USD_millions
+        baseline: -609
+        amber_threshold: { op: lt, value: -2000, note: "Deepening loss vs Q1 baseline" }
+        red_threshold: null
+        source_priority: [MD&A_Non_GAAP]
+        update_cadence: quarterly
+
+  starship:
+    segment: Space
+    metrics:
+      - metric_id: F_ST01_space_launches_count
+        name: Launches (quarterly)
+        asset: SPCX
+        formula: "space_launches_count"
+        unit: count
+        baseline: 40
+        amber_threshold: { op: annualized_lt, value: 150, note: "FY run-rate <150/yr → amber per C theme 1" }
+        red_threshold: null
+        source_priority: [Segment_Operating_Data]
+        update_cadence: quarterly
+
+      - metric_id: F_ST02_space_mass_to_orbit_mt
+        name: Mass to orbit
+        asset: SPCX
+        formula: "space_mass_to_orbit_metric_tons"
+        unit: metric_tons
+        baseline: 556
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Segment_Operating_Data]
+        update_cadence: quarterly
+
+      - metric_id: F_ST03_space_starship_rd_musd
+        name: Starship program R&D spend
+        asset: SPCX
+        formula: "space_starship_rd_musd"
+        unit: USD_millions
+        baseline: 930
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Prospectus_Summary]
+        update_cadence: quarterly
+
+      - metric_id: F_ST04_starship_payload_orbit_milestone
+        name: Starship payload delivery to orbit
+        asset: SPCX
+        formula: "starship_payload_orbit_achieved"
+        unit: boolean
+        baseline: false
+        target_window: "2H_2026"
+        amber_threshold: null
+        red_threshold: { op: eq, value: false, as_of: "2026-12-31" }
+        source_priority: [Business, earnings]
+        update_cadence: quarterly
+
+      - metric_id: F_ST05_space_revenue_musd
+        name: Space segment revenue
+        asset: SPCX
+        formula: "segment_space_revenue_musd"
+        unit: USD_millions
+        baseline: 619
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Note_3_revenue]
+        update_cadence: quarterly
+
+      - metric_id: F_ST06_space_launches_fy_baseline
+        name: Launches FY2025 reference
+        asset: SPCX
+        formula: "space_launches_fy_count"
+        unit: count
+        baseline: 170
+        amber_threshold: null
+        red_threshold: null
+        source_priority: [Segment_Operating_Data]
+        update_cadence: annual

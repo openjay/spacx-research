@@ -1,0 +1,81 @@
+# SPACX 24/7 scheduler — agent orchestration tiers
+# Phase 1 link: workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md
+# Agents: plugin/agents/*/agent.yaml
+
+version: "1.0.0"
+timezone_default: America/New_York
+timezone_crypto: UTC
+
+tiers:
+  crypto_1_5m:
+    description: On-chain RWA monitor + evidence hash integrity (no trading)
+    interval_minutes: 5
+    interval_minutes_floor: 1
+    cron_default: "*/5 * * * *"
+    cron_floor: "*/1 * * * *"
+    agents:
+      - OnchainRWAAgent
+
+  market_15m:
+    description: Listed-equity context, segment KPIs, macro liquidity
+    interval_minutes: 15
+    cron: "*/15 * * * *"
+    agents:
+      - StarlinkAnalystAgent
+      - AIComputeAnalystAgent
+      - MacroLiquidityAgent
+
+  sec_1h:
+    description: EDGAR ingest, diff, P0 424B4 watch
+    interval_minutes: 60
+    cron: "0 * * * *"
+    agents:
+      - SECFilingAgent
+    accelerated:
+      cron: "*/15 * * * *"
+      when: watch_424b4_active
+
+  evidence_6h:
+    description: A/B/C/D regrade and gap register reconciliation
+    cron: "30 */6 * * *"
+    agents:
+      - EvidenceAuditorAgent
+
+  space_4h:
+    description: Starship / Space segment milestone ingest
+    cron: "0 */4 * * *"
+    agents:
+      - StarshipMilestoneAgent
+
+  float_daily:
+    description: Lock-up float path and release calendar
+    cron: "0 7 * * *"
+    agents:
+      - LockupFloatAgent
+
+  thesis_daily:
+    description: Human-gated Bull/Base/Bear synthesis report (research only)
+    cron: "0 18 * * *"
+    agents:
+      - EvidenceAuditorAgent   # grade gate
+      - SECFilingAgent         # filing delta section
+      - LockupFloatAgent       # float path section
+      - StarlinkAnalystAgent
+      - AIComputeAnalystAgent
+      - StarshipMilestoneAgent
+      - MacroLiquidityAgent
+      - OnchainRWAAgent        # hash manifest appendix
+    output: docs/reports/daily-thesis-YYYY-MM-DD.md
+    requires_human_gate: thesis_publish
+
+watch_flags:
+  watch_424b4_active:
+    set_by: SECFilingAgent
+    effect: enable sec_1h.accelerated cron
+
+failure_policy:
+  max_consecutive_failures: 3
+  alert_channel: human_ops
+  pause_agent_on_breach: true
+
+compliance_level_floor: 2  # see docs/COMPLIANCE.md — no sub-level-2 automation to external channels

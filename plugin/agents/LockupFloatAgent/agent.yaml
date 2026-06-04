@@ -1,0 +1,46 @@
+# LockupFloatAgent — float path model (staged lock-up, Musk 366d)
+
+name: LockupFloatAgent
+version: "1.0.0"
+role: |
+  Model tradable float path from staged lock-up schedule and directed shares.
+  Anchor Day 0 to prospectus/pricing date when 424B4 available; until then use
+  scenario labels (Unverified). Track Musk 366-day no-early-release constraint.
+
+inputs:
+  - source: lock_up_schedule
+    path: workstreams/sec-evidence-phase1/audit/B-lock-up-schedule.md
+  - source: offering_governance_audit
+    path: workstreams/sec-evidence-phase1/audit/B-offering-governance-audit.md
+  - source: sec_filing_agent.events
+    filter: [424B4, S-1/A]
+  - source: integrated_audit
+    path: workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md
+  - params:
+      primary_shares: 555555555
+      greenshoe_shares: 83333333
+      directed_shares_pct: 0.05
+
+outputs:
+  - artifact: float.release_calendar
+  - metric: float.tradable_shares_by_date
+  - metric: float.pct_of_primary_outstanding
+  - event: float.lockup_tranche_release
+  - event: float.day0_anchor_set
+
+forbidden_actions:
+  - place_orders
+  - assume_listing_date_without_424B4
+  - treat_expected_135_price_as_final_without_unverified_label
+  - recommend_front_run_lockup_expiry
+
+schedule:
+  cron: "0 7 * * *"  # daily 07:00 ET — float path refresh
+  timezone: America/New_York
+  recalc_on: [filing.p0_424b4]
+
+human_gates:
+  - gate: day0_anchor_confirmation
+    required_before: tradable_float_production_chart
+  - gate: lockup_calendar_external_share
+    required_before: public_export
