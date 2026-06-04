@@ -17,7 +17,7 @@ Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space 
 
 ### 2. AI-native intelligence plugin (`plugin/`)
 
-**Status:** V0 scaffold (runtime / EDGAR poll next)
+**Status:** V0 runtime (worker, EDGAR poll, persistence, health) — live metric ingestion next
 
 - Plugin id `spacx-intelligence` — compliance **level 2** (research, alerts, proposals; no auto execution)
 - JSON schemas: evidence, metrics, thesis, risk, action, audit (`plugin/schemas/`)
@@ -34,7 +34,8 @@ Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space 
 - [x] Seven statistical models (`plugin/models/`, [MODELS.md](./MODELS.md))
 - [x] Phase 2 quality tables (`workstreams/sec-evidence-phase2/`)
 - [x] Architecture and agent docs ([ARCHITECTURE.md](./ARCHITECTURE.md), [AGENTS.md](./AGENTS.md))
-- [ ] Runtime worker, EDGAR poll, and live metric ingestion (next)
+- [x] Runtime worker, EDGAR poll, persistence, health, action packets ([RUNTIME.md](./RUNTIME.md), `runtime/`)
+- [ ] Live metric ingestion and REST sidecar (next)
 
 
 ### 3. Web3 / RWA pre-layer (预埋)

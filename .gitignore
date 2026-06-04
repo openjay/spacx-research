@@ -21,4 +21,8 @@ __pycache__/
 node_modules/
 .venv/
 
+# Runtime local state (V0)
+runtime/data/
+runtime/.schema_contract_ok
+
 # Do NOT ignore SEC primary source HTML (s1*.htm) — kept for reproducibility
