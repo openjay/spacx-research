@@ -11,6 +11,7 @@ from typing import Any
 import yaml
 
 REGISTRY_PATH = Path(__file__).resolve().parent / "registry.yaml"
+POLICIES_PATH = Path(__file__).resolve().parent / "threshold_policies.yaml"
 BASELINES_PATH = Path(__file__).resolve().parent / "baselines.json"
 
 
@@ -34,6 +35,15 @@ def load_registry(path: Path | None = None) -> dict[str, Any]:
     path = path or REGISTRY_PATH
     with path.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+def load_threshold_policies(path: Path | None = None) -> dict[str, Any]:
+    path = path or POLICIES_PATH
+    if not path.is_file():
+        return {}
+    with path.open(encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    return data.get("policies", {})
 
 
 def load_baselines(path: Path | None = None) -> dict[str, Any]:
@@ -137,17 +147,28 @@ def evaluate_metric(
     snapshot: dict[str, Any],
     *,
     as_of: str | None = None,
+    policies: dict[str, Any] | None = None,
 ) -> MetricResult:
     metric_id = metric_def["metric_id"]
     value = snapshot.get("values", {}).get(metric_id, snapshot.get(metric_id))
     prior = snapshot.get("prior", {}).get(metric_id)
     history = snapshot.get("history", {}).get(metric_id)
 
-    if value is None and metric_def.get("red_threshold", {}) is None:
-        return MetricResult(metric_id, Status.UNKNOWN, value, "no snapshot value")
+    policies = policies if policies is not None else load_threshold_policies()
+    policy = policies.get(metric_id, {})
+    red = policy.get("red_threshold")
+    amber = policy.get("amber_threshold")
+    if red is None and not isinstance(metric_def.get("red_threshold"), dict):
+        red = metric_def.get("red_threshold")
+    if amber is None and not isinstance(metric_def.get("amber_threshold"), dict):
+        amber = metric_def.get("amber_threshold")
+    if isinstance(red, (int, float)):
+        red = {"op": metric_def.get("comparator", "gte"), "value": red}
+    if isinstance(amber, (int, float)):
+        amber = {"op": metric_def.get("comparator", "gte"), "value": amber}
 
-    red = metric_def.get("red_threshold")
-    amber = metric_def.get("amber_threshold")
+    if value is None and red is None:
+        return MetricResult(metric_id, Status.UNKNOWN, value, "no snapshot value")
 
     # boolean milestone red only after deadline (as_of), not on pre-milestone false
     if (
@@ -191,13 +212,15 @@ def evaluate_snapshot(
     registry: dict[str, Any] | None = None,
     as_of: str | None = None,
     apply_blockers: bool = True,
+    policies: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     registry = registry or load_registry()
+    policies = policies if policies is not None else load_threshold_policies()
     results: dict[str, MetricResult] = {}
 
     for metric_def in _iter_metric_defs(registry):
         results[metric_def["metric_id"]] = evaluate_metric(
-            metric_def, snapshot, as_of=as_of
+            metric_def, snapshot, as_of=as_of, policies=policies
         )
 
     blockers: list[dict[str, Any]] = []

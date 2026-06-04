@@ -1,19 +1,14 @@
 """
 Bayesian thesis updater: P(thesis | evidence packets).
 
-Five thesis keys (Phase 1 / Track D synthesis):
-  - connectivity_starlink
-  - space_starship_execution
-  - ai_capex_monetization
-  - governance_control
-  - supply_lockup_float
+Six canonical thesis keys per ``schemas/ThesisState.json``.
 """
 
 from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 
 from plugin.models._types import (
@@ -23,17 +18,22 @@ from plugin.models._types import (
     ModelResult,
     stable_hash,
 )
-
-# Canonical thesis keys referenced by thesis engine (V0)
-THESIS_KEYS = frozenset(
-    {
-        "connectivity_starlink",
-        "space_starship_execution",
-        "ai_capex_monetization",
-        "governance_control",
-        "supply_lockup_float",
-    }
+from plugin.models.thesis_keys import (
+    THESIS_DESCRIPTIONS,
+    THESIS_KEYS,
+    normalize_thesis_key,
+    probability_to_status,
 )
+
+# Re-export for ``plugin.models`` package consumers
+__all__ = [
+    "THESIS_KEYS",
+    "BayesianThesisModel",
+    "EvidencePacket",
+    "ThesisState",
+    "run_bayesian_thesis",
+    "to_thesis_state_dict",
+]
 
 
 @dataclass(frozen=True)
@@ -52,8 +52,7 @@ class EvidencePacket:
     confidence: float = 1.0  # 0–1 dampener on log-LR
 
     def __post_init__(self) -> None:
-        if self.thesis_key not in THESIS_KEYS:
-            raise ValueError(f"unknown thesis_key: {self.thesis_key}")
+        object.__setattr__(self, "thesis_key", normalize_thesis_key(self.thesis_key))
         if self.likelihood_ratio <= 0:
             raise ValueError("likelihood_ratio must be positive")
         if not 0.0 <= self.confidence <= 1.0:
@@ -69,6 +68,34 @@ class ThesisState:
     packets_applied: list[str]
 
 
+def to_thesis_state_dict(
+    *,
+    asset: str = "SPCX",
+    thesis_key: str,
+    probability: float,
+    last_updated_at: str | None = None,
+    evidence_refs: list[str] | None = None,
+    last_update_reason: str | None = None,
+) -> dict[str, Any]:
+    """Build a ``ThesisState.json``-compatible record."""
+    key = normalize_thesis_key(thesis_key)
+    return {
+        "asset": asset,
+        "thesis_key": key,
+        "thesis": THESIS_DESCRIPTIONS[key],
+        "probability": float(probability),
+        "status": probability_to_status(float(probability)),
+        "last_updated_at": last_updated_at
+        or datetime.now(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "evidence_refs": list(evidence_refs or []),
+        **({"last_update_reason": last_update_reason} if last_update_reason else {}),
+        "model_version": "bayesian_thesis_v0",
+    }
+
+
 class BayesianThesisModel:
     """Sequential log-odds update (V0); full MCMC deferred to Phase 3."""
 
@@ -76,11 +103,12 @@ class BayesianThesisModel:
     VERSION = "0.1.0"
 
     DEFAULT_PRIORS: dict[str, float] = {
-        "connectivity_starlink": 0.55,
-        "space_starship_execution": 0.45,
-        "ai_capex_monetization": 0.40,
-        "governance_control": 0.35,
-        "supply_lockup_float": 0.50,
+        "STARLINK_CASHFLOW_STRONG": 0.55,
+        "STARSHIP_COST_CURVE": 0.45,
+        "AI_HIGH_QUALITY_REVENUE": 0.40,
+        "GOVERNANCE_DISCOUNT_EXPANDS": 0.35,
+        "LOCKUP_OVERWHELMS_DEMAND": 0.50,
+        "VALUATION_REASONABLE": 0.45,
     }
 
     PHASE3_REQUIREMENTS: tuple[DataRequirement, ...] = (
@@ -115,20 +143,19 @@ class BayesianThesisModel:
         prior: float | None,
         packets: Sequence[EvidencePacket],
     ) -> ThesisState:
-        if thesis_key not in THESIS_KEYS:
-            raise ValueError(f"unknown thesis_key: {thesis_key}")
-        p0 = prior if prior is not None else self.DEFAULT_PRIORS[thesis_key]
+        key = normalize_thesis_key(thesis_key)
+        p0 = prior if prior is not None else self.DEFAULT_PRIORS[key]
         lo = self._prob_to_log_odds(p0)
         applied: list[str] = []
         for pkt in packets:
-            if pkt.thesis_key != thesis_key:
+            if pkt.thesis_key != key:
                 continue
             lr_eff = pkt.likelihood_ratio**pkt.confidence
             lo += math.log(lr_eff)
             applied.append(pkt.packet_id)
         post = self._log_odds_to_prob(lo)
         return ThesisState(
-            thesis_key=thesis_key,
+            thesis_key=key,
             prior=p0,
             posterior=post,
             log_odds=lo,
@@ -141,10 +168,12 @@ class BayesianThesisModel:
         *,
         priors: Mapping[str, float] | None = None,
         run_id: str | None = None,
+        asset: str = "SPCX",
     ) -> ModelResult:
-        """Update all five theses from a batch of evidence packets."""
-        priors = dict(priors or {})
+        """Update all six theses from a batch of evidence packets."""
+        priors = {normalize_thesis_key(k): v for k, v in dict(priors or {}).items()}
         states: dict[str, Any] = {}
+        schema_states: list[dict[str, Any]] = []
         for key in sorted(THESIS_KEYS):
             state = self.update(key, priors.get(key), packets)
             states[key] = {
@@ -154,8 +183,17 @@ class BayesianThesisModel:
                 "packets_applied": state.packets_applied,
                 "delta": state.posterior - state.prior,
             }
+            schema_states.append(
+                to_thesis_state_dict(
+                    asset=asset,
+                    thesis_key=key,
+                    probability=state.posterior,
+                    evidence_refs=state.packets_applied,
+                    last_update_reason="bayesian_thesis_v0 update",
+                )
+            )
 
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, str(len(packets))])
         audit = AuditRecord(
             model=self.MODEL_NAME,
@@ -170,7 +208,11 @@ class BayesianThesisModel:
         return ModelResult(
             model_name=self.MODEL_NAME,
             phase=ModelPhase.V0,
-            payload={"theses": states, "thesis_keys": sorted(THESIS_KEYS)},
+            payload={
+                "theses": states,
+                "thesis_keys": sorted(THESIS_KEYS),
+                "thesis_states": schema_states,
+            },
             audit=audit,
             data_gaps=list(self.PHASE3_REQUIREMENTS) if not packets else [],
         )

@@ -51,6 +51,10 @@ alerts.get_risk_alerts("SPCX")
 
 Base path: `/api/v1/spacx` (see `manifest.yaml`).
 
+## Contracts
+
+`plugin/contracts/validate_against_schema(obj, "RiskState")` validates API and registry payloads against `plugin/schemas/` (requires `jsonschema`; see repo `pyproject.toml`).
+
 ## Schemas
 
 JSON Schema under `plugin/schemas/`:

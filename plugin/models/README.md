@@ -47,15 +47,18 @@ Research-grade, **auditable** Python modules for **proposed / expected listing s
 
 **Question:** How should belief in each structural thesis change given new evidence?
 
-**Thesis keys (five):**
+**Thesis keys (six, `ThesisState.json`):**
 
-| Key | Phase 1 anchor |
-|-----|----------------|
-| `connectivity_starlink` | Starlink users, ARPU, Connectivity EBITDA |
-| `space_starship_execution` | Launches, Starship orbit, FAA |
-| `ai_capex_monetization` | AI capex/revenue, Anthropic recognition |
-| `governance_control` | Musk voting %, controlled company, RPT |
-| `supply_lockup_float` | Staged lock-up, float path |
+| `thesis_key` | Phase 1 anchor |
+|--------------|----------------|
+| `STARLINK_CASHFLOW_STRONG` | Starlink users, ARPU, Connectivity EBITDA |
+| `STARSHIP_COST_CURVE` | Launches, Starship orbit, FAA |
+| `AI_HIGH_QUALITY_REVENUE` | AI capex/revenue, Anthropic recognition |
+| `GOVERNANCE_DISCOUNT_EXPANDS` | Musk voting %, controlled company, RPT |
+| `LOCKUP_OVERWHELMS_DEMAND` | Staged lock-up, float path |
+| `VALUATION_REASONABLE` | IPO price vs benchmark, SOTP |
+
+Legacy snake_case keys are accepted via `normalize_thesis_key()` — see `docs/MODELS.md`.
 
 **Method (V0):**
 
@@ -154,14 +157,14 @@ from plugin.models import run_bayesian_thesis, EvidencePacket
 packets = [
     EvidencePacket(
         packet_id="sec-q1-starlink",
-        thesis_key="connectivity_starlink",
+        thesis_key="STARLINK_CASHFLOW_STRONG",
         summary="Starlink 10.3M users Q1 2026",
         likelihood_ratio=1.15,
         source="sec_filing",
     ),
 ]
 result = run_bayesian_thesis(packets)
-print(result.payload["theses"]["connectivity_starlink"]["posterior"])
+print(result.payload["theses"]["STARLINK_CASHFLOW_STRONG"]["posterior"])
 print(result.audit.to_dict())
 ```
 

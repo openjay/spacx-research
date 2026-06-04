@@ -14,12 +14,13 @@ from plugin.models.anomaly_detection import (
     run_anomaly_detection,
 )
 from plugin.models.bayesian_thesis import (
-    THESIS_KEYS,
     BayesianThesisModel,
     EvidencePacket,
     ThesisState,
     run_bayesian_thesis,
+    to_thesis_state_dict,
 )
+from plugin.models.thesis_keys import LEGACY_THESIS_KEY_MAP, THESIS_KEYS, normalize_thesis_key
 from plugin.models.event_study import (
     EVENT_TYPES,
     AbnormalReturnPoint,
@@ -66,6 +67,9 @@ __all__ = [
     "ModelResult",
     "EVENT_TYPES",
     "THESIS_KEYS",
+    "LEGACY_THESIS_KEY_MAP",
+    "normalize_thesis_key",
+    "to_thesis_state_dict",
     "REGIME_LABELS",
     "DEFAULT_FACTORS",
     "DEFAULT_PEERS",

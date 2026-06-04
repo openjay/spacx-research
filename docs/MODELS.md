@@ -40,6 +40,8 @@ The registry is the **single write surface** for observable KPIs named in Phase 
 | `as_of` | ISO date | All models |
 | `provenance` | filing path, agent packet id | `bayesian_thesis` evidence |
 | `threshold_policy_id` | `cfa_watch_v1` | `anomaly_detection` |
+| `amber_threshold` / `red_threshold` | numeric + `comparator` per `MetricDefinition.json` | registry validation |
+| Rich thresholds (QoQ, events, bands) | `plugin/metrics/threshold_policies.yaml` | `threshold_engine` |
 
 **Phase 1 seeds** live in `workstreams/sec-evidence-phase1/03-risk-metrics-map.md` and `audit/C-risk-disclosure-audit.md` (12 watch metrics + governance). V0 `DEFAULT_THRESHOLDS` in `anomaly_detection.py` mirror a subset; Phase 3 loads thresholds from registry config, not code.
 
@@ -53,17 +55,22 @@ The registry is the **single write surface** for observable KPIs named in Phase 
 
 ## Thesis engine (planned)
 
-The thesis engine owns **narrative state** and agent outputs:
+The thesis engine owns **narrative state** and agent outputs. Canonical keys are defined in `plugin/schemas/ThesisState.json` (six theses). V0 `bayesian_thesis` and API stubs emit schema-valid `ThesisState` records.
 
-| Thesis key | Registry metrics (examples) | Model |
-|------------|----------------------------|--------|
-| `connectivity_starlink` | subscribers, ARPU, Connectivity EBITDA | `bayesian_thesis` |
-| `space_starship_execution` | launches, Starship milestones | `bayesian_thesis`, `event_study` |
-| `ai_capex_monetization` | AI capex/revenue, Anthropic recognition | `bayesian_thesis`, `anomaly_detection` |
-| `governance_control` | Musk voting %, RPT $ | `bayesian_thesis` |
-| `supply_lockup_float` | lock-up release gates | `bayesian_thesis`, `event_study` |
+### Thesis key mapping (legacy → schema)
 
-**Evidence packets** (`EvidencePacket`) are appended by agents or humans with `likelihood_ratio` and citation to registry rows. `BayesianThesisModel.run()` returns posteriors consumed by the engine UI and by `portfolio_risk_budget` (e.g. tighten caps when `governance_control` posterior drops).
+| Legacy key (V0 docs) | Schema `thesis_key` | Registry metrics (examples) | Model |
+|----------------------|---------------------|------------------------------|--------|
+| `connectivity_starlink` | `STARLINK_CASHFLOW_STRONG` | subscribers, ARPU, Connectivity EBITDA | `bayesian_thesis` |
+| `space_starship_execution` | `STARSHIP_COST_CURVE` | launches, Starship milestones | `bayesian_thesis`, `event_study` |
+| `ai_capex_monetization` | `AI_HIGH_QUALITY_REVENUE` | AI capex/revenue, Anthropic recognition | `bayesian_thesis`, `anomaly_detection` |
+| `governance_control` | `GOVERNANCE_DISCOUNT_EXPANDS` | Musk voting %, RPT $ | `bayesian_thesis` |
+| `supply_lockup_float` | `LOCKUP_OVERWHELMS_DEMAND` | lock-up release gates | `bayesian_thesis`, `event_study` |
+| — | `VALUATION_REASONABLE` | IPO price vs benchmark, SOTP | `bayesian_thesis` |
+
+`plugin/models/thesis_keys.py` exposes `normalize_thesis_key()` so evidence packets may still use legacy snake_case keys during migration.
+
+**Evidence packets** (`EvidencePacket`) are appended by agents or humans with `likelihood_ratio` and citation to registry rows. `BayesianThesisModel.run()` returns posteriors and `thesis_states` (JSON Schema–valid) consumed by the engine UI and by `portfolio_risk_budget` (e.g. tighten caps when `GOVERNANCE_DISCOUNT_EXPANDS` posterior drops).
 
 **Forecast loop:** Agents register `AgentForecast` records on discrete events (`424B4` filed, earnings beat, Starship orbit). After resolution, `forecast_scoring` updates agent weights for future packet confidence.
 

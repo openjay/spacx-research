@@ -1,0 +1,124 @@
+# Rich threshold policies (ops, consecutive periods, events).
+# Numeric amber/red on registry entries validate against MetricDefinition.json;
+# the threshold engine merges these policies by metric_id when present.
+version: "1.0"
+
+policies:
+  W01_ipo_price_usd:
+    amber_threshold:
+      op: outside_pct_band
+      center: 135.0
+      pct: 5.0
+      note: "Final 424B4 price ±5% → rebase models"
+
+  W02_first_day_pop_pct:
+    red_threshold:
+      op: gte
+      value: 0.30
+      consecutive_days: 5
+      window_days: 10
+      unlock_shares_m: 455.8
+      note: "≥30% above IPO for 5 of 10 days unlocks +455.8M shares"
+
+  W03_starlink_subscribers_m:
+    amber_threshold:
+      op: qoq_growth_lt
+      value: 0.03
+    red_threshold:
+      op: qoq_growth_lt
+      value: 0.0
+
+  W04_starlink_arpu_usd_mo:
+    amber_threshold:
+      op: lt
+      value: 60
+      consecutive_quarters: 2
+
+  W06_anthropic_revenue_vs_contract_pct:
+    amber_threshold:
+      op: lt
+      value: 0.75
+      consecutive_quarters: 2
+      note: "C §4 also cites <80% in risk theme 14; watch metric uses 75%"
+    red_threshold:
+      op: event
+      event: contract_termination_8k
+
+  W07_ai_op_loss_to_revenue_ratio:
+    amber_threshold:
+      op: gt
+      value: 4.0
+      consecutive_quarters: 2
+
+  W08_ai_capex_to_revenue_ratio:
+    amber_threshold:
+      op: gt
+      value: 8.0
+      consecutive_quarters: 2
+      note: "Risk theme 17: >8x two quarters → amber"
+    red_threshold:
+      op: gt
+      value: 10.0
+      consecutive_quarters: 2
+
+  W09_starship_payload_orbit_milestone:
+    red_threshold:
+      op: eq
+      value: false
+      as_of: "2026-12-31"
+      note: "No payload-to-orbit milestone by YE 2026 → red"
+
+  W12_musk_voting_pct:
+    amber_threshold:
+      op: event
+      event: material_new_rpt_without_audit_committee
+    red_threshold:
+      op: gt
+      value: 85.0
+
+  G03_musk_voting_pct:
+    amber_threshold:
+      op: delta_gt
+      value: 2.0
+      period: quarter_over_quarter
+    red_threshold:
+      op: gt
+      value: 85.0
+
+  G04_musk_lockup_days:
+    red_threshold:
+      op: lt
+      value: 366
+      note: "Any early Musk release vs stated no early release"
+
+  F_SL01_starlink_subscribers_m:
+    amber_threshold: { op: qoq_growth_lt, value: 0.03 }
+    red_threshold: { op: qoq_growth_lt, value: 0.0 }
+
+  F_SL02_starlink_arpu_usd_mo:
+    amber_threshold: { op: lt, value: 60, consecutive_quarters: 2 }
+
+  F_SL05_connectivity_capex_musd:
+    amber_threshold: { op: gt, value: 5000, note: "FY run-rate stress if quarterly >5B" }
+
+  F_SL07_starlink_v3_deploy_target:
+    red_threshold: { op: eq, value: false, as_of: "2026-12-31" }
+
+  F_AI03_ai_op_loss_to_revenue_ratio:
+    amber_threshold: { op: gt, value: 4.0, consecutive_quarters: 2 }
+
+  F_AI05_ai_capex_to_revenue_ratio:
+    amber_threshold: { op: gt, value: 8.0, consecutive_quarters: 2 }
+    red_threshold: { op: gt, value: 10.0, consecutive_quarters: 2 }
+
+  F_AI07_anthropic_contract_run_rate_musd_mo:
+    red_threshold: { op: event, event: contract_termination_8k }
+
+  F_AI08_ai_adj_ebitda_musd:
+    amber_threshold: { op: lt, value: -2000, note: "Deepening loss vs Q1 baseline" }
+
+  F_ST01_space_launches_count:
+    amber_threshold: { op: annualized_lt, value: 150, note: "FY run-rate <150/yr → amber per C theme 1" }
+
+  F_ST04_starship_payload_orbit_milestone:
+    red_threshold: { op: eq, value: false, as_of: "2026-12-31" }

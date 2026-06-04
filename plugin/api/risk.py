@@ -5,7 +5,19 @@ Risk engine constrains all agents; compliance_level 2 blocks execution paths.
 
 from __future__ import annotations
 
+import hashlib
+import json
+import uuid
 from typing import Any
+
+from plugin.api._time import utc_now_iso
+from plugin.contracts import validate_against_schema
+
+_PHASE1_BLOCKERS = (
+    "FINAL_PROSPECTUS_PENDING",
+    "LOCKUP_DAY0_UNKNOWN",
+    "FIRST_EARNINGS_PENDING",
+)
 
 
 def risk_evaluate(
@@ -24,24 +36,21 @@ def risk_evaluate(
     Returns:
         RiskState dict (overall_status, flags, limits, blocked_actions).
     """
-    flags = [
-        "FINAL_PROSPECTUS_PENDING",
-        "LOCKUP_DAY0_UNKNOWN",
-        "FIRST_EARNINGS_PENDING",
-    ]
-    return {
+    _ = portfolio_context  # Phase 3: portfolio overlay on limits
+    result: dict[str, Any] = {
         "asset": asset,
         "overall_status": "AMBER",
-        "evaluated_at": None,
-        "flags": flags,
+        "evaluated_at": utc_now_iso(),
+        "flags": list(_PHASE1_BLOCKERS),
         "limits": {
             "max_position_pct": 1.0,
             "observation_cap_pct": 1.0,
         },
         "metric_alerts": [],
         "blocked_actions": ["AUTO_EXECUTE", "LIVE_ORDER"],
-        "portfolio_context_received": portfolio_context is not None,
     }
+    validate_against_schema(result, "RiskState")
+    return result
 
 
 def propose_action(
@@ -63,19 +72,30 @@ def propose_action(
         ActionProposal dict.
     """
     risk = risk_evaluate(asset, portfolio_context=portfolio_context)
-    return {
-        "proposal_id": None,
+    created_at = utc_now_iso()
+    ctx_hash = None
+    if portfolio_context is not None:
+        payload = json.dumps(portfolio_context, sort_keys=True, default=str)
+        ctx_hash = hashlib.sha256(payload.encode()).hexdigest()[:16]
+
+    result: dict[str, Any] = {
+        "proposal_id": str(uuid.uuid4()),
         "asset": asset,
         "proposal_type": proposal_type,
         "reason": "424B4 pending; first earnings not available; compliance_level 2",
         "max_position_pct": risk["limits"].get("observation_cap_pct", 1.0),
-        "blocked_by": risk["flags"],
+        "blocked_by": list(risk["flags"]),
         "risk_state": risk["overall_status"],
         "evidence_refs": [],
         "requires_human_approval": True,
         "compliance_level": 2,
-        "created_at": None,
+        "created_at": created_at,
     }
+    if ctx_hash:
+        result["portfolio_context_hash"] = ctx_hash
+
+    validate_against_schema(result, "ActionProposal")
+    return result
 
 
 def generate_action_proposal(

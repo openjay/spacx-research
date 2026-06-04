@@ -8,7 +8,7 @@
 | **Branch** | main |
 | **Description** | SPACX — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** `0e65233` — V0 intelligence + Web3/RWA pre-layer (2026-06-04). If you cloned before a force-with-lease on `main`, run `git fetch origin && git reset --hard origin/main`.
+**HEAD (`main`):** `e4c18d3` — fix(contracts): add contract_probe_ok for health readiness (2026-06-04).
 
 ```bash
 git clone git@github.com:openjay/spacx.git

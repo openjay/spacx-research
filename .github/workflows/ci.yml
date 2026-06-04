@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install jsonschema pyyaml pytest
+
+      - name: Run contract tests
+        run: pytest --tb=short -q
+
+      - name: Byte-compile plugin package
+        run: python -m compileall -q plugin
+
+      # Optional: enable secret scanning (e.g. gitleaks/trufflehog) in a follow-up PR.
+      # - name: Secret scan
+      #   uses: gitleaks/gitleaks-action@v2

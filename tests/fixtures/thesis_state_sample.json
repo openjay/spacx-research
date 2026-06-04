@@ -1,0 +1,9 @@
+{
+  "asset": "SPCX",
+  "thesis_key": "STARLINK_CASHFLOW_STRONG",
+  "thesis": "Starlink segment reaches durable positive FCF trajectory",
+  "probability": 0.55,
+  "status": "BASE",
+  "last_updated_at": "2026-06-04T12:00:00+00:00",
+  "evidence_refs": ["pkt-demo-001"]
+}

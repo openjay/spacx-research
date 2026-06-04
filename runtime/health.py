@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from plugin.contracts import contract_probe_ok
 from runtime.edgar_poll import BASELINES_PATH, REPO_ROOT, load_baseline_blockers, poll_edgar
 from runtime.persistence import init_db, load_edgar_state
 
@@ -33,10 +34,14 @@ def check_schema_contract(*, write_flag: bool = True) -> bool:
             json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             ok = False
+    ok = ok and contract_probe_ok()
     if write_flag:
         CONTRACT_FLAG.parent.mkdir(parents=True, exist_ok=True)
         if ok:
-            CONTRACT_FLAG.write_text(json.dumps({"ok": True, "schemas": list(REQUIRED_SCHEMAS)}), encoding="utf-8")
+            CONTRACT_FLAG.write_text(
+                json.dumps({"ok": True, "schemas": list(REQUIRED_SCHEMAS), "probe": True}),
+                encoding="utf-8",
+            )
         elif CONTRACT_FLAG.is_file():
             CONTRACT_FLAG.unlink()
     return ok
@@ -54,7 +59,7 @@ def readiness(*, refresh_edgar: bool = False) -> dict[str, Any]:
         ready: all gates green for observation worker (not trading)
     """
     init_db()
-    schema_contract_ok = check_schema_contract(write_flag=False) or CONTRACT_FLAG.is_file()
+    schema_contract_ok = check_schema_contract(write_flag=False)
 
     edgar_state = load_edgar_state()
     sec_cache_ok = False

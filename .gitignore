@@ -26,3 +26,7 @@ runtime/data/
 runtime/.schema_contract_ok
 
 # Do NOT ignore SEC primary source HTML (s1*.htm) — kept for reproducibility
+
+# Python packaging
+spacx.egg-info/
+*.egg-info/

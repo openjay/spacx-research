@@ -1,0 +1,9 @@
+{
+  "metric_id": "W03_starlink_subscribers_m",
+  "asset": "SPCX",
+  "value": 10.5,
+  "unit": "millions",
+  "as_of": "2026-06-04T12:00:00+00:00",
+  "status": "GREEN",
+  "evidence_refs": ["pkt-demo-002"]
+}
