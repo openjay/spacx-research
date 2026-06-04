@@ -25,7 +25,7 @@
     "W06_anthropic_revenue_vs_contract_pct": null,
     "W07_ai_op_loss_to_revenue_ratio": 3.018,
     "W08_ai_capex_to_revenue_ratio": 9.441,
-    "W09_starship_payload_orbit_achieved": false,
+    "W09_starship_payload_orbit_milestone": false,
     "W10_lockup_float_pct_at_next_gate": null,
     "W11_net_leverage_ratio": null,
     "W12_musk_voting_pct": 82.4
@@ -46,7 +46,7 @@
     "F_SL04_connectivity_adj_ebitda_musd": 2087,
     "F_SL05_connectivity_capex_musd": 1332,
     "F_SL06_connectivity_adj_ebitda_margin_pct": 64.1,
-    "F_SL07_starlink_v3_deploy_target_h2_2026": true
+    "F_SL07_starlink_v3_deploy_target": false
   },
   "flywheel_ai": {
     "F_AI01_ai_revenue_musd": 818,
@@ -59,12 +59,12 @@
     "F_AI08_ai_adj_ebitda_musd": -609
   },
   "flywheel_starship": {
-    "F_ST01_space_launches_q1": 40,
+    "F_ST01_space_launches_count": 40,
     "F_ST02_space_mass_to_orbit_mt": 556,
-    "F_ST03_space_starship_rd_musd_q1": 930,
-    "F_ST04_starship_payload_orbit_target_h2_2026": true,
+    "F_ST03_space_starship_rd_musd": 930,
+    "F_ST04_starship_payload_orbit_milestone": false,
     "F_ST05_space_revenue_musd": 619,
-    "F_ST06_space_launches_fy2025": 170
+    "F_ST06_space_launches_fy_baseline": 170
   },
   "debt_liquidity": {
     "bridge_loan_musd": 20000,

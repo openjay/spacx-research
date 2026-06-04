@@ -15,13 +15,27 @@ Platform code: **SPACX** · Listed equity: **SPCX** (Space Exploration Technolog
 
 **Entry:** [00-phase1-summary.md](../workstreams/sec-evidence-phase1/00-phase1-summary.md) · **Synthesis:** [audit/00-integrated-audit-opinion.md](../workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)
 
-### 2. AI-native analysis
+### 2. AI-native intelligence plugin (`plugin/`)
 
-**Status:** Planned
+**Status:** V0 scaffold (runtime / EDGAR poll next)
 
-- Evidence schemas agents can query without re-parsing raw HTML
-- Automated diff on new SEC amendments and 10-Q/10-K
+- Plugin id `spacx-intelligence` — compliance **level 2** (research, alerts, proposals; no auto execution)
+- JSON schemas: evidence, metrics, thesis, risk, action, audit (`plugin/schemas/`)
+- Agent API stubs: ingest, evidence, metrics, thesis, risk, alerts (`plugin/api/`)
+- Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md) — Data→Evidence→Metrics→Stat→LLM→Risk→Action→Audit
+- **Web3 phase 1:** evidence hash only (no on-chain trading); RWA monitor and policy-bound execution later
+- Parallel: metric registry, statistical models, eight agents (`plugin/metrics/`, `plugin/models/`, `plugin/agents/`)
+- Automated diff on new SEC amendments and 10-Q/10-K (Phase 2+)
 - Synthesis layers on top of Workstream 1 tables (no replacement of source trace)
+
+#### PHASE2_MARKET_INTELLIGENCE_PLUGIN_V0
+
+- [x] Metrics registry and baselines (`plugin/metrics/registry.yaml`, `baselines.json`, `threshold_engine.py`)
+- [x] Seven statistical models (`plugin/models/`, [MODELS.md](./MODELS.md))
+- [x] Phase 2 quality tables (`workstreams/sec-evidence-phase2/`)
+- [x] Architecture and agent docs ([ARCHITECTURE.md](./ARCHITECTURE.md), [AGENTS.md](./AGENTS.md))
+- [ ] Runtime worker, EDGAR poll, and live metric ingestion (next)
+
 
 ### 3. Trading workflows
 
@@ -29,7 +43,7 @@ Platform code: **SPACX** · Listed equity: **SPCX** (Space Exploration Technolog
 
 - Research-only pipelines: signals, sizing frameworks, execution assumptions
 - Explicit separation from production trading keys and live orders
-- Depends on Workstream 2 metric surfaces and post-listing market data
+- Depends on Workstream 2 plugin metric surfaces and post-listing market data
 
 ## Principles
 

@@ -120,8 +120,9 @@ def _eval_threshold(
         if not triggered:
             return False, None
         cq = threshold.get("consecutive_quarters")
-        if cq and history and len(history) >= int(cq):
-            # all last N quarters must satisfy the same op vs threshold
+        if cq:
+            if not history or len(history) < int(cq):
+                return False, None
             t = float(threshold["value"])
             window = history[-int(cq) :]
             if not all(_compare(op, float(v), t) for v in window):
@@ -148,15 +149,16 @@ def evaluate_metric(
     red = metric_def.get("red_threshold")
     amber = metric_def.get("amber_threshold")
 
-    # boolean / milestone red (deadline)
-    if red and red.get("op") == "eq" and red.get("as_of"):
-        if as_of and as_of >= red["as_of"] and value is False:
-            return MetricResult(
-                metric_id,
-                Status.RED,
-                value,
-                f"not achieved by {red['as_of']}",
-            )
+    # boolean milestone red only after deadline (as_of), not on pre-milestone false
+    if (
+        red
+        and red.get("op") == "eq"
+        and red.get("value") is False
+        and value is False
+        and red.get("as_of")
+    ):
+        if not as_of or as_of < red["as_of"]:
+            red = None
 
     red_hit, red_reason = _eval_threshold(red, value, prior_value=prior, history=history)
     if red_hit:
@@ -274,10 +276,10 @@ def sample_evaluations() -> dict[str, Any]:
             "F_SL02_starlink_arpu_usd_mo": 61,
         },
         "history": {
-            "W04_starlink_arpu_usd_mo": [61, 58],
-            "F_SL02_starlink_arpu_usd_mo": [61, 58],
-            "W08_ai_capex_to_revenue_ratio": [9.5, 10.5],
-            "F_AI05_ai_capex_to_revenue_ratio": [9.5, 10.5],
+            "W04_starlink_arpu_usd_mo": [59.0, 58.0],
+            "F_SL02_starlink_arpu_usd_mo": [59.0, 58.0],
+            "W08_ai_capex_to_revenue_ratio": [10.2, 10.5],
+            "F_AI05_ai_capex_to_revenue_ratio": [10.2, 10.5],
         },
         "blockers": {
             "FINAL_PROSPECTUS_PENDING": False,

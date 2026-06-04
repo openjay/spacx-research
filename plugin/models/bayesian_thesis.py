@@ -11,6 +11,7 @@ Five thesis keys (Phase 1 / Track D synthesis):
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Mapping, Sequence
@@ -102,12 +103,10 @@ class BayesianThesisModel:
     @staticmethod
     def _prob_to_log_odds(p: float) -> float:
         p = min(max(p, 1e-6), 1.0 - 1e-6)
-        return float(__import__("math").log(p / (1.0 - p)))
+        return math.log(p / (1.0 - p))
 
     @staticmethod
     def _log_odds_to_prob(lo: float) -> float:
-        import math
-
         return 1.0 / (1.0 + math.exp(-lo))
 
     def update(
@@ -124,8 +123,6 @@ class BayesianThesisModel:
         for pkt in packets:
             if pkt.thesis_key != thesis_key:
                 continue
-            import math
-
             lr_eff = pkt.likelihood_ratio**pkt.confidence
             lo += math.log(lr_eff)
             applied.append(pkt.packet_id)

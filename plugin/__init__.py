@@ -1,3 +1,1 @@
-"""SPACX Intelligence Plugin package (V0 scaffold)."""
-
-__version__ = "0.1.0"
+"""SPACX plugin package — statistical models, metrics, thesis engine (planned)."""
