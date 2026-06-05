@@ -31,7 +31,7 @@ git clone git@github.com:openjay/spacx-research.git
 git clone https://github.com/openjay/spacx-research.git
 ```
 
-Repository visibility is gated by [docs/PUBLIC_LAUNCH_CHECKLIST.md](docs/PUBLIC_LAUNCH_CHECKLIST.md). Until P0 launch gates are signed off, the remote may remain private under the `openjay` GitHub account. Remote notes: [GITHUB.md](GITHUB.md)
+This repository is **public** as of 2026-06-05 ([docs/LAUNCH_SELF_ATTESTATION.md](docs/LAUNCH_SELF_ATTESTATION.md) · [docs/PUBLIC_LAUNCH_CHECKLIST.md](docs/PUBLIC_LAUNCH_CHECKLIST.md)). Remote notes: [GITHUB.md](GITHUB.md)
 
 ## Repository layout
 

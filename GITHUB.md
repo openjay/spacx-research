@@ -3,12 +3,12 @@
 | Field | Value |
 |-------|-------|
 | **URL** | https://github.com/openjay/spacx-research |
-| **Visibility** | Private *(flip to public only after [`docs/PUBLIC_LAUNCH_CHECKLIST.md`](docs/PUBLIC_LAUNCH_CHECKLIST.md) P0 sign-off)* |
+| **Visibility** | **Public** (since 2026-06-05 — [`docs/LAUNCH_SELF_ATTESTATION.md`](docs/LAUNCH_SELF_ATTESTATION.md)) |
 | **Account** | openjay (personal) |
 | **Branch** | `main` |
 | **Description** | SPACX-Research — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** see latest commit on `main` after push.
+**HEAD (`main`):** `8378ee8`
 
 ```bash
 git clone git@github.com:openjay/spacx-research.git
