@@ -49,3 +49,21 @@ jobs:
       # Optional: enable secret scanning (e.g. gitleaks/trufflehog) before public launch.
       # - name: Secret scan
       #   uses: gitleaks/gitleaks-action@v2
+
+  sec-feed-sync:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.SPACX_SEC_USER_AGENT != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: SEC feed vs listing status
+        env:
+          SPACX_SEC_USER_AGENT: ${{ secrets.SPACX_SEC_USER_AGENT }}
+        run: python scripts/check_sec_feed_sync.py --require-user-agent
