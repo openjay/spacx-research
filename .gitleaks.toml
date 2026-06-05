@@ -4,10 +4,10 @@
 title = "SPACX gitleaks"
 
 [allowlist]
-description = "SEC primary-document cache and filing HTML (public EDGAR mirrors)"
+description = "SEC primary-document HTML mirrors from public EDGAR only"
 paths = [
-  '''workstreams/sec-evidence-phase1/''',
-  '''workstreams/sec-evidence-phase1/cache/''',
-  '''(?i).*\.htm$''',
-  '''(?i).*\.html$''',
+  '''(?i)^workstreams/sec-evidence-phase1/.*\.htm$''',
+  '''(?i)^workstreams/sec-evidence-phase1/.*\.html$''',
+  '''(?i)^workstreams/sec-evidence-phase1/cache/fwp/.*\.htm$''',
+  '''(?i)^workstreams/sec-evidence-phase1/cache/fwp/.*\.html$''',
 ]

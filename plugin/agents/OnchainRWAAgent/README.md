@@ -60,4 +60,4 @@ See `plugin/scheduler.yaml` and [docs/ARCHITECTURE.md](../../../docs/ARCHITECTUR
 
 ---
 
-*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX), xAI, Anthropic, Nasdaq, Goldman Sachs, Morningstar, or the SEC. Research and education only; not investment advice — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*
