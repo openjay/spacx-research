@@ -1,0 +1,13 @@
+# Gitleaks config for SPACX — minimal allowlist for known false positives.
+# See docs/PUBLIC_LAUNCH_CHECKLIST.md and docs/DATA_PROVENANCE.md.
+
+title = "SPACX gitleaks"
+
+[allowlist]
+description = "SEC primary-document cache and filing HTML (public EDGAR mirrors)"
+paths = [
+  '''workstreams/sec-evidence-phase1/''',
+  '''workstreams/sec-evidence-phase1/cache/''',
+  '''(?i).*\.htm$''',
+  '''(?i).*\.html$''',
+]

@@ -3,12 +3,12 @@
 | Field | Value |
 |-------|-------|
 | **URL** | https://github.com/openjay/spacx |
-| **Visibility** | Private |
+| **Visibility** | Private *(flip to public only after [`docs/PUBLIC_LAUNCH_CHECKLIST.md`](docs/PUBLIC_LAUNCH_CHECKLIST.md) P0 sign-off)* |
 | **Account** | openjay (personal) |
-| **Branch** | main |
+| **Branch** | `main` |
 | **Description** | SPACX — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** `d8f2850` — MetricSnapshot export and research freshness; 61 tests (2026-06-05).
+**HEAD (`main`):** see latest commit on GitHub.
 
 ```bash
 git clone git@github.com:openjay/spacx.git
@@ -16,4 +16,14 @@ git clone git@github.com:openjay/spacx.git
 git clone https://github.com/openjay/spacx.git
 ```
 
+## Public launch readiness
+
+Before changing visibility to **public**:
+
+1. Complete P0 items in [`docs/PUBLIC_LAUNCH_CHECKLIST.md`](docs/PUBLIC_LAUNCH_CHECKLIST.md) (counsel, secret scan green, compliance gates).
+2. Confirm CI green including [`gitleaks`](../.gitleaks.toml) on `main`.
+3. Attach `sbom.json` and `requirements-lock.txt` to the first signed release tag — see [`docs/SBOM_POLICY.md`](docs/SBOM_POLICY.md).
+
 **Rename history:** repository formerly `spacex-ipo-research` → `spacx` (2026-06-04).
+
+**Contributing:** no special account required once public — fork and PR per [`CONTRIBUTING.md`](CONTRIBUTING.md).
