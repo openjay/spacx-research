@@ -8,7 +8,7 @@
 | **Branch** | `main` |
 | **Description** | SPACX-Research — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** `8378ee8`
+**HEAD (`main`):** `55e0bf9`
 
 ```bash
 git clone git@github.com:openjay/spacx-research.git
