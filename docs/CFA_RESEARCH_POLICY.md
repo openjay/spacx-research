@@ -37,7 +37,7 @@ Aligned with Phase 1 audit tracks and `plugin/manifest.yaml` `evidence_policy`:
 
 ## 3. Disclosures, third-party research, and conflicts
 
-### 3.1 Third-party research disclaimer
+### 3.1 Third-party valuation research
 
 Append to human-gated exports (Level 3+) and any share that cites external fair value:
 
@@ -48,21 +48,23 @@ They are NOT verified by SPACX, may rely on opaque assumptions, and do NOT overr
 SEC EDGAR figures. See workstreams/valuation-research/ and docs/VALUATION_AUDIT.md.
 ```
 
-Assumption tables live under `workstreams/valuation-research/assumptions/` and map to `plugin/schemas/ExternalResearchPacket.json`. C-tier packets **must not** promote external DCF outputs to Grade A metrics or thesis **BULL** without sealed A-tier corroboration.
+Assumption packets live under [`workstreams/valuation-research/assumptions/`](../workstreams/valuation-research/assumptions/) and map to `plugin/schemas/ExternalResearchPacket.json`. See [VALUATION_AUDIT.md](./VALUATION_AUDIT.md). C-tier packets **must not** promote external DCF outputs to Grade A metrics or thesis **BULL** without sealed A-tier corroboration.
 
 ### 3.2 Underwriter conflict template (CFA Standard VI)
 
-Use when syndicate research or media leaks reference offering participants (e.g. Goldman AI surge via Reuters):
+Use when syndicate research or media leaks reference offering participants (e.g. Goldman AI surge via Reuters/FT):
 
 ```text
 CONFLICT — UNDERWRITER RESEARCH
-Provider: [Goldman Sachs / syndicate member]
+Provider: Goldman Sachs
 Role in offering: Lead underwriter (Form S-1/A #2 cover)
-Source: [Reuters / FT] — primary research report NOT independently verified
+Source: Reuters citing Financial Times — primary research report NOT independently verified
+Claim: AI revenue ~$322B by 2030; total revenue ~$474B by 2030 (thematic projection)
 Use: Scenario framing only; excluded from Grade A metrics and core DCF inputs.
+Conflict flags: LEAD_UNDERWRITER, UNVERIFIED_FT_REPORT
 ```
 
-Flag in packets: `conflict_flags: [LEAD_UNDERWRITER]` (see `assumptions/goldman-ai-surge-reuters.yaml`).
+Flag in packets: `conflict_flags: [LEAD_UNDERWRITER, UNVERIFIED_FT_REPORT]` (see `assumptions/goldman-ai-surge-reuters.yaml`).
 
 ### 3.3 Conflicts of interest disclosure template
 
@@ -81,31 +83,6 @@ Conflicts of interest:
 
 Distribution: Private research — not for retail investor distribution.
 Not investment advice. See docs/CFA_RESEARCH_POLICY.md and docs/COMPLIANCE.md.
-```
-
-### 3.1 Third-party valuation research
-
-External fair value estimates (Morningstar, New Constructs, syndicate research summaries) are **Grade C** context. They are **not** verified by SPACX, may rely on opaque assumptions, and **do not** override SEC EDGAR figures. Ingest packets live under [`workstreams/valuation-research/assumptions/`](../workstreams/valuation-research/assumptions/); see [VALUATION_AUDIT.md](./VALUATION_AUDIT.md).
-
-Append to human-gated exports (Level 3+) when citing third-party valuation:
-
-```text
-THIRD-PARTY RESEARCH NOTICE
-External fair value estimates (e.g., Morningstar, New Constructs) are Grade C context.
-They are NOT verified by SPACX, may rely on opaque assumptions, and do NOT override
-SEC EDGAR figures. See workstreams/valuation-research/ and docs/VALUATION_AUDIT.md.
-```
-
-**Underwriter conflict template (CFA Standard VI)** — required when citing syndicate research (e.g. Goldman AI revenue narrative via Reuters/FT):
-
-```text
-CONFLICT — UNDERWRITER RESEARCH
-Provider: Goldman Sachs
-Role in offering: Lead underwriter (Form S-1/A #2 cover)
-Source: Reuters citing Financial Times — primary research report NOT independently verified
-Claim: AI revenue ~$322B by 2030; total revenue ~$474B by 2030 (thematic projection)
-Use: Scenario framing only; excluded from Grade A metrics and core DCF inputs.
-Conflict flags: LEAD_UNDERWRITER, UNVERIFIED_FT_REPORT
 ```
 
 ---
