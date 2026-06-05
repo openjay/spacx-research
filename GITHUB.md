@@ -8,7 +8,7 @@
 | **Branch** | main |
 | **Description** | SPACX — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** `09ea9a8` — feat(valuation): CFA valuation layer, price anchors, external research; 36 tests (2026-06-05).
+**HEAD (`main`):** `63f0134` — external research assumption packets, CFA §3.1–3.2; 36 tests (2026-06-05).
 
 ```bash
 git clone git@github.com:openjay/spacx.git
