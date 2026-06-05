@@ -1,3 +1,19 @@
+---
+last_sec_check_date: "2026-06-04"
+form_424b4_status: pending
+form_424b4_update_flag: false
+latest_known_filings:
+  - form: FWP
+    filing_date: "2026-06-04"
+    accession_number: "0001628280-26-040874"
+  - form: FWP
+    filing_date: "2026-06-04"
+    accession_number: "0001628280-26-040610"
+  - form: S-1/A
+    filing_date: "2026-06-03"
+    accession_number: "0001628280-26-040364"
+---
+
 # SPCX listing status
 
 **Last updated:** 2026-06-05 · **Not legal advice**
