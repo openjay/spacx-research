@@ -33,7 +33,7 @@ RULE_433_DISCLAIMER = (
 
 DEFAULT_USER_AGENT = __import__("os").environ.get(
     "SPACX_SEC_USER_AGENT",
-    "SPACX-Research openjay/spacx (contact: research@openjay.dev)",
+    "SPACX-Research openjay/spacx-research (contact: research@openjay.dev)",
 )
 
 

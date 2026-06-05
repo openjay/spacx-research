@@ -2,7 +2,7 @@
 
 ## Our pledge
 
-We pledge to make participation in SPACX a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+We pledge to make participation in SPACX-Research a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 ## Our standards
 
@@ -14,7 +14,7 @@ We pledge to make participation in SPACX a harassment-free experience for everyo
 
 Project maintainers may remove, edit, or reject contributions and temporarily or permanently ban contributors for behavior they deem inappropriate, threatening, offensive, or harmful.
 
-Report concerns to the repository maintainers via GitHub or the contact method on the [openjay/spacx](https://github.com/openjay/spacx) profile.
+Report concerns to the repository maintainers via GitHub or the contact method on the [openjay/spacx-research](https://github.com/openjay/spacx-research) profile.
 
 ## Attribution
 

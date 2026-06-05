@@ -1,8 +1,8 @@
-# SPACX Intelligence Plugin — manifest (V0 scaffold)
+# SPACX-Research Intelligence Plugin — manifest (V0 scaffold)
 # Agent-callable 24/7 market intelligence; no auto-execution at compliance_level 2.
 
-id: spacx-intelligence
-name: SPACX Autonomous Market Intelligence
+id: spacx-research-intelligence
+name: SPACX-Research Autonomous Market Intelligence
 version: 0.1.0
 description: >
   24/7 autonomous research plugin for proposed / expected listing symbol SPCX
@@ -11,7 +11,7 @@ description: >
   metrics and thesis probabilities, evaluates risk, and proposes actions —
   without order execution.
 
-platform: spacx
+platform: spacx-research
 asset_primary: SPCX
 compliance_level: 2  # research + alerts + action proposals; no auto execution
 
@@ -63,7 +63,7 @@ schemas_dir: plugin/schemas/
 metrics_registry: plugin/metrics/registry.yaml
 
 owners:
-  - openjay/spacx
+  - openjay/spacx-research
 
 disclaimer: >
   Research and education only. Not investment advice. Not affiliated with Space

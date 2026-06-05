@@ -11,7 +11,7 @@ Environment
 -----------
 SPACX_SEC_USER_AGENT
     Contact-bearing User-Agent string required by SEC EDGAR fair-access policy.
-    Example: ``SPACX-Research openjay/spacx (contact: you@example.com)``
+    Example: ``SPACX-Research openjay/spacx-research (contact: you@example.com)``
 
     **GitHub Actions:** set repository secret ``SPACX_SEC_USER_AGENT``. The
     ``sec-feed-sync`` CI job is skipped when that secret is unset (local forks and
@@ -56,7 +56,7 @@ import yaml
 CIK = "0001181412"
 SUBMISSIONS_URL = f"https://data.sec.gov/submissions/CIK{CIK}.json"
 WATCH_FORMS = frozenset({"S-1", "S-1/A", "424B4", "FWP", "10-Q", "8-K"})
-DEFAULT_USER_AGENT = "SPACX-Research openjay/spacx (contact: research@openjay.dev)"
+DEFAULT_USER_AGENT = "SPACX-Research openjay/spacx-research (contact: research@openjay.dev)"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_LISTING_STATUS = REPO_ROOT / "docs" / "LISTING_STATUS.md"
 

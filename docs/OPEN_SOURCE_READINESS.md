@@ -1,6 +1,6 @@
 # Open source readiness checklist
 
-**Target:** release-grade compliance for public mirror of SPACX (AI-native P1).  
+**Target:** release-grade compliance for public mirror of SPACX-Research (AI-native P1).  
 **Not legal advice.** Use this as an engineering gate before flipping repository visibility or tagging `v0.1.0`.
 
 **Launch gate:** [`PUBLIC_LAUNCH_CHECKLIST.md`](./PUBLIC_LAUNCH_CHECKLIST.md)

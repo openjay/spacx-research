@@ -1,6 +1,6 @@
-# SPACX Intelligence Plugin (V0)
+# SPACX-Research Intelligence Plugin (V0)
 
-**Plugin id:** `spacx-intelligence` · **Version:** 0.1.0 · **Compliance:** Level 2 (proposals only, no execution)
+**Plugin id:** `spacx-research-intelligence` · **Version:** 0.1.0 · **Compliance:** Level 2 (proposals only, no execution)
 
 24/7 autonomous market intelligence for **proposed / expected listing symbol SPCX** (pending Form 424B4 and first trading confirmation). Agents call structured APIs instead of parsing `workstreams/` by hand.
 

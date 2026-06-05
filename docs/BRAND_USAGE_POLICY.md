@@ -1,6 +1,6 @@
 # Brand usage policy
 
-**Applies to:** SPACX maintainers, contributors, agents, and fork operators.  
+**Applies to:** SPACX-Research maintainers, contributors, agents, and fork operators.  
 **Not legal advice.** See [TRADEMARK_BRAND_AUDIT.md](./TRADEMARK_BRAND_AUDIT.md) for risk analysis.
 
 **Related:** [DATA_PROVENANCE.md](./DATA_PROVENANCE.md) · [COMPLIANCE.md](./COMPLIANCE.md) · [LISTING_STATUS.md](./LISTING_STATUS.md)
@@ -9,7 +9,21 @@
 
 ## Purpose
 
-SPACX references third-party trademarks and entity names **only** to describe securities research subjects and cite sources. This policy separates **allowed nominative use** from **forbidden affiliation marketing**.
+SPACX-Research references third-party trademarks and entity names **only** to describe securities research subjects and cite sources. This policy separates **allowed nominative use** from **forbidden affiliation marketing**.
+
+---
+
+## Required naming (marketing and titles)
+
+| Context | Required form | Forbidden |
+|---------|---------------|-----------|
+| README titles, GitHub description, release notes, social posts | **SPACX-Research** | Bare **SPACX** as product or platform name |
+| GitHub repository slug | `spacx-research` | `spacx` without `-research` suffix for public marketing |
+| Plugin manifest id | `spacx-research-intelligence` | `spacx-intelligence` |
+| Python distribution (`pyproject.toml`) | `spacx-research` | — |
+| Internal code / env vars (`SPACX_SEC_USER_AGENT`, `plugin.*`) | May retain `spacx` prefix for stability | — |
+
+Always pair public-facing **SPACX-Research** with the [required disclaimer](#required-disclaimer-copy-paste). Never imply issuer affiliation.
 
 ---
 
@@ -28,12 +42,13 @@ SPACX references third-party trademarks and entity names **only** to describe se
 
 - **Goldman Sachs**, **Morningstar**, **New Constructs**, **Reuters**, **FT** — name the provider, link or cite the intermediary article, label as third-party / Grade C. Example:
 
-  > Morningstar (via Reuters), Grade C — not independently verified by SPACX.
+  > Morningstar (via Reuters), Grade C — not independently verified by SPACX-Research.
 
 ### Project naming
 
-- **SPACX** as research platform codename and **spacx** as repository name, with disclaimer (below).
+- **SPACX-Research** as research platform display name and **spacx-research** as GitHub repository name, with disclaimer (below).
 - Internal agent names mirroring filing segments (`StarlinkAnalystAgent`) in code and docs.
+- Do **not** use bare **SPACX** (without `-Research`) in marketing titles, README headings, or GitHub description.
 
 ---
 
@@ -43,7 +58,7 @@ SPACX references third-party trademarks and entity names **only** to describe se
 
 - SpaceX, Starlink, xAI, Anthropic, Nasdaq, Goldman Sachs, Morningstar, or SEC **logos**, icons, or color trade dress.
 - Words implying endorsement: **official**, **authorized**, **partner**, **sponsored by**, **endorsed by**, **affiliated with SpaceX**.
-- Consumer-facing product names that could be confused with issuer brands (e.g., “Starlink Research Pro by SPACX” as a commercial SKU).
+- Consumer-facing product names that could be confused with issuer brands (e.g., “Starlink Research Pro by SPACX-Research” as a commercial SKU).
 - **Domain squatting** patterns: `spacex-*`, `spcx-official.*`, `starlink-tracker.*` implying issuer operation.
 
 ### Ticker and listing misrepresentation
@@ -81,7 +96,7 @@ Goldman Sachs、Morningstar 及 SEC 均无关联。仅供研究学习，不构�
 Use when flipping visibility to public:
 
 ```text
-Open research platform for SEC-filing evidence on proposed symbol SPCX (Space
+Open research platform (SPACX-Research) for SEC-filing evidence on proposed symbol SPCX (Space
 Exploration Technologies Corp.; pre-listing). Not affiliated with SpaceX or the SEC.
 MIT · research/education only · not investment advice.
 ```
@@ -111,15 +126,15 @@ Official SpaceX IPO tracker · SPCX stock research · Nasdaq partner tools
 
 Fork operators **must**:
 
-1. Change the GitHub description to state they are an **independent fork**, not SpaceX or SPACX maintainer team.
+1. Change the GitHub description to state they are an **independent fork**, not SpaceX or SPACX-Research maintainer team.
 2. Retain or strengthen the [Required disclaimer](#required-disclaimer-copy-paste).
-3. Not use `spacx` or `SPACX` in a **commercial product name** without separate counsel review.
+3. Not use `spacx-research` or **SPACX-Research** in a **commercial product name** without separate counsel review.
 4. Not add issuer logos or “official” branding.
 
 Suggested fork description prefix:
 
 ```text
-[FORK — unofficial] Independent fork of spacx research tooling. Not affiliated with SpaceX.
+[FORK — unofficial] Independent fork of spacx-research tooling. Not affiliated with SpaceX.
 ```
 
 ---
@@ -147,3 +162,4 @@ Suggested fork description prefix:
 | Date | Change |
 |------|--------|
 | 2026-06-05 | Initial policy aligned with TRADEMARK_BRAND_AUDIT |
+| 2026-06-05 | Adopted SPACX-Research suffix and spacx-research repo slug |

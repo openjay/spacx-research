@@ -12,7 +12,7 @@
 
 **Do not** open a public GitHub issue for security-sensitive reports.
 
-1. Email the repository owner via the contact method on the [openjay/spacx](https://github.com/openjay/spacx) GitHub profile, or use GitHub **Private vulnerability reporting** if enabled.
+1. Email the repository owner via the contact method on the [openjay/spacx-research](https://github.com/openjay/spacx-research) GitHub profile, or use GitHub **Private vulnerability reporting** if enabled.
 2. Include: description, reproduction steps, affected paths, and potential impact.
 3. Allow reasonable time for triage before public disclosure.
 

@@ -1,10 +1,10 @@
-# Contributing to SPACX
+# Contributing to SPACX-Research
 
-Thank you for improving SPACX. This project is **research and education tooling** — not investment advice.
+Thank you for improving SPACX-Research. This project is **research and education tooling** — not investment advice.
 
 ## AI-native workflow
 
-SPACX is built for **agent-assisted** development. Humans gate **P0 nodes only**; agents own routine P1 commits when CI passes.
+SPACX-Research is built for **agent-assisted** development. Humans gate **P0 nodes only**; agents own routine P1 commits when CI passes.
 
 | Tier | Gate owner | Examples |
 |------|------------|----------|

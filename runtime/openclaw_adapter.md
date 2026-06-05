@@ -4,7 +4,7 @@ Maps **SPACX Intelligence Plugin** API paths (`plugin/manifest.yaml`) to agent-c
 
 ## Base
 
-- **Plugin id:** `spacx-intelligence`
+- **Plugin id:** `spacx-research-intelligence`
 - **API base:** `/api/v1/spacx`
 - **Runtime health:** `GET` equivalent → `python -m runtime.health` (local) or HTTP wrapper (future)
 

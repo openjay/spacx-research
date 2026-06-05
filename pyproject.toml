@@ -3,9 +3,10 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "spacx"
+# PyPI/distribution name; Python import paths remain plugin.* and runtime.*
+name = "spacx-research"
 version = "0.1.0"
-description = "SPACX intelligence plugin and research models"
+description = "SPACX-Research intelligence plugin and research models"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }

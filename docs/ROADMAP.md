@@ -19,7 +19,7 @@ Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space 
 
 **Status:** V0 runtime (worker, EDGAR poll, persistence, health) — live metric ingestion next
 
-- Plugin id `spacx-intelligence` — compliance **level 2** (research, alerts, proposals; no auto execution)
+- Plugin id `spacx-research-intelligence` — compliance **level 2** (research, alerts, proposals; no auto execution)
 - JSON schemas: evidence, metrics, thesis, risk, action, audit (`plugin/schemas/`)
 - Agent API stubs: ingest, evidence, metrics, thesis, risk, alerts (`plugin/api/`)
 - Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md) — Data→Evidence→Metrics→Stat→LLM→Risk→Action→Audit

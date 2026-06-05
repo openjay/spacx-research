@@ -21,7 +21,7 @@
 
 | # | Item | Status | Evidence / action |
 |---|------|--------|-------------------|
-| P0-1 | **Legal / trademark counsel sign-off** | ⏳ Pending | Engineering audit complete — [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md), [`BRAND_USAGE_POLICY.md`](./BRAND_USAGE_POLICY.md), [`TERMINOLOGY.md`](./TERMINOLOGY.md). Counsel must sign off README, workstream naming, and issuer references before public flip. |
+| P0-1 | **Legal / trademark counsel sign-off** | ⏳ Pending | Engineering audit complete — [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md) § Suffix adoption. Counsel must sign off **`spacx-research`** repo slug and **`SPACX-Research`** display name (plus plugin id `spacx-research-intelligence`) before public flip. |
 | P0-2 | **Secret scan green on `main`** | ✅ Infra | [`gitleaks`](../.gitleaks.toml) in [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — fails on `main`/`master` push |
 | P0-3 | **No committed secrets** | ⏳ Verify | Rotate any keys ever committed; confirm `SPACX_SEC_USER_AGENT` stays in GitHub Secrets only |
 | P0-4 | **Compliance level / CFA distribution gates** | ⏳ Human | Default deployment **level 2–3** per [`COMPLIANCE.md`](./COMPLIANCE.md). No level ≥4 external distribution without compliance review. See [`CFA_RESEARCH_POLICY.md`](./CFA_RESEARCH_POLICY.md). |
@@ -39,7 +39,7 @@
 | P1-3 | **Signed tags policy** | ✅ Policy | Maintainer creates annotated **signed** tags: `git tag -s v0.1.0 -m "..."` with GPG key on GitHub profile. Verify: `git tag -v v0.1.0` |
 | P1-4 | **Release checksum manifest** | ⏳ Manual | On tag, publish `SHA256SUMS` for `sbom.json`, `requirements-lock.txt`, and source tarball |
 | P1-5 | **Remove private-only assumptions in GITHUB.md** | ✅ Infra | [`GITHUB.md`](../GITHUB.md) updated for public-clone readiness; visibility flip is separate P0 maintainer action |
-| P1-6 | **OPEN_SOURCE_READINESS ≥ 15/21** | ⏳ Track | [`OPEN_SOURCE_READINESS.md`](./OPEN_SOURCE_READINESS.md) |
+| P1-6 | **OPEN_SOURCE_READINESS = 18/22** | ✅ Done | [`OPEN_SOURCE_READINESS.md`](./OPEN_SOURCE_READINESS.md); remaining gaps are P0 counsel/visibility and first release mechanics |
 
 ---
 
@@ -70,7 +70,7 @@ cyclonedx-py environment -o sbom.json --output-format json
 shasum -a 256 sbom.json requirements-lock.txt > SHA256SUMS
 
 # 4. Signed tag
-git tag -s v0.1.0 -m "SPACX v0.1.0 — research scaffold"
+git tag -s v0.1.0 -m "SPACX-Research v0.1.0 — research scaffold"
 git push origin v0.1.0
 
 # 5. GitHub Release: attach sbom.json, requirements-lock.txt, SHA256SUMS
@@ -80,7 +80,7 @@ git push origin v0.1.0
 
 ## Trademark review
 
-Counsel should review public-facing use of **SPACX**, **SPCX**, and references to **Space Exploration Technologies Corp. / SpaceX** (issuer, not affiliate).
+Counsel should review public-facing use of **`SPACX-Research`**, repo slug **`spacx-research`**, **SPCX**, and references to **Space Exploration Technologies Corp. / SpaceX** (issuer, not affiliate).
 
 - **When audit exists:** link from this section to [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md)
 - **Until then:** treat P0-1 as open; do not imply endorsement by SpaceX or the SEC
