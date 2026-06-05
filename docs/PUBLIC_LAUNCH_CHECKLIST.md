@@ -21,10 +21,10 @@
 
 | # | Item | Status | Evidence / action |
 |---|------|--------|-------------------|
-| P0-1 | **Legal / trademark counsel sign-off** | ⏳ Pending | Engineering audit complete — [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md) § Suffix adoption. Counsel must sign off **`spacx-research`** repo slug and **`SPACX-Research`** display name (plus plugin id `spacx-research-intelligence`) before public flip. |
+| P0-1 | **Legal / trademark counsel sign-off** | ✅ Self-attested waiver (2026-06-05) | Counsel sign-off **waived** by maintainer for non-commercial MIT OSS — see [`LAUNCH_SELF_ATTESTATION.md`](./LAUNCH_SELF_ATTESTATION.md). Engineering audit: [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md). Residual brand risk acknowledged. |
 | P0-2 | **Secret scan green on `main`** | ✅ Infra | [`gitleaks`](../.gitleaks.toml) in [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — fails on `main`/`master` push |
-| P0-3 | **No committed secrets** | ⏳ Verify | Rotate any keys ever committed; confirm `SPACX_SEC_USER_AGENT` stays in GitHub Secrets only |
-| P0-4 | **Compliance level / CFA distribution gates** | ⏳ Human | Default deployment **level 2–3** per [`COMPLIANCE.md`](./COMPLIANCE.md). No level ≥4 external distribution without compliance review. See [`CFA_RESEARCH_POLICY.md`](./CFA_RESEARCH_POLICY.md). |
+| P0-3 | **No committed secrets** | ✅ Verified (2026-06-05) | Local secret-pattern grep clean; `SPACX_SEC_USER_AGENT` in GitHub Secrets only — see [`LAUNCH_SELF_ATTESTATION.md`](./LAUNCH_SELF_ATTESTATION.md) |
+| P0-4 | **Compliance level / CFA distribution gates** | ✅ Self-attested waiver (2026-06-05) | Research-only distribution; **waived** formal counsel gate for public OSS flip — [`LAUNCH_SELF_ATTESTATION.md`](./LAUNCH_SELF_ATTESTATION.md). Default **level 2–3** per [`COMPLIANCE.md`](./COMPLIANCE.md); [`CFA_RESEARCH_POLICY.md`](./CFA_RESEARCH_POLICY.md). |
 | P0-5 | **Listing status language** | ✅ Done | [`LISTING_STATUS.md`](./LISTING_STATUS.md) — proposed symbol SPCX until 424B4 |
 | P0-6 | **SECURITY.md triage path** | ✅ Done | Private disclosure before public issues |
 
