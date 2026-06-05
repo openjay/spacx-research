@@ -8,7 +8,7 @@
 | **Branch** | main |
 | **Description** | SPACX — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** `1739539` — MetricSnapshot export and research freshness; 61 tests (2026-06-05).
+**HEAD (`main`):** `5ea6803` — MetricSnapshot export and research freshness; 61 tests (2026-06-05).
 
 ```bash
 git clone git@github.com:openjay/spacx.git
