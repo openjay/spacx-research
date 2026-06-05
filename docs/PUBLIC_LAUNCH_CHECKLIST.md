@@ -21,7 +21,7 @@
 
 | # | Item | Status | Evidence / action |
 |---|------|--------|-------------------|
-| P0-1 | **Legal / trademark counsel sign-off** | ⏳ Pending | Confirm README, workstream naming, and issuer references for public redistribution. When complete, file audit at `docs/TRADEMARK_BRAND_AUDIT.md` (create on counsel review). |
+| P0-1 | **Legal / trademark counsel sign-off** | ⏳ Pending | Engineering audit complete — [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md), [`BRAND_USAGE_POLICY.md`](./BRAND_USAGE_POLICY.md), [`TERMINOLOGY.md`](./TERMINOLOGY.md). Counsel must sign off README, workstream naming, and issuer references before public flip. |
 | P0-2 | **Secret scan green on `main`** | ✅ Infra | [`gitleaks`](../.gitleaks.toml) in [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — fails on `main`/`master` push |
 | P0-3 | **No committed secrets** | ⏳ Verify | Rotate any keys ever committed; confirm `SPACX_SEC_USER_AGENT` stays in GitHub Secrets only |
 | P0-4 | **Compliance level / CFA distribution gates** | ⏳ Human | Default deployment **level 2–3** per [`COMPLIANCE.md`](./COMPLIANCE.md). No level ≥4 external distribution without compliance review. See [`CFA_RESEARCH_POLICY.md`](./CFA_RESEARCH_POLICY.md). |

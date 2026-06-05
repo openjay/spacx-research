@@ -43,6 +43,7 @@ P0/P1 definitions align with [`docs/AGENTS.md`](docs/AGENTS.md) and [`docs/OPEN_
 
 - Numeric claims from filings require accession ID, section, and cached HTML path when adding new tables.
 - See [docs/DATA_PROVENANCE.md](docs/DATA_PROVENANCE.md) for SEC cache redistribution rules.
+- Bilingual financial terms must follow [docs/TERMINOLOGY.md](docs/TERMINOLOGY.md). Do not mechanically translate terms such as `greenshoe`; use **超额配售选择权（greenshoe）**.
 
 ## Code of conduct
 

@@ -11,3 +11,7 @@
 - 流通市值路径是 Base 情景核心变量，非首日情绪 alone。
 
 **Schedule:** daily 07:00 ET; recalc on P0 424B4.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

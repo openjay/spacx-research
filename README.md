@@ -4,7 +4,9 @@
 
 ## Disclaimer
 
-This repository is for **research and education**. It is **not investment advice**, not a solicitation, and not affiliated with SpaceX, xAI, or the SEC. Verify all figures against current SEC filings and your own diligence before any decision.
+**Not affiliated with Space Exploration Technologies Corp. (SpaceX), xAI, Anthropic, Nasdaq, Goldman Sachs, Morningstar, or the SEC.**
+
+This repository is for **research and education** only — **not investment advice** and not a solicitation. Verify all figures against current SEC filings and your own diligence before any decision. Brand and trademark rules: [docs/BRAND_USAGE_POLICY.md](docs/BRAND_USAGE_POLICY.md) · [docs/TRADEMARK_BRAND_AUDIT.md](docs/TRADEMARK_BRAND_AUDIT.md)
 
 **Integrated audit synthesis (Workstream 1):** [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)
 
@@ -39,7 +41,10 @@ Private repo — access via the `openjay` GitHub account. Remote notes: [GITHUB.
 | `docs/COMPLIANCE.md` | Compliance levels 0–6, agent boundaries |
 | `docs/CFA_RESEARCH_POLICY.md` | CFA-aligned research policy |
 | `docs/LISTING_STATUS.md` | SPCX proposed symbol / pre-listing status |
+| `docs/TERMINOLOGY.md` | Bilingual securities terminology guardrails |
 | `docs/DATA_PROVENANCE.md` | SEC cache provenance and SHA-256 verification |
+| `docs/TRADEMARK_BRAND_AUDIT.md` | Trademark / brand risk audit (pre-public OSS) |
+| `docs/BRAND_USAGE_POLICY.md` | Allowed vs forbidden third-party mark usage |
 | `docs/RWA_WEB3_STRATEGY.md` | Web3/RWA pre-layer strategy (预埋, EN + 中文) |
 | `docs/ARCHITECTURE.md` | Plugin layers, `rwa/` data lane, compliance 0–6 (EN + 中文) |
 | `plugin/` | Intelligence plugin manifest, schemas, `api/` stubs |
@@ -55,4 +60,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## 中文简介
 
-**SPACX** 是围绕马斯克 / SpaceX 生态**拟上市/预期上市**证券（**预期上市代码 SPCX**；待 Form 424B4 与首笔交易确认）的研究与执行平台仓库，而非以「IPO 研究」命名的项目。当前已完成 **工作流 1**：仅基于 SEC 申报文件的 Phase 1 证据表与 A–D 轨审计；**工作流 2** 正在建设 [`plugin/`](plugin/) 下的 AI 原生情报插件（7×24 研究、告警、行动建议，V0 不自动交易）。内容仅供研究学习，**不构成投资建议**。综合审计结论见 [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)。上市状态见 [docs/LISTING_STATUS.md](docs/LISTING_STATUS.md)。
+**SPACX** 是围绕马斯克 / SpaceX 生态**拟上市/预期上市**证券（**预期上市代码 SPCX**；待 Form 424B4 与首笔交易确认）的研究与执行平台仓库，而非以「IPO 研究」命名的项目。**与 Space Exploration Technologies Corp.（SpaceX）、xAI、Anthropic、Nasdaq 及 SEC 均无关联。** 当前已完成 **工作流 1**：仅基于 SEC 申报文件的 Phase 1 证据表与 A–D 轨审计；**工作流 2** 正在建设 [`plugin/`](plugin/) 下的 AI 原生情报插件（7×24 研究、告警、行动建议，V0 不自动交易）。内容仅供研究学习，**不构成投资建议**。商标与品牌规则见 [docs/BRAND_USAGE_POLICY.md](docs/BRAND_USAGE_POLICY.md)。综合审计结论见 [workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md](workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md)。上市状态见 [docs/LISTING_STATUS.md](docs/LISTING_STATUS.md)。

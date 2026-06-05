@@ -14,3 +14,7 @@
 - 数字仅来源于 SEC 主文件，不替代 EvidenceAuditor 的 A/B/C/D 评级。
 
 **Schedule:** hourly (`0 * * * *`); 15m accelerated poll when 424B4 watch is active.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

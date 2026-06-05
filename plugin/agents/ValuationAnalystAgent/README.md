@@ -27,3 +27,7 @@
 - **禁止**自动交易、禁止用外部 DCF 覆盖 SEC 表内数字。
 
 **调度：** 工作日 08:00 ET 估值备忘；424B4 或财报事件触发增量更新。
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

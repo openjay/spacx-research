@@ -11,3 +11,7 @@
 - 指标变化仅作研究信号，不构成交易指令；非 SEC 来源不得升为 A 级证据。
 
 **Schedule:** 15-minute market tier.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

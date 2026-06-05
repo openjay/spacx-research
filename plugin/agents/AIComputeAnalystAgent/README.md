@@ -11,3 +11,7 @@
 - 客户集中度与信用风险触发告警；所有假设须标注证据等级。
 
 **Schedule:** 15-minute market tier; weekday deep memo 08:00 ET.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

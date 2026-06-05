@@ -12,6 +12,12 @@ latest_known_filings:
   - form: S-1/A
     filing_date: "2026-06-03"
     accession_number: "0001628280-26-040364"
+  - form: S-1/A
+    filing_date: "2026-06-01"
+    accession_number: "0001628280-26-039276"
+  - form: S-1
+    filing_date: "2026-05-20"
+    accession_number: "0001628280-26-036936"
 ---
 
 # SPCX listing status

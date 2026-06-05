@@ -11,3 +11,7 @@
 - 里程碑日历发布需人工门控；不使用非 SEC 直播作为 A 级证据。
 
 **Schedule:** every 4 hours; accelerates on new filings.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

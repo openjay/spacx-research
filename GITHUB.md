@@ -8,7 +8,7 @@
 | **Branch** | `main` |
 | **Description** | SPACX — proposed symbol SPCX research platform; SEC evidence, AI-native analysis, trading workflows (pre-listing) |
 
-**HEAD (`main`):** see latest commit on GitHub.
+**HEAD (`main`):** `1993046` — docs(brand): trademark audit, terminology policy, affiliation disclaimers; 62 tests (2026-06-05).
 
 ```bash
 git clone git@github.com:openjay/spacx.git

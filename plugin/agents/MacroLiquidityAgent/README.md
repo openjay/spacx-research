@@ -11,3 +11,7 @@
 - 宏观标签不得升级为 A 级 SEC 证据；情景叙述需人工门控后进入日报。
 
 **Schedule:** 15-minute market tier; weekly memo Monday 09:00 ET.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

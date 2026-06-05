@@ -12,3 +12,7 @@
 - 维护缺口登记册；重大缺口未关闭前不得发布 Bull/Base/Bear 情景更新。
 
 **Schedule:** every 6 hours; immediate regrade on P0 filing events.
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*

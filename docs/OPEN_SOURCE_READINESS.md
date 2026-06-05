@@ -56,7 +56,7 @@ Agents may commit P1 work when CI is green. P0 items require explicit human appr
 
 ## Current gaps (action items)
 
-1. **Trademark counsel sign-off (P0)** — engineering audit complete in [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md); record counsel approval date before public flip.
+1. **Trademark counsel sign-off (P0-1)** — engineering audit complete in [`TRADEMARK_BRAND_AUDIT.md`](./TRADEMARK_BRAND_AUDIT.md); record counsel approval date in [PUBLIC_LAUNCH_CHECKLIST P0-1](./PUBLIC_LAUNCH_CHECKLIST.md#p0--before-git-remote-goes-public) before public flip.
 2. **Tag `v0.1.0`** — signed tag + release assets (`sbom.json`, `requirements-lock.txt`, `SHA256SUMS`) per launch checklist.
 3. **Flip visibility** — when P0 complete in [`PUBLIC_LAUNCH_CHECKLIST.md`](./PUBLIC_LAUNCH_CHECKLIST.md).
 

@@ -57,3 +57,7 @@ Full strategy: [docs/RWA_WEB3_STRATEGY.md](../../../docs/RWA_WEB3_STRATEGY.md)
 - **Hourly:** `evidence.content_hash_manifest` rollup
 
 See `plugin/scheduler.yaml` and [docs/ARCHITECTURE.md](../../../docs/ARCHITECTURE.md).
+
+---
+
+*Not affiliated with Space Exploration Technologies Corp. (SpaceX). Research only — [BRAND_USAGE_POLICY](../../../docs/BRAND_USAGE_POLICY.md).*
