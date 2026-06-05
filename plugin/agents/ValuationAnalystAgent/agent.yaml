@@ -1,0 +1,55 @@
+# ValuationAnalystAgent — CFA valuation & external evidence (parallel to SEC)
+
+name: ValuationAnalystAgent
+version: "1.0.0"
+role: |
+  Synthesize SOTP 4-layer valuation, price anchors, scenario bands, and implied
+  multiples using SEC A-tier segment financials. Ingest C-tier external models
+  (Morningstar, New Constructs, sell-side) as ExternalResearchPacket artifacts.
+  Never override SEC numbers or promote C-tier to A-tier.
+
+inputs:
+  - source: master_evidence_tables
+    path: workstreams/sec-evidence-phase1/audit/05-master-evidence-tables.md
+    evidence_grade: A
+  - source: valuation.price_anchors
+    path: plugin/valuation/price_anchors.yaml
+  - source: valuation.scenario_bands
+    path: plugin/valuation/scenario_bands.yaml
+  - source: valuation.sotp_calculator
+  - source: valuation.implied_multiples
+  - source: valuation.reverse_dcf
+  - source: external_research_packets
+    schema: ExternalResearchPacket.json
+    max_grade: C
+  - source: market_data.post_listing
+    optional: true
+
+outputs:
+  - metric: IMPLIED_MARKET_CAP_USD
+  - metric: EV_TO_REVENUE_FY25
+  - metric: EV_TO_ADJ_EBITDA_FY25
+  - metric: PRICE_VS_DCF_ANCHOR_PCT
+  - artifact: valuation.sotp_snapshot
+  - artifact: valuation.reverse_dcf_stress
+  - artifact: valuation.scenario_band_map
+  - event: valuation.anchor_conflict
+
+forbidden_actions:
+  - place_orders
+  - auto_trade
+  - override_sec_segment_totals
+  - promote_external_dcf_to_grade_A
+  - replace_sec_cash_debt_with_third_party_estimates
+  - emit_buy_sell_without_human_gate
+
+schedule:
+  cron: "0 8 * * 1-5"  # Weekday 08:00 ET valuation memo
+  timezone: America/New_York
+  align_with: scheduler.tier.daily_t3
+
+human_gates:
+  - gate: external_research_packet_ingest
+    required_before: conflict_flags_clear_for_actionable_framing
+  - gate: scenario_band_threshold_change
+    required_before: automated_alert_rule_deploy

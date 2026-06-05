@@ -1,0 +1,23 @@
+packet_id: ext-new-constructs-reverse-dcf
+source: New Constructs
+tier: C
+fair_value_usd: 500000000000
+fair_value_basis: enterprise_value
+implied_price: 38.2
+assumptions:
+  - Reverse DCF stress case — 23% NOPAT margin assumption (New Constructs framing).
+  - 50% revenue CAGR cited as required to justify IPO-range valuation.
+  - Conservative enterprise value ~$500B bear case vs ~$1.75T IPO anchor.
+  - Model not rebuilt from SEC filings; EXTERNAL_REFERENCE only.
+conflict_flags:
+  - EXTERNAL_DCF_NOT_VERIFIED
+  - BELOW_IPO_ISSUE_ANCHOR
+as_of: '2026-06-01'
+verified_model: false
+tags:
+  - EXTERNAL_REFERENCE
+source_url: https://www.newconstructs.com/spacex-spcx-going-boldly-where-no-one-has-gone-before/
+stress_cases:
+  nopat_margin_pct: 23
+  required_revenue_cagr_pct: 50
+  conservative_ev_usd_bn: 500

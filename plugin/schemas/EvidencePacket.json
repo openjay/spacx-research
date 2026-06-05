@@ -47,6 +47,11 @@
       }
     },
     "parent_packet_id": { "type": "string" },
-    "tags": { "type": "array", "items": { "type": "string" } }
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "conflict_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Optional flags when this packet conflicts with SEC A-tier or another graded source"
+    }
   }
 }

@@ -201,6 +201,7 @@ def _iter_metric_defs(registry: dict[str, Any]) -> list[dict[str, Any]]:
     defs: list[dict[str, Any]] = []
     defs.extend(registry.get("watch_metrics", []))
     defs.extend(registry.get("governance_metrics", []))
+    defs.extend(registry.get("valuation_metrics", []))
     for fw in registry.get("flywheels", {}).values():
         defs.extend(fw.get("metrics", []))
     return defs

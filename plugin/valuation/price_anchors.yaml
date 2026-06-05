@@ -1,0 +1,58 @@
+version: '1.0'
+asset: SPCX
+description: >
+  CFA-labeled price anchors for valuation context. External anchors are C-tier
+  and never override SEC A-tier financials. Observation bands carry no
+  fundamental claim.
+anchors:
+  dcf_conservative_anchor:
+    label: DCF Conservative Anchor
+    cfa_tier: C
+    evidence_grade: C
+    source_type: EXTERNAL_REFERENCE
+    provider: Morningstar (via Reuters)
+    verified_model: false
+    price_usd_per_share: 60.0
+    enterprise_value_usd_bn: 780.0
+    implied_market_cap_usd_bn: 780.0
+    notes: >
+      Third-party DCF summary; NOT a verified SPACX model. Use as conservative
+      external reference only. Does not override SEC segment tables.
+    conflict_flags:
+      - EXTERNAL_DCF_NOT_VERIFIED
+      - BELOW_IPO_ISSUE_ANCHOR
+    as_of: '2026-06-01'
+  ipo_issue_anchor:
+    label: IPO Issue Anchor
+    cfa_tier: A
+    evidence_grade: A
+    source_type: SEC_PRIMARY
+    filing: Form S-1/A Amendment No. 2
+    filing_date: '2026-06-03'
+    sec_citation: Cover; The Offering
+    price_usd_per_share: 135.0
+    enterprise_value_usd_bn: 1750.0
+    implied_market_cap_usd_bn: 1750.0
+    shares_basis: post_ipo_total_common_a_plus_b
+    shares_count: 13075865175
+    notes: >
+      Expected IPO price and implied ~$1.75T market cap from S-1/A #2 cap table.
+      Pending 424B4 final pricing.
+    conflict_flags:
+      - FINAL_PROSPECTUS_PENDING
+    as_of: '2026-06-03'
+  fomo_trading_band:
+    label: FOMO Trading Band
+    cfa_tier: OBSERVATION
+    evidence_grade: D
+    source_type: MARKET_OBSERVATION
+    price_usd_per_share_low: 185.0
+    price_usd_per_share_high: 300.0
+    fundamental_claim: false
+    notes: >
+      Pre/post-listing sentiment observation only. No DCF, SOTP, or SEC claim.
+      Lock-up pop trigger reference at $175.50 (130% x $135) is separate metric.
+    conflict_flags:
+      - NO_FUNDAMENTAL_BASIS
+      - SOCIAL_SENTIMENT_RISK
+    as_of: '2026-06-05'

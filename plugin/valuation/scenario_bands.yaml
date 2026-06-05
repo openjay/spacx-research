@@ -1,0 +1,70 @@
+version: '1.0'
+asset: SPCX
+methodology: SOTP_4_LAYER
+description: >
+  Scenario enterprise-value bands using SOTP layers (Starlink base, Launch option,
+  AI discounted, orbital/Mars OTM). SEC FY2025 segment revenue/EBITDA inform
+  weights; forward layers are judgment (C-tier framing).
+layers:
+  - id: starlink_base
+    segment: Connectivity
+    role: Core cash-generating base (Starlink)
+    sec_fy25_revenue_musd: 11387
+    sec_fy25_adj_ebitda_musd: 7168
+  - id: launch_option
+    segment: Space
+    role: Launch cadence + Starship option value
+    sec_fy25_revenue_musd: 4086
+    sec_fy25_adj_ebitda_musd: 653
+  - id: ai_discounted
+    segment: AI
+    role: AI compute / Anthropic — probability haircut applied
+    sec_fy25_revenue_musd: 3201
+    sec_fy25_adj_ebitda_musd: -1237
+    default_probability_haircut: 0.35
+  - id: orbital_mars_otm
+    segment: Corporate
+    role: Deep OTM optionality (Mars, orbital manufacturing)
+    sec_anchor: none
+    evidence_grade: D
+scenarios:
+  conservative:
+    ev_usd_bn_low: 500
+    ev_usd_bn_high: 800
+    implied_price_usd_low: 38
+    implied_price_usd_high: 61
+    assumptions:
+      - Starlink growth slows to low-teens; ARPU pressure persists
+      - AI segment remains loss-making; Anthropic ramp discounted 50%+
+      - Starship commercial orbit delayed beyond YE 2026
+      - Bridge loan refinancing overhang; no IPO greenshoe upside modeled
+  base:
+    ev_usd_bn_low: 800
+    ev_usd_bn_high: 1200
+    implied_price_usd_low: 61
+    implied_price_usd_high: 92
+    assumptions:
+      - Connectivity FY25 trajectory continues (~50% YoY revenue growth moderates)
+      - AI capex/revenue stabilizes below 10x; Anthropic contract recognized on ramp
+      - Starship payload orbit achieved 2H 2026 per Business disclosure
+      - IPO proceeds deployed per Use of Proceeds (no % split assumed)
+  bull:
+    ev_usd_bn_low: 1200
+    ev_usd_bn_high: 1700
+    implied_price_usd_low: 92
+    implied_price_usd_high: 130
+    assumptions:
+      - Starlink subscribers exceed 15M by YE 2026; Adj. EBITDA margin holds >55%
+      - AI turns EBITDA-positive on Anthropic + incremental compute leases
+      - Starship cadence unlocks V3 deployment economics
+      - Governance discount narrows post-IPO liquidity events
+  ipo_bull:
+    ev_usd_bn_low: 1750
+    ev_usd_bn_high: null
+    implied_price_usd_low: 135
+    implied_price_usd_high: null
+    assumptions:
+      - Market prices at S-1/A #2 expected IPO ($135/sh, ~$1.75T)
+      - Full greenshoe exercised (638.9M primary shares)
+      - First-day pop within lock-up framework but no fundamental re-rating required
+      - 424B4 confirms expected terms within ±5%

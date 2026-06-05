@@ -24,7 +24,8 @@ Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space 
 - Agent API stubs: ingest, evidence, metrics, thesis, risk, alerts (`plugin/api/`)
 - Architecture: [ARCHITECTURE.md](./ARCHITECTURE.md) — Data→Evidence→Metrics→Stat→LLM→Risk→Action→Audit
 - Web3/RWA **pre-layer** detail: [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md) · Workstream 3 below
-- Parallel: metric registry, statistical models, eight agents (`plugin/metrics/`, `plugin/models/`, `plugin/agents/`)
+- Parallel: metric registry, statistical models, nine agents (`plugin/metrics/`, `plugin/models/`, `plugin/agents/`)
+- Valuation & external evidence layer (`plugin/valuation/`, `ValuationAnalystAgent`, `workstreams/valuation-research/`)
 - Automated diff on new SEC amendments and 10-Q/10-K (Phase 2+)
 - Synthesis layers on top of Workstream 1 tables (no replacement of source trace)
 
@@ -55,7 +56,19 @@ Platform code: **SPACX** · Proposed / expected listing symbol: **SPCX** (Space 
 
 **Not in pre-layer:** main trading layer, auto swaps/bridges, production custody, TVL-as-KPI.
 
-### 4. Trading workflows
+### 4. Valuation & external evidence (`workstreams/valuation-research/`)
+
+**Status:** Active (2026-06-05)
+
+- SOTP 4-layer model (Starlink base, Launch option, AI discounted, orbital/Mars OTM)
+- Price anchors: C-tier Morningstar ~$780B, A-tier IPO $135/sh, observation band $185–300
+- `ExternalResearchPacket` schema for C-tier fair-value imports
+- Registry metrics: `IMPLIED_MARKET_CAP_USD`, `EV_TO_REVENUE_FY25`, `EV_TO_ADJ_EBITDA_FY25`, `PRICE_VS_DCF_ANCHOR_PCT`
+- **Does not override** SEC A-tier segment financials
+
+**Entry:** [valuation-research/README.md](../workstreams/valuation-research/README.md) · **Audit:** [VALUATION_AUDIT.md](../workstreams/valuation-research/VALUATION_AUDIT.md)
+
+### 5. Trading workflows
 
 **Status:** Planned
 

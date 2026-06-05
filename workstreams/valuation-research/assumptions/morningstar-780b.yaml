@@ -1,0 +1,15 @@
+packet_id: ext-morningstar-780b
+source: Morningstar via Reuters
+tier: C
+fair_value_usd: 780000000000
+fair_value_basis: enterprise_value
+implied_price: 59.65
+assumptions: []
+conflict_flags: []
+as_of: '2026-06-02'
+verified_model: false
+source_url: https://www.reuters.com/business/media-telecom/morningstar-values-spacex-780-billion-half-its-ipo-target-2026-06-02/
+notes: >
+  Nicolas Owens (Morningstar) fair value ~$780B enterprise value via Reuters
+  2026-06-02. Implied ~$59.65/sh on 13.08B A+B shares. C-tier external DCF
+  summary; not verified against SEC filings.

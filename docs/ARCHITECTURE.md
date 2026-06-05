@@ -22,6 +22,7 @@ Data → Evidence → Metrics → Statistical → LLM → Risk → Action → Au
 |-------|----------------|--------|-------------|
 | **Data** | SEC EDGAR, exchange, market, on-chain, RWA attestations | Ingest, dedupe, timestamp | Invent unsourced numbers |
 | **Evidence** | Grade A/B/C/D, extract claims, hash packets | Map filing → claims | Promote social posts to core financials |
+| **Valuation** | SOTP, anchors, implied multiples, reverse DCF | Frame C-tier external models | Override SEC A-tier numbers |
 | **Metrics** | Formulas, baselines, thresholds (registry) | Compute ARPU, capex/revenue, float | Change formulas ad hoc |
 | **Statistical** | Event study, Bayesian thesis, regime, factors, anomalies | Update P(thesis), flag AMBER/RED | Place orders |
 | **LLM** | Explain deltas, write reports, hypothesize | Summarize conflicts | Override hard metrics or risk veto |
@@ -150,7 +151,9 @@ Aligned with [RWA_WEB3_STRATEGY.md](./RWA_WEB3_STRATEGY.md) and Workstream 3 in 
 | `plugin/api/` | Agent-callable stubs |
 | `plugin/metrics/` | Registry + threshold engine |
 | `plugin/models/` | Statistical interfaces |
-| `plugin/agents/` | Eight agent roles |
+| `plugin/agents/` | Nine agent roles (incl. ValuationAnalystAgent) |
+| `plugin/valuation/` | SOTP, price anchors, implied multiples, reverse DCF |
+| `workstreams/valuation-research/` | External model index + valuation audit |
 | `workstreams/sec-evidence-phase1/` | Phase 1 SEC evidence (complete) |
 
 ---
@@ -173,6 +176,7 @@ AI 时代投资研究的对象是**连续事件流**，而不是「等财报 →
 |----|------|------|------|
 | **数据** | SEC、行情、链上、RWA | 采集、去重、打时间戳 | 无来源数字入库 |
 | **证据** | A/B/C/D 分级、抽取 claim、哈希封存 | 申报文件→结构化主张 | 社媒数字进核心财务表 |
+| **估值** | SOTP、锚点、隐含倍数、反向 DCF | 标注 C 级外部模型 | 覆盖 SEC A 级数字 |
 | **指标** | 公式、基线、阈值 | 计算 ARPU、capex/revenue | 随意改公式 |
 | **统计** | 事件研究、贝叶斯 thesis、 regime | 更新 P(thesis) | 下单 |
 | **大模型** | 解释、报告、假设 | 总结冲突 | 覆盖硬指标或风控否决 |

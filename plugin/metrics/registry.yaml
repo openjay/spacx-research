@@ -507,3 +507,55 @@ flywheels:
       update_cadence: annual
       description: Launches FY2025 reference
       baseline: 170
+valuation_metrics:
+- metric_id: IMPLIED_MARKET_CAP_USD
+  asset: SPCX
+  flywheel: VALUATION
+  formula: price_usd * post_ipo_total_shares
+  unit: USD
+  source_priority:
+  - SEC_cap_table
+  - market_data
+  - plugin/valuation/implied_multiples
+  update_cadence: daily_post_ipo
+  description: Implied market capitalization at observed or scenario price
+  baseline: 1765247803612.5
+  baseline_period: IPO_issue_anchor_135
+- metric_id: EV_TO_REVENUE_FY25
+  asset: SPCX
+  flywheel: VALUATION
+  formula: (market_cap + debt - cash) / fy25_consolidated_revenue_usd
+  unit: ratio
+  source_priority:
+  - SEC_FY2025
+  - plugin/valuation/implied_multiples
+  update_cadence: daily_post_ipo
+  description: Enterprise value to FY2025 consolidated revenue
+  baseline: 93.8
+  baseline_period: IPO_issue_anchor_135
+- metric_id: EV_TO_ADJ_EBITDA_FY25
+  asset: SPCX
+  flywheel: VALUATION
+  formula: (market_cap + debt - cash) / fy25_consolidated_adj_ebitda_usd
+  unit: ratio
+  source_priority:
+  - SEC_FY2025
+  - plugin/valuation/implied_multiples
+  update_cadence: daily_post_ipo
+  description: Enterprise value to FY2025 consolidated Adj. EBITDA
+  baseline: 266.2
+  baseline_period: IPO_issue_anchor_135
+- metric_id: PRICE_VS_DCF_ANCHOR_PCT
+  asset: SPCX
+  flywheel: VALUATION
+  formula: (price_usd - dcf_conservative_anchor_price) / dcf_conservative_anchor_price
+  unit: percent
+  source_priority:
+  - plugin/valuation/price_anchors.yaml
+  - market_data
+  update_cadence: daily_post_ipo
+  description: Premium or discount vs C-tier DCF conservative anchor (~$60/sh)
+  baseline: 125.0
+  baseline_period: IPO_issue_anchor_135
+  comparator: gt
+  amber_threshold: 100.0

@@ -1,0 +1,27 @@
+packet_id: ext-goldman-ai-surge-reuters
+source: Goldman Sachs via Reuters (FT report)
+tier: C
+fair_value_usd: 0
+fair_value_basis: enterprise_value
+implied_price: 0
+assumptions:
+  - Thematic revenue projection only; no published fair value per share.
+  - Goldman projects AI revenue ~$322B by 2030 (100-fold surge per Reuters/FT summary).
+  - Total company revenue projection ~$474B by 2030 cited in press summary.
+  - Primary Goldman research report NOT independently verified by SPACX.
+conflict_flags:
+  - LEAD_UNDERWRITER
+  - UNVERIFIED_FT_REPORT
+as_of: '2026-06-04'
+verified_model: false
+tags:
+  - THEMATIC_ONLY
+  - NO_VERIFIED_MODEL
+  - EXTERNAL_REFERENCE
+source_url: https://www.reuters.com/business/media-telecom/goldman-sachs-expects-spacexs-ai-revenue-surge-100-fold-by-2030-ft-reports-2026-06-04/
+projections:
+  ai_revenue_usd_bn_2030: 322
+  total_revenue_usd_bn_2030: 474
+notes: >
+  Lead underwriter on Form S-1/A #2 cover. Use for bull-case scenario framing
+  only; excluded from Grade A metrics and core DCF inputs.

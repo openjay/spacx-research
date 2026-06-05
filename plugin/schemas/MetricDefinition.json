@@ -18,7 +18,7 @@
     "asset": { "type": "string", "const": "SPCX" },
     "flywheel": {
       "type": "string",
-      "enum": ["STARLINK", "AI_COMPUTE", "STARSHIP", "GOVERNANCE", "OFFERING", "MACRO"]
+      "enum": ["STARLINK", "AI_COMPUTE", "STARSHIP", "GOVERNANCE", "OFFERING", "MACRO", "VALUATION"]
     },
     "formula": { "type": "string" },
     "unit": { "type": "string" },

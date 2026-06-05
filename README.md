@@ -15,6 +15,7 @@ This repository is for **research and education**. It is **not investment advice
 | **SEC evidence (Phase 1)** | [`workstreams/sec-evidence-phase1/`](workstreams/sec-evidence-phase1/) | **Done** | S-1 / S-1/A tables, Tracks A–D audit, cached filing HTML |
 | **SEC watchlist (Phase 2)** | [`workstreams/sec-evidence-phase2/`](workstreams/sec-evidence-phase2/) | **Done** | Starlink / AI / Starship quality tables → [`plugin/metrics/registry.yaml`](plugin/metrics/registry.yaml) |
 | **AI-native intelligence plugin** | [`plugin/`](plugin/) | **V0 scaffold** | `spacx-intelligence` — [AGENTS](docs/AGENTS.md), [MODELS](docs/MODELS.md), [manifest](plugin/manifest.yaml); compliance level 2 |
+| **Valuation & external evidence** | [`workstreams/valuation-research/`](workstreams/valuation-research/) · [`plugin/valuation/`](plugin/valuation/) | **Active** | SOTP 4-layer, price anchors, C-tier external models; SEC A-tier authoritative |
 | **Web3 / RWA pre-layer** | [docs/RWA_WEB3_STRATEGY.md](docs/RWA_WEB3_STRATEGY.md) · [`plugin/agents/OnchainRWAAgent/`](plugin/agents/OnchainRWAAgent/) | **Planned / pre-layer** | Evidence hash + chain monitor (W1); no auto on-chain trading |
 | **Trading workflows** | *(planned)* | Planned | Signal → execution research (non-production) |
 

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://spacx.openjay.dev/schemas/ExternalResearchPacket.json",
+  "title": "ExternalResearchPacket",
+  "description": "C-tier external valuation or research artifact; never overrides SEC A-tier financials.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "source",
+    "tier",
+    "fair_value_usd",
+    "implied_price",
+    "assumptions",
+    "as_of"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "packet_id": { "type": "string" },
+    "source": {
+      "type": "string",
+      "description": "Provider label, e.g. Morningstar via Reuters, New Constructs, Goldman Sachs"
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "OBSERVATION"],
+      "description": "CFA evidence tier; external valuation models are typically C"
+    },
+    "conflict_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "e.g. EXTERNAL_DCF_NOT_VERIFIED, ABOVE_IPO_ANCHOR, BELOW_SEC_SEGMENT_IMPLIED"
+    },
+    "fair_value_usd": {
+      "type": "number",
+      "description": "Enterprise or equity value in USD (document basis in assumptions)"
+    },
+    "fair_value_basis": {
+      "type": "string",
+      "enum": ["enterprise_value", "equity_value", "market_cap"],
+      "default": "enterprise_value"
+    },
+    "implied_price": {
+      "type": "number",
+      "description": "Implied price per share in USD"
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "verified_model": {
+      "type": "boolean",
+      "default": false,
+      "description": "False for third-party summaries not rebuilt from SEC filings"
+    },
+    "sec_crosswalk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revenue_fy25_musd": { "type": "number" },
+        "adj_ebitda_fy25_musd": { "type": "number" },
+        "matches_sec": { "type": "boolean" }
+      }
+    },
+    "parent_packet_id": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } }
+  }
+}
