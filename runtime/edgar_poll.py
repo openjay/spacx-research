@@ -1,4 +1,4 @@
-"""Poll SEC EDGAR CIK 0001181412 for new filings (424B4, 10-Q); emit events."""
+"""Poll SEC EDGAR CIK 0001181412 for new filings; emit events."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from runtime.persistence import emit_runtime_event, load_edgar_state, save_edgar
 CIK = "0001181412"
 CIK_INT = "1181412"
 SUBMISSIONS_URL = f"https://data.sec.gov/submissions/CIK{CIK}.json"
-WATCH_FORMS = frozenset({"424B4", "10-Q", "10-K", "S-1", "S-1/A", "8-K"})
+WATCH_FORMS = frozenset({"424B4", "10-Q", "10-K", "S-1", "S-1/A", "FWP", "8-K"})
 P0_FORM = "424B4"
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

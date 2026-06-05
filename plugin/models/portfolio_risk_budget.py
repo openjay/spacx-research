@@ -7,7 +7,7 @@ SPCX observation sleeve default: 1% max position (user spec).
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 
 from plugin.models._types import (
@@ -147,7 +147,7 @@ class PortfolioRiskBudgetModel:
         violations = self.check(pos, pol)
         ok = len(violations) == 0
 
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, str(ok)])
         audit = AuditRecord(
             model=self.MODEL_NAME,

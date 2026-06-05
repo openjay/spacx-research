@@ -7,7 +7,7 @@ V0: binary and binned probability forecasts without external deps.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Sequence
 
 from plugin.models._types import (
@@ -126,7 +126,7 @@ class ForecastScoringModel:
             else None
         )
 
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, str(len(fc))])
         audit = AuditRecord(
             model=self.MODEL_NAME,

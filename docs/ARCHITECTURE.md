@@ -57,7 +57,7 @@ flowchart TB
 
 | Lane | Path (logical) | Owner agent | Pre-layer scope |
 |------|----------------|-------------|-----------------|
-| **sec/** | Form S-1/A, 10-K/Q, 424B4 | SECFilingAgent, EvidenceAuditorAgent | Grade A/B primary |
+| **sec/** | Form S-1/A, FWP, 10-K/Q, 424B4 | SECFilingAgent, EvidenceAuditorAgent | Grade A/B primary; FWP review-only until cross-checked |
 | **market/** | Post-listing + peer prices, vol (pre-listing: stub only) | *(metrics ingest)* | Surfaces after first trade confirmation |
 | **rwa/** | Stablecoin peg, tokenized treasury attestations, collateral metadata | **OnchainRWAAgent** | W1 monitor + hash only |
 | **macro/** | Rates, liquidity, funding | MacroLiquidityAgent | Thesis context |

@@ -79,7 +79,7 @@ This memorandum synthesizes independent workpapers A/B/C, deduplicates findings,
 | B-007 | **Unverified** | B/D | Final underwriting discount (% and $) | Pending 424B4 |
 | B-008 | **Unverified** | B/D | Listing / first trade date | Pending 424B4 |
 | B-009 | **Material gap** | B | 82.4% (voting, *The Offering*) vs 84.4% (*Security Ownership*) | Label metric in models; not a filing error |
-| B-010 | **Unverified** | B/D | Form 424B4 | **Not filed** on EDGAR as of 2026-06-04 |
+| B-010 | **Unverified** | B/D | Form 424B4 | **Not filed** on EDGAR as of 2026-06-05; 2026-06-04 FWPs do not clear this gap |
 | C-001 | **Confirmed** | C | Anthropic $1.25B/mo through May 2029; ramp; 90d termination after 3mo | PASS (narrative) |
 | C-002 | **Material gap** | C | F-63 footnote omits $ quantum, 3-month carve-out, GPU count | Monitor narrative; footnote is incomplete |
 | C-003 | **Confirmed** | C | xAI = merger (Feb 2, 2026), not third-party cloud contract | N/A for contract verification |

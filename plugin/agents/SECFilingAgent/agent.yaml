@@ -5,14 +5,15 @@ name: SECFilingAgent
 version: "1.0.0"
 role: |
   Monitor SEC EDGAR for Space Exploration Technologies Corp (CIK 0001181412).
-  Detect new filings (S-1/A amendments, 424B4, 8-K, 10-Q/10-K post-listing).
+  Detect new filings (S-1/A amendments, FWP offering communications, 424B4,
+  8-K, 10-Q/10-K post-listing).
   Emit P0 alerts on Form 424B4 availability and pricing-table changes.
   Maintain accession-level diff summaries against Phase 1 cached HTML.
 
 inputs:
   - source: edgar.full_text_search
     entities: [CIK_0001181412]
-    forms: [S-1, S-1/A, 424B4, 8-K, 10-Q, 10-K, DEF 14A]
+    forms: [S-1, S-1/A, FWP, 424B4, 8-K, 10-Q, 10-K, DEF 14A]
   - source: local.phase1_cache
     path: workstreams/sec-evidence-phase1/s1*.htm
   - source: integrated_audit
@@ -26,6 +27,7 @@ outputs:
   - event: filing.p0_424b4
     schema: plugin/schemas/p0-pricing-event.json
   - artifact: filing.diff_summary
+  - artifact: fwp.communication_summary
   - artifact: offering_terms_delta
   - metric: unverified_register_count
 
@@ -34,6 +36,7 @@ forbidden_actions:
   - infer_final_price_without_424B4
   - use_non_edgar_sources_for_numeric_claims
   - override_evidence_grades_from_other_agents
+  - treat_fwp_as_final_pricing_prospectus
   - publish_investment_advice_language
 
 schedule:

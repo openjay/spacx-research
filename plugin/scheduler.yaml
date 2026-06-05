@@ -26,7 +26,7 @@ tiers:
       - MacroLiquidityAgent
 
   sec_1h:
-    description: EDGAR ingest, diff, P0 424B4 watch
+    description: EDGAR ingest, FWP/offering-communication diff, P0 424B4 watch
     interval_minutes: 60
     cron: "0 * * * *"
     agents:

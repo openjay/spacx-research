@@ -3,7 +3,7 @@
 **Status:** Approved direction (2026-06-05 CFA audit)  
 **Trigger:** [VALUATION_AUDIT.md](./VALUATION_AUDIT.md)  
 **Verdict:** **Partial re-architecture** — additive layer; SEC evidence unchanged  
-**Compliance:** Level 2 — no auto-trading; ValuationAgent read-only
+**Compliance:** Level 2 — no auto-trading; ValuationAnalystAgent read-only
 
 ---
 
@@ -57,34 +57,31 @@ anchors:
     label: "External fair value estimate — NOT verified"
     price_usd_per_share: 60.0          # implied from ~$780B / 13.08B
     enterprise_value_usd_bn: 780.0
-    source_tier: C
-    sources:
-      - provider: Morningstar
-        analyst: Nicolas Owens
-        via: Reuters
-        url: https://www.reuters.com/business/media-telecom/morningstar-values-spacex-780-billion-half-its-ipo-target-2026-06-02/
-    share_count_basis:
-      value_bn: 13.075865175
-      source_tier: A
-      sec_citation: "S-1/A #2 The Offering — Class A+B post-IPO"
-    action_gate: OBSERVE_ONLY
+    cfa_tier: C
+    evidence_grade: C
+    source_type: EXTERNAL_REFERENCE
+    provider: Morningstar (via Reuters)
+    verified_model: false
+    conflict_flags: [EXTERNAL_DCF_NOT_VERIFIED, BELOW_IPO_ISSUE_ANCHOR]
 
   ipo_issue_anchor:
     label: "Expected issue price — SEC filing"
     price_usd_per_share: 135.0
-    enterprise_value_usd_bn: 1765.0    # 135 × 13.076B
-    source_tier: A
+    enterprise_value_usd_bn: 1750.0    # S-1/A framing; per-share math uses SEC 13.08B share count when needed
+    cfa_tier: A
+    evidence_grade: A
     sec_citation: "S-1/A #2 Cover; Use of Proceeds"
     blocker: FINAL_PROSPECTUS_PENDING
-    action_gate: OBSERVE_ONLY
+    shares_count: 13075865175
 
   fomo_trading_band:
     label: "Sentiment observation only — no fundamental claim"
     price_usd_per_share_low: 185.0
     price_usd_per_share_high: 300.0
-    source_tier: null
-    action_gate: OBSERVE_ONLY
-    risk_state: RED
+    cfa_tier: OBSERVATION
+    evidence_grade: D
+    fundamental_claim: false
+    conflict_flags: [NO_FUNDAMENTAL_BASIS, SOCIAL_SENTIMENT_RISK]
 ```
 
 ---
@@ -103,15 +100,15 @@ anchors:
 
 | Field | Required |
 |-------|----------|
-| `provider` | Yes |
+| `source` | Yes |
 | `as_of` | Yes |
-| `source_tier` | C or C+conflict |
+| `tier` | C, D, or OBSERVATION |
 | `fair_value_usd` | If applicable |
-| `implied_price_usd` | Per-share if stated |
+| `implied_price` | Per-share if stated |
 | `conflict_flags[]` | e.g. `LEAD_UNDERWRITER`, `COMPENSATED_RESEARCH` |
-| `model_assumptions[]` | Revenue CAGR, margin, WACC, terminal g, segment weights |
-| `sec_cross_checks[]` | A-tier fields used for sanity (share count, FY2025 revenue) |
-| `verification_status` | `PENDING` \| `ARITHMETIC_OK` \| `PRIMARY_MODEL_INGESTED` |
+| `assumptions[]` | Revenue CAGR, margin, WACC, terminal g, segment weights, or qualitative model limits |
+| `sec_crosswalk` | A-tier fields used for sanity (share count, FY2025 revenue/EBITDA) |
+| `verified_model` | `false` for third-party summaries not rebuilt from primary source |
 
 ---
 
@@ -121,27 +118,33 @@ anchors:
 
 ```json
 {
-  "required": ["packet_id", "provider", "source_tier", "as_of", "model_assumptions"],
+  "required": ["packet_id", "source", "tier", "fair_value_usd", "implied_price", "assumptions", "as_of"],
   "properties": {
-    "provider": { "type": "string" },
-    "source_tier": { "enum": ["C", "D"] },
+    "source": { "type": "string" },
+    "tier": { "enum": ["A", "B", "C", "D", "OBSERVATION"] },
     "conflict_flags": {
       "type": "array",
-      "items": { "enum": ["LEAD_UNDERWRITER", "SYNDICATE_MEMBER", "COMPENSATED_RESEARCH", "ISSUER_AFFILIATE"] }
+      "items": { "type": "string" }
     },
     "fair_value_usd": { "type": "number" },
-    "implied_price_usd": { "type": "number" },
-    "model_assumptions": {
+    "fair_value_basis": { "enum": ["enterprise_value", "equity_value", "market_cap"] },
+    "implied_price": { "type": "number" },
+    "assumptions": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "value", "unit"],
-        "properties": {
-          "name": { "type": "string" },
-          "value": { "type": "number" },
-          "unit": { "type": "string" },
-          "verified_against_sec": { "type": "boolean" }
-        }
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "verified_model": { "type": "boolean" },
+    "source_url": { "type": "string", "format": "uri" },
+    "projections": { "type": "object" },
+    "stress_cases": { "type": "object" },
+    "notes": { "type": "string" },
+    "sec_crosswalk": {
+      "type": "object",
+      "properties": {
+        "revenue_fy25_musd": { "type": "number" },
+        "adj_ebitda_fy25_musd": { "type": "number" },
+        "matches_sec": { "type": "boolean" }
       }
     }
   }
@@ -156,7 +159,7 @@ Add optional fields (backward compatible):
 |-------|------|-------------|
 | `source_tier` | enum A/B/C/D | Alias of `confidence`; explicit for valuation lane |
 | `conflict_flags` | string[] | CFA Standard VI disclosures |
-| `model_assumptions` | object[] | For C-tier valuation claims only |
+| `model_assumptions` | object[] | For C-tier valuation claims only; `ExternalResearchPacket` uses `assumptions[]` strings |
 
 **Rule:** Packets with `confidence: A` **must not** carry `model_assumptions` from external DCF.
 

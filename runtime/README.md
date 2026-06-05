@@ -30,7 +30,7 @@ Requires **Python 3.11+** and PyYAML (`pip install pyyaml` if not already availa
 | Module | Role |
 |--------|------|
 | `worker.py` | Main loop; reads `plugin/scheduler.yaml` tiers |
-| `edgar_poll.py` | CIK `0001181412` submissions feed; 424B4 / 10-Q watch |
+| `edgar_poll.py` | CIK `0001181412` submissions feed; S-1/A / FWP / 424B4 / 10-Q watch |
 | `persistence.py` | SQLite + JSONL under `runtime/data/` (gitignored) |
 | `health.py` | `readiness()` gates for orchestrators |
 | `packets.py` | `ThesisUpdatePacket`, `RiskAlertPacket`, `NAP` |
@@ -48,7 +48,7 @@ Requires **Python 3.11+** and PyYAML (`pip install pyyaml` if not already availa
 | `schema_contract_ok` | Required `plugin/schemas/*.json` present and valid |
 | `ready` | `sec_cache_ok` ∧ `schema_contract_ok` (observation worker; blockers may still be active) |
 
-Blockers are sourced from `plugin/metrics/baselines.json` and updated live when **424B4** or **10-Q** appear in the EDGAR recent feed.
+Blockers are sourced from `plugin/metrics/baselines.json` and updated live when **424B4** or **10-Q** appear in the EDGAR recent feed. **FWP** filings are monitored as offering communications, but they do not clear final-pricing or first-earnings blockers.
 
 ## SEC EDGAR
 
@@ -75,4 +75,4 @@ Full orchestration: [`plugin/scheduler.yaml`](../plugin/scheduler.yaml), [`docs/
 - `runtime/data/spacx_v0.db` — seals, receipts, snapshots, events
 - `runtime/data/jsonl/*.jsonl` — optional tail for agents
 
-See [`docs/RUNTIME.md`](../docs/RUNTIME.md) for scope, blockers, and eight-agent integration.
+See [`docs/RUNTIME.md`](../docs/RUNTIME.md) for scope, blockers, and nine-agent integration.

@@ -7,7 +7,7 @@ Events: Form 424B4, earnings, lock-up releases, Starship milestones (Phase 1 see
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Any, Mapping, Sequence
 
 from plugin.models._types import (
@@ -197,7 +197,7 @@ class EventStudyModel:
                 )
             )
 
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, window.event_type, str(window.event_date)])
         payload = {
             "event_type": window.event_type,

@@ -33,7 +33,7 @@
 | **Class A / B voting weight** | **11.5% / 88.5%** | ✓ | *The Offering* |
 | **Controlled company** | Yes | ✓ | *The Offering* |
 | **Dual-class** | A: 1 vote; B: 10 votes; B elects majority of board | ✓ | *Description of Capital Stock* |
-| **424B4 status** | **Not filed** (2026-06-04 EDGAR) | Unverified | CIK 0001181412 |
+| **424B4 status** | **Not filed** (2026-06-05 EDGAR; two 2026-06-04 FWPs filed) | Unverified | CIK 0001181412 |
 
 ### Use of proceeds (verbatim summary)
 

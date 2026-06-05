@@ -101,6 +101,13 @@ def test_external_research_packet_schema() -> None:
     validate_instance(sample, "ExternalResearchPacket.json")
 
 
+def test_external_research_assumption_files_match_schema() -> None:
+    assumption_dir = ROOT / "workstreams" / "valuation-research" / "assumptions"
+    for path in sorted(assumption_dir.glob("*.yaml")):
+        packet = yaml.safe_load(path.read_text(encoding="utf-8"))
+        validate_instance(packet, "ExternalResearchPacket.json")
+
+
 def test_evidence_packet_accepts_conflict_flags() -> None:
     sample = {
         "packet_id": "pkt-val-001",

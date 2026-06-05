@@ -186,7 +186,7 @@ Aligned with [CFA_RESEARCH_POLICY.md](./CFA_RESEARCH_POLICY.md) §2; extended fo
 | Full repo restructure? | **NO** — SEC evidence phase remains SSOT for financial facts |
 | Partial re-architecture? | **YES** — add **Valuation & External Evidence Layer** parallel to `workstreams/sec-evidence-phase1/` |
 | Replace evidence pipeline? | **NO** |
-| Trading bot / auto-execution? | **NO** — compliance level 2; ValuationAgent read-only |
+| Trading bot / auto-execution? | **NO** — compliance level 2; ValuationAnalystAgent read-only |
 | New thesis key? | **Already present:** `VALUATION_REASONABLE` in `ThesisState.json` |
 | Collapse layers? | **FORBIDDEN** — Data → Evidence → **Valuation (parallel ingest)** → Metrics → … |
 

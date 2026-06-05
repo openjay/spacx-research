@@ -1,17 +1,18 @@
 # SPACX agent orchestration
 
-Eight intelligence agents under `plugin/agents/`. Scheduler: [`plugin/scheduler.yaml`](../plugin/scheduler.yaml). Compliance: [`COMPLIANCE.md`](COMPLIANCE.md). Phase 1 evidence baseline: [integrated audit opinion](../workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md).
+Nine intelligence agents under `plugin/agents/`. Scheduler: [`plugin/scheduler.yaml`](../plugin/scheduler.yaml). Compliance: [`COMPLIANCE.md`](COMPLIANCE.md). Phase 1 evidence baseline: [integrated audit opinion](../workstreams/sec-evidence-phase1/audit/00-integrated-audit-opinion.md).
 
 ## Agent roster
 
 | Agent | Primary function | Scheduler tier |
 |-------|------------------|----------------|
-| **SECFilingAgent** | EDGAR monitor; 424B4 P0 | 1h SEC (+ 15m when watch active) |
+| **SECFilingAgent** | EDGAR monitor; FWP review; 424B4 P0 | 1h SEC (+ 15m when watch active) |
 | **EvidenceAuditorAgent** | A/B/C/D grading; gap register | 6h + daily thesis gate |
 | **StarlinkAnalystAgent** | Connectivity KPIs | 15m market |
 | **AIComputeAnalystAgent** | AI segment / Anthropic | 15m market |
 | **StarshipMilestoneAgent** | Space / Starship milestones | 4h |
 | **LockupFloatAgent** | Float path model | Daily 07:00 ET |
+| **ValuationAnalystAgent** | C-tier valuation anchors; reverse DCF; no SEC override | 1h SEC + thesis daily |
 | **MacroLiquidityAgent** | Macro liquidity context | 15m market |
 | **OnchainRWAAgent** | RWA + evidence hash (**no trading**) | 1–5m crypto |
 
@@ -20,7 +21,7 @@ Eight intelligence agents under `plugin/agents/`. Scheduler: [`plugin/scheduler.
 ```mermaid
 flowchart TB
   subgraph ingest["Ingest tier"]
-    SEC[SECFilingAgent<br/>EDGAR / 424B4 P0]
+    SEC[SECFilingAgent<br/>EDGAR / FWP / 424B4 P0]
     ONC[OnchainRWAAgent<br/>RWA + hash · NO TRADE]
   end
 
@@ -33,6 +34,7 @@ flowchart TB
     AIC[AIComputeAnalystAgent]
     SHP[StarshipMilestoneAgent]
     LCK[LockupFloatAgent]
+    VAL[ValuationAnalystAgent]
     MAC[MacroLiquidityAgent]
   end
 
@@ -44,9 +46,9 @@ flowchart TB
   end
 
   SEC --> EVA
-  SEC --> STL & AIC & SHP & LCK
+  SEC --> STL & AIC & SHP & LCK & VAL
   ONC --> EVA
-  STL & AIC & SHP & LCK & MAC --> EVA
+  STL & AIC & SHP & LCK & VAL & MAC --> EVA
   EVA --> H2
   SEC --> H1
   LCK --> H3
@@ -56,12 +58,13 @@ flowchart TB
 
 ## Data flow (simplified)
 
-1. **SECFilingAgent** ingests EDGAR → emits `filing.detected` / `filing.p0_424b4`.
+1. **SECFilingAgent** ingests EDGAR → emits `filing.detected` / `filing.p0_424b4`; FWP filings are reviewed as offering communications and do not clear 424B4 blockers.
 2. **EvidenceAuditorAgent** grades all downstream claims; blocks thesis if material gaps open.
 3. Segment agents (**Starlink**, **AICompute**, **Starship**) consume SEC artifacts + master tables.
 4. **LockupFloatAgent** models supply path; **Day 0** requires human confirmation after 424B4.
-5. **MacroLiquidityAgent** adds non-SEC context (labeled C/D only).
-6. **OnchainRWAAgent** hashes artifacts and watches RWA — never touches execution layer.
+5. **ValuationAnalystAgent** compares A-tier SEC anchors with C-tier external research; it cannot promote Morningstar, New Constructs, or sell-side estimates to Grade A.
+6. **MacroLiquidityAgent** adds non-SEC context (labeled C/D only).
+7. **OnchainRWAAgent** hashes artifacts and watches RWA — never touches execution layer.
 
 ## Human-over-the-loop gates
 
@@ -82,6 +85,6 @@ Phase 1 concluded **Pass with Exceptions** — 424B4 and listing date remain **U
 
 ## 中文摘要
 
-- 八代理分工：SEC 监控 → 证据分级 → 三分部研究 + 锁定期供给 + 宏观 + 链上哈希（**不交易**）。
+- 九代理分工：SEC/FWP 监控 → 证据分级 → 三分部研究 + 锁定期供给 + 估值锚 + 宏观 + 链上哈希（**不交易**）。
 - 人工门控：424B4 P0、重大缺口、定价日锚定、日报发布。
 - 调度：加密 1–5 分钟、市场 15 分钟、SEC 1 小时、日报 18:00 ET。

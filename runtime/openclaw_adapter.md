@@ -56,6 +56,7 @@ Example NAP when 424B4 pending:
 | Event | Emitter | Human gate |
 |-------|---------|------------|
 | `filing.detected` | `edgar_poll` | — |
+| `filing.detected` with `form: FWP` | `edgar_poll` | Evidence review only; does not clear 424B4 blockers |
 | `filing.p0_424b4` | `edgar_poll` (Form 424B4) | `p0_424b4_review` |
 | `filing.424b4_pending` | `edgar_poll` (no 424B4 in feed) | — |
 

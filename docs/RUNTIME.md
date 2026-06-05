@@ -9,7 +9,7 @@ The `runtime/` package prepares **24/7 read-only consumption** for Longter / Ope
 | In scope | Out of scope (V0) |
 |----------|-------------------|
 | Scheduler tier polling (`plugin/scheduler.yaml`) | Live market data feeds |
-| SEC EDGAR poll (CIK 0001181412; 424B4, 10-Q) | Auto execution, wallets, swaps |
+| SEC EDGAR poll (CIK 0001181412; S-1/A, FWP, 424B4, 10-Q) | Auto execution, wallets, swaps |
 | SQLite / JSONL evidence & audit trail | Full REST server (stubs remain in `plugin/api/`) |
 | Readiness gates (`health.readiness`) | Bayesian / model training loops |
 | Agent packets (thesis, risk, NAP) | External distribution past compliance level 2 |
@@ -42,16 +42,19 @@ Runtime updates flags from `plugin/metrics/baselines.json` and the EDGAR recent 
 
 While blockers are active, default **NAP** = `OBSERVE_ONLY`, priority **P0** if 424B4 pending.
 
-## Integration with eight agents
+FWP filings are monitored as SEC-filed offering communications. They should trigger evidence review, but they do **not** clear final pricing, lock-up Day 0, or first-earnings blockers.
+
+## Integration with nine agents
 
 | Agent | Runtime touchpoint |
 |-------|-------------------|
-| **SECFilingAgent** | `edgar_poll` → `filing.detected` / `filing.p0_424b4` / `filing.424b4_pending` |
+| **SECFilingAgent** | `edgar_poll` → `filing.detected` / `filing.p0_424b4` / `filing.424b4_pending`; FWP events stay review-only |
 | **EvidenceAuditorAgent** | Audit receipts; future thesis packets |
 | **StarlinkAnalystAgent** | `market_15m` tier stub |
 | **AIComputeAnalystAgent** | `market_15m` tier stub |
 | **StarshipMilestoneAgent** | `space_4h` tier stub |
 | **LockupFloatAgent** | `float_daily` tier stub; blockers include lock-up |
+| **ValuationAnalystAgent** | C-tier external research and price-anchor packets; no SEC override |
 | **MacroLiquidityAgent** | `market_15m` tier stub |
 | **OnchainRWAAgent** | `crypto_1_5m` tier stub; evidence seal persistence |
 
@@ -89,7 +92,7 @@ Persistent state: `runtime/data/` (gitignored).
 | 包含 | 不包含 |
 |------|--------|
 | 按 `plugin/scheduler.yaml` 轮询调度层级 | 实时行情全量接入 |
-| EDGAR 轮询（CIK 0001181412；424B4、10-Q） | 自动成交、链上交易 |
+| EDGAR 轮询（CIK 0001181412；S-1/A、FWP、424B4、10-Q） | 自动成交、链上交易 |
 | SQLite / JSONL 证据与审计落库 | 完整 REST 服务（API 仍为 stub） |
 | 就绪检查 `readiness()` | 模型训练闭环 |
 | 结构化报文（thesis / risk / NAP） | 绕过合规等级 2 对外发布 |
@@ -108,15 +111,18 @@ Persistent state: `runtime/data/` (gitignored).
 
 阻断未清时，默认 **NAP** 为 `OBSERVE_ONLY`；424B4 待定时为 **P0**。
 
-### 与八个代理的集成
+FWP 属于 SEC 申报的发行沟通材料；应触发证据复核，但**不能**解除最终定价、锁定期 Day 0 或首份财报阻断。
+
+### 与九个代理的集成
 
 | 代理 | 运行时触点 |
 |------|------------|
-| **SECFilingAgent** | `edgar_poll` 事件流 |
+| **SECFilingAgent** | `edgar_poll` 事件流；FWP 仅触发复核 |
 | **EvidenceAuditorAgent** | 审计回执、日后 thesis 报文 |
 | **Starlink / AICompute / Macro** | `market_15m` stub |
 | **StarshipMilestoneAgent** | `space_4h` stub |
 | **LockupFloatAgent** | `float_daily` stub + 锁定期旗标 |
+| **ValuationAnalystAgent** | 外部估值锚、三价格锚、C-tier 冲突标记 |
 | **OnchainRWAAgent** | `crypto_1_5m` stub + 证据封存 |
 
 ### 运行方式

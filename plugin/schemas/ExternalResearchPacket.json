@@ -57,6 +57,22 @@
       "default": false,
       "description": "False for third-party summaries not rebuilt from SEC filings"
     },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Public source URL or index page for the external research summary"
+    },
+    "projections": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Provider-specific projection fields, e.g. revenue by year"
+    },
+    "stress_cases": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Provider-specific reverse-DCF or scenario assumptions"
+    },
+    "notes": { "type": "string" },
     "sec_crosswalk": {
       "type": "object",
       "additionalProperties": false,

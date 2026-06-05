@@ -43,4 +43,5 @@
 
 | Document | Status |
 |----------|--------|
-| Form **424B4** (final prospectus) | **Pending** — CIK 0001181412 EDGAR feed (checked **2026-06-04**) shows only S-1 / S-1/A filings; no 424B4 |
+| Form **424B4** (final prospectus) | **Pending** — CIK 0001181412 EDGAR feed (checked **2026-06-05**) shows two 2026-06-04 **FWP** filings after S-1/A #2, but no 424B4 |
+| Form **FWP** (free writing prospectus) | **Filed 2026-06-04** — accessions `0001628280-26-040610` (`spacexfwp.htm`) and `0001628280-26-040874` (`spacexukfwp.htm`); offering communications / retail-offer surfaces, **not** final pricing prospectuses |

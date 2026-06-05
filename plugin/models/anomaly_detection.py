@@ -7,7 +7,7 @@ Aligns with Phase 1 twelve watch metrics and Track C thresholds.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Literal, Sequence
 
@@ -182,7 +182,7 @@ class AnomalyDetectionModel:
         elif triggers:
             worst = "AMBER"
 
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, worst, str(len(triggers))])
         audit = AuditRecord(
             model=self.MODEL_NAME,

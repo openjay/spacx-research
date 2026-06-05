@@ -7,7 +7,7 @@ V0: rule-based classifier on scalar feature vector; HMM/GMM in Phase 3.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Mapping
 
 from plugin.models._types import (
@@ -116,7 +116,7 @@ class RegimeDetectionModel:
     ) -> ModelResult:
         feats = features or RegimeFeatures()
         clf = self.classify(feats)
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         rid = run_id or stable_hash([self.MODEL_NAME, clf.primary])
         audit = AuditRecord(
             model=self.MODEL_NAME,

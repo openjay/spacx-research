@@ -1,4 +1,4 @@
-"""SPACX V0 worker — poll scheduler tiers; dispatch stubs for eight agents."""
+"""SPACX V0 worker — poll scheduler tiers; dispatch stubs for nine agents."""
 
 from __future__ import annotations
 

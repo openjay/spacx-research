@@ -7,7 +7,7 @@ V0: OLS stub on aligned return series; full Barra-style factors in Phase 3.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Sequence
 
 from plugin.models._types import (
@@ -106,7 +106,7 @@ class FactorExposureModel:
         run_id: str | None = None,
     ) -> ModelResult:
         """Return placeholder betas when data absent."""
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc)
         if target is None or factors is None or len(target.returns) < 5:
             placeholder = {f: 0.0 for f in DEFAULT_FACTORS}
             placeholder["AI_GROWTH"] = 0.85  # documented prior for SPCX–AI linkage

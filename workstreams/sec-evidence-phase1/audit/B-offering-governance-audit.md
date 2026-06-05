@@ -182,7 +182,7 @@ See **`B-lock-up-schedule.md`** for day-by-day release table.
 |---|-------|--------|
 | 1 | Lock-up row “**7.8B** >1-year” on A#1 — accurate | No change |
 | 2 | Missing **60% vs 63%** nuance | **Added** footnote in corrected file |
-| 3 | 424B4 status | **Confirmed** still pending on EDGAR 2026-06-04 |
+| 3 | 424B4 status | **Confirmed** still pending on EDGAR 2026-06-05; two 2026-06-04 FWPs do not clear final-prospectus blockers |
 
 ### SEC filing quirks (not research file errors)
 
@@ -230,4 +230,4 @@ See **`B-lock-up-schedule.md`** for day-by-day release table.
 
 **$135 / 555M verified:** **Yes.**
 
-**424B4:** **Not filed** as of 2026-06-04 EDGAR.
+**424B4:** **Not filed** as of 2026-06-05 EDGAR; 2026-06-04 FWPs are offering communications, not final pricing prospectuses.
