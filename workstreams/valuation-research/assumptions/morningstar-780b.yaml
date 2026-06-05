@@ -12,6 +12,8 @@ conflict_flags:
   - EXTERNAL_DCF_NOT_VERIFIED
   - BELOW_IPO_ISSUE_ANCHOR
 as_of: '2026-06-02'
+freshness_days: 30
+expires_at: '2026-07-02'
 verified_model: false
 tags:
   - EXTERNAL_REFERENCE

@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from typing import Any, Literal
 from uuid import uuid4
 
+from plugin.valuation.export_snapshots import valuation_snapshot_refs
+
 PacketKind = Literal["thesis_update", "risk_alert", "next_action"]
 
 
@@ -25,6 +27,7 @@ class ThesisUpdatePacket:
     status: str = "WATCH"
     last_update_reason: str = ""
     evidence_refs: list[str] = field(default_factory=list)
+    metric_snapshot_refs: list[str] = field(default_factory=valuation_snapshot_refs)
     packet_id: str = field(default_factory=lambda: str(uuid4()))
     emitted_at: str = field(default_factory=_utc_now)
     compliance_level: int = 2
@@ -67,6 +70,7 @@ class NextActionPacket:
     rationale: str = ""
     blocked_by: list[str] = field(default_factory=list)
     evidence_refs: list[str] = field(default_factory=list)
+    metric_snapshot_refs: list[str] = field(default_factory=valuation_snapshot_refs)
     target_agent: str | None = None
     requires_human_approval: bool = True
     packet_id: str = field(default_factory=lambda: str(uuid4()))
@@ -89,5 +93,6 @@ def nap_from_blockers(blockers: dict[str, bool], *, reason: str = "") -> NextAct
         summary="Maintain read-only watch; no execution paths",
         rationale=reason or "Phase 2 blockers active; compliance level 2",
         blocked_by=active,
+        metric_snapshot_refs=valuation_snapshot_refs(),
         target_agent="SECFilingAgent" if "FINAL_PROSPECTUS_PENDING" in active else "EvidenceAuditorAgent",
     )

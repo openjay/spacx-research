@@ -27,9 +27,16 @@ inputs:
 
 outputs:
   - metric: IMPLIED_MARKET_CAP_USD
+    path: runtime/data/metric_snapshots.json
   - metric: EV_TO_REVENUE_FY25
+    path: runtime/data/metric_snapshots.json
   - metric: EV_TO_ADJ_EBITDA_FY25
+    path: runtime/data/metric_snapshots.json
   - metric: PRICE_VS_DCF_ANCHOR_PCT
+    path: runtime/data/metric_snapshots.json
+  - artifact: valuation.metric_snapshots
+    path: runtime/data/metric_snapshots.json
+    producer: plugin.valuation.export_snapshots
   - artifact: valuation.sotp_snapshot
   - artifact: valuation.reverse_dcf_stress
   - artifact: valuation.scenario_band_map

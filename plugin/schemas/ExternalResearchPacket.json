@@ -52,6 +52,16 @@
       "type": "string",
       "format": "date"
     },
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Hard expiry; overrides as_of + freshness_days when present"
+    },
+    "freshness_days": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "TTL from as_of; C-tier default 30 when omitted"
+    },
     "verified_model": {
       "type": "boolean",
       "default": false,
