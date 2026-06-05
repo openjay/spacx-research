@@ -19,6 +19,8 @@ Until **Form 424B4** is filed on EDGAR **and** first trading is confirmed by an 
 
 The 2026-06-04 FWPs are SEC-filed offering communications under Rule 433. They can be ingested as filing events for monitoring, but they do **not** clear `FINAL_PROSPECTUS_PENDING`, `LOCKUP_DAY0_UNKNOWN`, or `FIRST_EARNINGS_PENDING`.
 
+**Automation:** When `runtime/edgar_poll.py` detects a new FWP on CIK 0001181412, `runtime/fwp_ingest.py` downloads the primary HTML to `workstreams/sec-evidence-phase1/cache/fwp/`, records SHA-256 in `workstreams/sec-evidence-phase1/cache/manifest.json`, seals a tier-**A** `EvidencePacket` (Rule 433 disclaimer; excerpts only), and emits `filing.fwp_ingested`. Blockers remain unchanged until **424B4** is filed.
+
 ---
 
 ## Approved wording

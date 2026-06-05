@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from runtime.fwp_ingest import ingest_fwp
 from runtime.persistence import emit_runtime_event, load_edgar_state, save_edgar_state, save_audit_receipt
 
 CIK = "0001181412"
@@ -151,6 +152,26 @@ def poll_edgar(*, persist: bool = True, user_agent: str | None = None) -> dict[s
             events.append(p0)
             if persist:
                 emit_runtime_event("filing.p0_424b4", p0)
+
+    for filing in new_filings:
+        if filing["form"] == "FWP":
+            ingest_result = ingest_fwp(filing, user_agent=user_agent, persist=persist)
+            fwp_evt = {
+                "event": "filing.fwp_ingested",
+                "cik": CIK,
+                "form": filing["form"],
+                "accession_number": filing["accession_number"],
+                "filing_date": filing.get("filing_date"),
+                "detected_at": checked_at,
+                "ingest_ok": ingest_result.get("ok", False),
+                "sha256": ingest_result.get("sha256"),
+                "packet_id": ingest_result.get("packet_id"),
+                "cache_path": ingest_result.get("cache_path"),
+                "error": ingest_result.get("error"),
+            }
+            events.append(fwp_evt)
+            if persist:
+                emit_runtime_event("filing.fwp_ingested", fwp_evt)
 
     state = {
         "cik": CIK,

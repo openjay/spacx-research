@@ -31,6 +31,7 @@ Requires **Python 3.11+** and PyYAML (`pip install pyyaml` if not already availa
 |--------|------|
 | `worker.py` | Main loop; reads `plugin/scheduler.yaml` tiers |
 | `edgar_poll.py` | CIK `0001181412` submissions feed; S-1/A / FWP / 424B4 / 10-Q watch |
+| `fwp_ingest.py` | FWP HTML cache + SHA-256 manifest + tier-A `EvidencePacket` |
 | `persistence.py` | SQLite + JSONL under `runtime/data/` (gitignored) |
 | `health.py` | `readiness()` gates for orchestrators |
 | `packets.py` | `ThesisUpdatePacket`, `RiskAlertPacket`, `NAP` |
