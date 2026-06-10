@@ -1,0 +1,83 @@
+{
+  "entries": [
+    {
+      "accession_number": "0001628280-26-041761",
+      "bytes": 84166,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-09_0001628280-26-041761_fwp_cfointerview.htm",
+      "cik": "0001181412",
+      "evidence_hash": "8db9e5ce2d0606c4430bc2e19b274b9d532294ae3bce86a7563dfcbbe5e2c6eb",
+      "filing_date": "2026-06-09",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:38.098139+00:00",
+      "packet_id": "fwp-0001628280-26-041761",
+      "primary_document": "fwp_cfointerview.htm",
+      "sha256": "9857e8d61ad6a27a47447ffe4fcde621767db178819ada33ff4c99827ab3783b"
+    },
+    {
+      "accession_number": "0001628280-26-041365",
+      "bytes": 1954110,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-08_0001628280-26-041365_eu_interviewtranscript06.htm",
+      "cik": "0001181412",
+      "evidence_hash": "92991fbf45780cb9ab058eeb813f1e8bd3ef66c202e4101046382385f19bbc90",
+      "filing_date": "2026-06-08",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:40.210453+00:00",
+      "packet_id": "fwp-0001628280-26-041365",
+      "primary_document": "eu_interviewtranscript06.htm",
+      "sha256": "71315429d9f70ccedf42147ce3cec180bf2fc1b44b8de85d3de3444ca69190d1"
+    },
+    {
+      "accession_number": "0001628280-26-041150",
+      "bytes": 2232,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-05_0001628280-26-041150_spacexagreementfwp.htm",
+      "cik": "0001181412",
+      "evidence_hash": "446c03d9c8a8f44405403d8e0a26fe81bf1b0a28d07591a078fd7b466bba5558",
+      "filing_date": "2026-06-05",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:43.049436+00:00",
+      "packet_id": "fwp-0001628280-26-041150",
+      "primary_document": "spacexagreementfwp.htm",
+      "sha256": "5a53666d4b0e34943ce619ef21b347b1f037ba536293ac83a151fc84afa6ef5f"
+    },
+    {
+      "accession_number": "0001628280-26-041013",
+      "bytes": 1593202,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-05_0001628280-26-041013_japanfwp_06042026.htm",
+      "cik": "0001181412",
+      "evidence_hash": "a15338b0319a070c797e4568ffc380f8f604ce1dbde08e0249e3635bd3c9a949",
+      "filing_date": "2026-06-05",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:44.893581+00:00",
+      "packet_id": "fwp-0001628280-26-041013",
+      "primary_document": "japanfwp_06042026.htm",
+      "sha256": "db0fa7ab3399ab4f9820d9c7c3daefa85bbb3e0c7332f95e05a934016d3e2aec"
+    },
+    {
+      "accession_number": "0001628280-26-040874",
+      "bytes": 291438,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-04_0001628280-26-040874_spacexukfwp.htm",
+      "cik": "0001181412",
+      "evidence_hash": "75043528ed885ce166b6c902909860dc61111983a068dda6e1a2a906244e7e83",
+      "filing_date": "2026-06-04",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:47.954809+00:00",
+      "packet_id": "fwp-0001628280-26-040874",
+      "primary_document": "spacexukfwp.htm",
+      "sha256": "fd11ce4c843ebd8935dff67bb87f5496e79548713cf71f7dc379d4ad5c58055d"
+    },
+    {
+      "accession_number": "0001628280-26-040610",
+      "bytes": 492905,
+      "cache_path": "workstreams/sec-evidence-phase1/cache/fwp/2026-06-04_0001628280-26-040610_spacexfwp.htm",
+      "cik": "0001181412",
+      "evidence_hash": "5644dd4cad0ea3a5c62c6372bfd4788fb19204c34739b5fdf035f341805f4f5e",
+      "filing_date": "2026-06-04",
+      "form": "FWP",
+      "ingested_at": "2026-06-10T16:05:50.706087+00:00",
+      "packet_id": "fwp-0001628280-26-040610",
+      "primary_document": "spacexfwp.htm",
+      "sha256": "b6c12b20a68a2c8e614d788b58cb0c0465c2bdde05ccda2a5986f00053a0f188"
+    }
+  ],
+  "version": 1
+}
