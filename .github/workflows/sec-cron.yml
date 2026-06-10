@@ -1,0 +1,82 @@
+# Scheduled SEC EDGAR feed polling (listing-week drift watchdog).
+#
+# Requires repository secret SPACX_SEC_USER_AGENT (contact-bearing User-Agent
+# string per SEC EDGAR fair-access policy, e.g.
+# "SPACX-Research openjay/spacx-research (contact: you@example.com)").
+# When the secret is unset, check_sec_feed_sync.py --require-user-agent exits 0
+# with a skip summary, so forks without the secret stay green but get NO drift
+# protection. See docs/PUBLIC_LAUNCH_CHECKLIST.md (Agent / CI notes).
+#
+# On drift (exit code 1), this workflow opens — or comments on — an open issue
+# titled "SEC filing drift detected", then fails the run.
+
+name: SEC feed cron
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sec-feed-poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: SEC feed vs listing status
+        id: sync
+        env:
+          SPACX_SEC_USER_AGENT: ${{ secrets.SPACX_SEC_USER_AGENT }}
+        run: |
+          set +e
+          python scripts/check_sec_feed_sync.py --require-user-agent | tee /tmp/sec_sync_summary.json
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "exit_code=${code}" >> "$GITHUB_OUTPUT"
+          # Defer failure so the drift-alert step below can run first.
+          if [ "${code}" -gt 1 ]; then
+            echo "::error::check_sec_feed_sync.py runtime/config error (exit ${code})"
+            exit "${code}"
+          fi
+
+      - name: Open or update drift issue
+        if: steps.sync.outputs.exit_code == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title="SEC filing drift detected"
+          {
+            echo "Scheduled SEC feed check found drift between EDGAR (CIK 0001181412) and docs/LISTING_STATUS.md."
+            echo ""
+            echo "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "Action: follow docs/RUNBOOK_424B4_DAY.md if a 424B4 filed; otherwise sync LISTING_STATUS.md frontmatter."
+            echo ""
+            echo '```json'
+            cat /tmp/sec_sync_summary.json
+            echo '```'
+          } > /tmp/issue_body.md
+          existing=$(gh issue list --state open --search "in:title \"${title}\"" --json number --jq '.[0].number // empty')
+          if [ -n "${existing}" ]; then
+            gh issue comment "${existing}" --body-file /tmp/issue_body.md
+          else
+            gh issue create --title "${title}" --body-file /tmp/issue_body.md
+          fi
+
+      - name: Fail on drift
+        if: steps.sync.outputs.exit_code == '1'
+        run: |
+          echo "::error::SEC filing drift detected — see the 'SEC filing drift detected' issue"
+          exit 1

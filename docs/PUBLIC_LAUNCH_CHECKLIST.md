@@ -51,6 +51,7 @@
 | P2-2 | **GitHub secret scanning (org)** | ⏳ Optional | Enable GitHub Advanced Security if org tier allows |
 | P2-3 | **SPDX 2.3 standalone export** | ⏳ Optional | CycloneDX sufficient for most; see SBOM policy |
 | P2-4 | **Release automation workflow** | ⏳ Optional | Attach SBOM + checksums on `release` event |
+| P2-5 | **`SPACX_SEC_USER_AGENT` secret present** | ⏳ Follow-up | Required by [`sec-cron.yml`](../.github/workflows/sec-cron.yml) scheduled polling; without it the cron silently skips and drift alerts never fire. Verify in repo Settings → Secrets |
 
 ---
 
@@ -93,4 +94,5 @@ Counsel should review public-facing use of **`SPACX-Research`**, repo slug **`sp
 |------------|----------|
 | **gitleaks** | Fails `main`/`master` push on leak; PRs warn via same job (non-blocking on PRs) |
 | **SBOM + lockfile** | `supply-chain` job uploads artifacts every CI run |
+| **sec-cron** | [`sec-cron.yml`](../.github/workflows/sec-cron.yml) polls EDGAR every 30 min (+ manual dispatch); drift opens/updates issue “SEC filing drift detected”. Needs `SPACX_SEC_USER_AGENT` secret — skips silently when unset |
 | **Agents** | May commit P1 doc/regen work; **never** flip repo visibility or compliance level without human P0 |
