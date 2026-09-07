@@ -2,7 +2,7 @@
 
 **EN — Responsibilities**
 
-- Model **staged lock-up** supply path (180-day tranches; Musk **366 days** no early release).
+- Model the **staged lock-up** supply path from current verified filing terms, including holder-specific periods and early-release conditions.
 - Block production float charts until **Day 0** anchored on 424B4/pricing date (Phase 1 blocker).
 
 **中文 — 职责摘要**
@@ -10,7 +10,7 @@
 - 分阶段锁定期流通供给建模；定价日（Day 0）确认前仅输出情景标签（未验证）。
 - 流通市值路径是 Base 情景核心变量，非首日情绪 alone。
 
-**Schedule:** daily 07:00 ET; recalc on P0 424B4.
+**Schedule:** See `agent.yaml` and `plugin/scheduler.yaml`; verify activation separately.
 
 ---
 
